@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ news.title }}</h2>
+    <hr>
+    <div style="float:left;margin:5px"><img src="/media/{{ news.image }}" style="max-width: 200px;" alt="{{ news.title }}"></div>
+    <p>{{ news.content|linebreaksbr }}</p>
+    <p style="text-align: center;"><a href="/{{ news.forum_link }}" class="btn btn-default">Participer au sujet sur le forum</a></p>
+</div>
+{% endblock %}

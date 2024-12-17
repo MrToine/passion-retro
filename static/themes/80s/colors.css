@@ -1,0 +1,138 @@
+html, body {
+    background-color: #030303;
+    color: #fff;
+}
+
+.notification li.success {
+    border-color: #ffffff;
+    color: #086123;
+    background-color: #00fc45;
+    box-shadow: #00ff00 0 0 15px;
+}
+
+.notification li.error {
+    border-color: #ffffff;
+    color: #4b0c0c;
+    background-color: #e00e0e;
+    box-shadow: #ff0000 0 0 15px;
+}
+
+.container, .menu {
+    background-color: #330033;
+    color: #fff;
+    border-color: #fff;
+    box-shadow: 0 0 15px #df05df;
+}
+
+.menu h2 {
+    text-shadow: 2px 2px 2px #ff0000;
+    border-color: #ffffff;
+}
+
+.news {
+    background-color: #000000;
+    border-color: #ffffff;
+}
+
+.news-header {
+    border-color: #ffffff;
+    background-color: #000000;
+}
+
+.news-header h3 {
+    text-shadow: #00ffff 0 0 10px;
+}
+
+a {
+    color: #00d9ff;
+    text-decoration: none;
+}
+a:hover {
+    color: #3193b1;
+    text-shadow: #00ff00 0 0 10px;
+}
+
+a.danger {
+    color: #ff0000;
+}
+
+.text-admin {
+    color: #cf3c3c;
+}
+
+.text-sadmin {
+    color: #ff0000;
+    text-shadow: #f700ff 0 0 15px;
+}
+
+/* Forum */
+
+.forum h3 {
+    color: #9cdda7;
+    text-shadow: #ff0000 0 0 10px;
+}
+
+.forum .category-name {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.forum .forum-row {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.stats_forum ul {
+    background-color: #000000;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+span.unread-badge {
+    color: #00fc45;
+    text-shadow: #00ff00 0 0 15px;
+}
+
+button {
+    background-color: #002d33;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+button:hover {
+    background-color: #00cfcf;
+    color: #fff;
+    box-shadow: #00cfcf 0 0 15px;
+}
+
+.btn-add {
+    background-color: #003311;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+.btn-add:hover {
+    background-color: #00cf45;
+    color: #fff;
+    box-shadow: #00ff00 0 0 15px;
+}
+
+input[type="text"], input[type="password"], input[type="email"], textarea {
+    background-color: #000000;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+/* Pagination */
+.page-link {
+    background-color: #000000;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+li.active span {
+    box-shadow: #00ff00 0 0 15px;
+}
+
+li.disabled span {
+    background-color: #494949;
+    color: #fff;
+}

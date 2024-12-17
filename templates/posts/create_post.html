@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Créer un Post</h2>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ post_form.as_p }}
+        {% if type == 'news' %}
+            <label for="image">Image</label>
+            <input type="file" name="image" id="image">
+        {% endif %}
+        <br>
+        <button type="submit" class="btn btn-primary">Créer</button>
+    </form>
+</div>
+{% endblock %}

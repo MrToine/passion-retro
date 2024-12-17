@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Piedra&family=Press+Start+2P&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.banner {
+    width: 100%;
+    min-width: 1000px;
+    height: 140px;
+    background: linear-gradient(to right, 
+      #000000 0%, 
+      #000000 5%, 
+      transparent 5%, 
+      transparent 95%, 
+      #000000 95%, 
+      #000000 100%
+    );
+    border-top: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+    /* box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2); */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    margin: auto;
+  }
+  .galaxy-background {
+    position: absolute;
+    top: 0;
+    left: 5%;
+    width: 90%;
+    height: 100%;
+    background: linear-gradient(to right,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.7) 10%,
+      rgba(0, 0, 0, 0) 20%,
+      rgba(0, 0, 0, 0) 80%,
+      rgba(0, 0, 0, 0.7) 90%,
+      rgba(0, 0, 0, 1) 100%
+    ), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="100%" height="100%" fill="rgba(0,0,30,0.8)"/><g fill="white"><circle cx="20" cy="30" r="1"/><circle cx="40" cy="70" r="1"/><circle cx="50" cy="160" r="1"/><circle cx="90" cy="40" r="1"/><circle cx="130" cy="80" r="1"/><circle cx="160" cy="120" r="1"/></g></svg>');
+    background-repeat: repeat;
+    background-size: 100% 100%, 200px 200px;
+    animation: galaxy-animation 60s linear infinite;
+  }
+
+  .big-shooting-star {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    background: white;
+    box-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white;
+    border-radius: 50%;
+    opacity: 0;
+    animation: big-shooting-star linear infinite;
+  }
+
+  @keyframes big-shooting-star {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--endX), var(--endY));
+        opacity: 1;
+    }
+}
+
+  @keyframes galaxy-animation {
+    from {
+      background-position: 0 0, 0 0;
+    }
+    to {
+      background-position: 0 0, 0 -200px;
+    }
+  }
+  .banner-text {
+    font-family: 'Piedra', cursive;
+    word-spacing: 10px;
+    font-size: 80px;
+    color: #c0c0c0;
+    text-shadow: 
+      2px 2px 4px rgba(255, 255, 255, 0.5),
+      -2px -2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    position: relative;
+  }
+  .banner-text span {
+    animation: twinkle 3s ease-in-out infinite;
+    animation-delay: calc(var(--char-index) * 0.1s);
+  }
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 1;
+      text-shadow: 
+        2px 2px 4px rgba(255, 255, 255, 0.5),
+        -2px -2px 4px rgba(0, 0, 0, 0.5),
+        0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+      opacity: 0.8;
+      text-shadow: 
+        1px 1px 2px rgba(255, 255, 255, 0.3),
+        -1px -1px 2px rgba(0, 0, 0, 0.3),
+        0 0 5px rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  .slogan {
+    color: #2cdf26;
+    z-index: 1;
+    position: relative;
+    white-space: nowrap;
+    animation: slide 30s linear infinite;
+  }
+
+  @keyframes slide {
+    0% {
+        transform: translateX(100%);
+    }
+    50% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}

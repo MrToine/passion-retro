@@ -1,0 +1,20 @@
+{% extends 'forum_layout.html' %}
+{% load forum_extras %}
+
+{% block forum_content %}
+        <div class="forum">
+            <h2>{{ forum.name }}</h2>
+            <ul class="breadcrumbs">
+                <li><a href="{% url 'forum_home' %}">{{ forum.category.name }}</a> »</li>
+                <li>{{ forum.name }}</li>
+            </ul>
+            <h3>Créér un nouveau topic</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ topic_form.as_p }}
+                </div>
+                <button>Créer topic</button>
+            </form>
+        </div>
+{% endblock %}

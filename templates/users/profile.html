@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="container">
+        {% block profile-nav %}
+            {% include "../components/profile_nav.html" %}
+        {% endblock %}
+        <div class="profile-details">
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Nom complet:</strong> {{ user.profile.first_name }} {{ user.profile.last_name }}</p>
+            <p><strong>Inscription:</strong> {{ user.date_joined|date:" d F Y à H:i" }}</p>
+            <p><strong>Bio:</strong> {{ user.biography }}</p>
+        </div>
+        {% if user.id == request.user.id %}
+            <div class="profile-actions">
+                <a href="{% url 'profile_update' %}" class="btn btn-primary">Modifier le profil publique</a><br><br>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

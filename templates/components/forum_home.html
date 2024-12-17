@@ -1,0 +1,48 @@
+{% extends 'forum_layout.html' %}
+{% load forum_extras %}
+
+{% block forum_content %}
+    <h2>Forum</h2>
+    <div class="forum">
+        {% for category in categories %}
+            <div class="forum-body forum-column category-name"><h3>{{ category.name }}</h3></div>
+            <div class="forum-header">
+                <div class="forum-column">Description</div>
+                <div class="forum-column">Nombre de topics</div>
+                <div class="forum-column">Dernier Message</div>
+            </div>
+            <div class="forum-body">
+                {% for forum in forums %}
+                    {% if forum.category.id == category.id %}
+                        <div class="forum-row">
+                            <div class="forum-column">
+                                {% if unread_topics|get_item:forum.id %}
+                                    <span class="unread-badge">•</span>
+                                    <strong><a href="{% url 'topic_list' forum.id %}">{{ forum.name }}</a></strong>
+                                {% else %}
+                                    <a href="{% url 'topic_list' forum.id %}">{{ forum.name }}</a>
+                                {% endif %}
+                                <br>
+                                <small>{{ forum.description }}</small>
+                            </div>
+                            <div class="forum-column">
+                                {{ count_topics|get_item:forum.id|default_if_none:'Aucun' }}
+                            </div>
+                            <div class="forum-column">
+                                {% with last_post=last_posts|get_item:forum.id %}
+                                    {% if last_post %}
+                                        <strong><a href="#">{{ last_post.author.username }}</a></strong> dans <a href="{% url 'post_list' last_post.topic.forum.id last_post.topic.id %}">{{ last_post.topic.title }}</a>
+                                        <br>
+                                        <small>{{ last_post.created }}</small>
+                                    {% else %}
+                                        Aucun message
+                                    {% endif %}
+                                {% endwith %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

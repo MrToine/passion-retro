@@ -1,0 +1,60 @@
+{% extends 'forum_layout.html' %}
+{% load forum_extras %}
+{% load paginator_tag %}
+
+{% block forum_content %}
+        <h2>{{ forum.name }}</h2>
+        <ul class="breadcrumbs">
+            <li><a href="{% url 'forum_home' %}">{{ forum.category.name }}</a> »</li>
+            <li>{{ forum.name }}</li>
+        </ul>
+        <div class="forum">
+            {% if user.is_authenticated %}
+                <a href="{% url 'create_topic' forum.id %}" class="btn btn-add">Nouveau Topic</a>
+            {% endif %}
+            <div class="forum-header">
+                <div class="forum-column">Sujet</div>
+                <div class="forum-column">Auteur</div>
+                <div class="forum-column">Messages</div>
+                <div class="forum-column">Dernier Message</div>
+            </div>
+            <div class="forum-body">
+                {% for topic in topics %}
+                    <div class="forum-row">
+                        <div class="forum-column">
+                            {% if unread_topics|get_item:topic.id %}
+                                <span class="unread-badge">•</span>
+                                <strong><a href="{% url 'post_list' topic.forum.id topic.id %}">{{ topic.title }}</a></strong>
+                            {% else %}
+                                <a href="{% url 'post_list' topic.forum.id topic.id %}">{{ topic.title }}</a>
+                            {% endif %}
+                            <br>
+                            <small>{{ topic.created_at }}</small>
+                        </div>
+                        <div class="forum-column">
+                            {{ topic.author.username }}
+                        </div>
+                        <div class="forum-column">
+                            {{ count_posts|get_item:topic.id|default_if_none:'Aucun' }}
+                        </div>
+                        <div class="forum-column">
+                            {% with last_post=last_posts|get_item:topic.id %}
+                                {% if last_post %}
+                                    <strong>{{ last_post.author.username }}</strong>
+                                    <br>
+                                    <small>
+                                        <a href="{% url 'post_list' last_post.topic.forum.id last_post.topic.id %}?page={{ page_numbers|get_item:topic.id }}#{{ last_post.id }}">
+                                            {{ last_post.created }}
+                                        </a>
+                                    </small>
+                                {% else %}
+                                    Aucun message
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                {% endfor %}
+                {% paginate %}
+            </div>
+        </div>
+{% endblock %}

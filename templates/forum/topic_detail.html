@@ -1,0 +1,72 @@
+{% extends 'forum_layout.html' %}
+{% load forum_extras %}
+{% load users_custom_tags %}
+{% load paginator_tag %}
+
+{% block forum_content %}
+        <div class="forum">
+            <h2>{{ topic.title }}</h2>
+            <ul class="breadcrumbs">
+                <li><a href="{% url 'forum_home' %}">{{ topic.forum.category.name }}</a> »</li>
+                <li><a href="{% url 'topic_list' topic.forum.id %}">{{ topic.forum.name }}</a> »</li>
+                <li>{{ topic.title }}</li>
+            </ul>
+
+            {% for post in posts %}
+                <div class="forum-header" id="{{ post.id }}">
+                    <div class="forum-column-detail"><div class="row"><h3>{{ post.author.username }}</h3> <small>le {{ post.created }}</small></div></div>
+                </div>
+                <div class="forum-body">
+                    <div class="forum-row">
+                        <div class="forum-column-detail details">
+                            <center><img src="/media/{{ post.author.avatar }}" style="width:100px;" alt="Avatar de {{ post.author.username }}"></center>
+                            <small>
+                                <ul>
+                                    <li>Groupe :
+                                        {% for group in post.author.groups.all %}
+                                            {% if group.name == "Administrateurs" %}
+                                                <span class="text-admin">{{ group.name }}</span>
+                                            {% elif group.name == "Super Admin" %}
+                                                <span class="text-sadmin">{{ group.name }}</span>
+                                            {% else %}
+                                                {{ group.name }}{% if not forloop.last %}, {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </li>
+                                    <li>Nombre de messages : {{ count_posts|get_item:post.author.id }}</li>
+                                </ul>
+                            </small>
+                            {% if user|has_group:"Administrateurs" or user|has_group:"Super Admin" %}
+                                <a href="{% url 'deactivate_post' post.id %}" class="btn btn-warning">Désactiver le message</a>
+                            {% endif %}
+                        </div>
+                        <div class="forum-column-detail">
+                            {{ post.content|safe|linebreaksbr }}
+                        </div>
+                    </div><br>
+                </div>
+            {% endfor %}
+            {% paginate %}
+            {% if user.is_authenticated %}
+            <!-- On affiche la possibilité de clore le topic si l'utilisateur est admin -->
+            {% if topic.state == "closed" %}
+                <h2>Topic fermé</h2>
+                {% if user|has_group:"Administrateurs" or user|has_group:"Super Admin" %}
+                    <a href="{% url 'unlock_topic' topic.id %}" class="btn btn-add">Ouvrir le topic</a>
+                {% endif %}
+            {% else %}
+                {% if user|has_group:"Administrateurs" or user|has_group:"Super Admin" %}
+                    <h2>Répondre</h2>
+                        <a href="{% url 'lock_topic' topic.id %}" class="btn btn-danger">Fermer le topic</a>
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ post_form.as_p }}
+                        </div>
+                        <button>Répondre</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div>
+{% endblock %}

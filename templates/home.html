@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% load users_custom_tags %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ edito.title }}</h2>
+    <p>{{ edito.content|linebreaksbr }}</p>
+    <p class="date"><em>Dernière mise à jour de l'éditorial le {{ edito.updated|date:" d F Y à H:i" }}</em></p>
+</div>
+<div class="container">
+    <h2>Actus</h2>
+    <div class="header">
+        <!-- Si l'utilisateur est admin ou du groupe Administrateurs ou du groupe Rédacteur  -->
+        {% if user.is_authenticated %}
+            {% if user|has_group:"Administrateurs" or user|has_group:"Super Admin" or user|has_group:"Rédacteur" %}
+                <p><a href="{% url 'create_news' 'news' %}" class="btn btn-add">+</a></p>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="row">
+        {% for actus in news %}
+        <div class="col col-5">
+            <div class="news-header">
+                <h3>{{ actus.title }} </h3>
+            </div>
+            <div class="news">
+                <div style="float:left;margin:5px"><img src="/media/{{ actus.image }}" style="max-width: 100px;" alt="{{ actus.title }}"></div>
+                <p>{{ actus.content|linebreaksbr|truncatewords:50 }} » <a href="{% url 'view_post' actus.slug %}">Lire l'actu</a></p><br>
+                <p class="date"><em>Publié le {{ actus.created|date:" d F Y à H:i" }}</em> Par <a href="{% url 'profile' actus.author.id %}">{{ actus.author.username }}</a></p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

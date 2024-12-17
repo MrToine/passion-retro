@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        {% if type == 'games' %}
+            <h2>Créer un article Jeux vidéos</h2>
+        {% elif type == 'movies' %}
+            <h2>Créer un article Film & Series</h2>
+        {% elif type == 'musics' %}
+            <h2>Créer un article Musique</h2>
+        {% elif type == 'tech' %}
+            <h2>Créer un article Technologie</h2>
+        {% elif type == 'news_contrib' %}
+            <h2>Créer une actualité</h2>
+        {% elif type == 'category' %}
+            <h2>Créer une nouvelle catégorie</h2>
+        {% endif %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button>Créer</button>
+        </form>
+    </div>
+{% endblock %}
