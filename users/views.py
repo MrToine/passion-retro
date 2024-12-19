@@ -29,7 +29,7 @@ def register(request):
             genToken = PasswordResetTokenGenerator()
             token = genToken.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
-            activation_link = request.build_absolute_uri(f"/activate/{user.id}/{token}")
+            activation_link = request.build_absolute_uri(f"/users/activate/{uid}/{token}")
             
             email_subject = 'Activation de votre compte'
             email_body = render_to_string('emails/activation_account.html', {
@@ -53,17 +53,25 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 def activate(request, uidb64, token):
+    uid = None  # Initialisation de la variable uid
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
+        print("L'uid n'est pas valide ou n'a pas su être décodé.")
+
+    print(f"uidb64 : {uidb64}")
+    print(f"uid : {uid}")
+    print(f"user : {user}")
 
     token_generator = PasswordResetTokenGenerator()
     if user is not None and token_generator.check_token(user, token):
+        print("On active le compte")
         user.is_active = True
         user.save()
         messages.success(request, "Votre compte a été activé avec succès.")
+        print(user.is_active)
         return redirect('login')
     else:
         messages.error(request, "Le lien d'activation est invalide.")
@@ -81,7 +89,7 @@ def login(request):
                 messages.error(request, "Nom d'utilisateur ou mot de passe incorrect.")
                 return redirect('login')
             
-            if user.active == False:
+            if user.is_active == False:
                 messages.error(request, "Votre compte n'est pas activé. Veuillez vérifier votre boîte mail.")
                 return redirect('login')
             
