@@ -15,7 +15,7 @@ from django.utils.encoding import force_bytes, force_str
 from .models import User
 
 def register(request):
-    # Si l'utilisateur est deja connecté, on le redirige vers la page de profil
+    # Si l'utilisateur est deja connecté, on le redirige vers la page de pr>
     if request.user.is_authenticated:
         return redirect('profile')
     if request.method == 'POST':
@@ -29,14 +29,14 @@ def register(request):
             genToken = PasswordResetTokenGenerator()
             token = genToken.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
-            activation_link = request.build_absolute_uri(f"/activate/{user.id}/{token}")
-            
+            activation_link = request.build_absolute_uri(f"/users/activate/>
+
             email_subject = 'Activation de votre compte'
-            email_body = render_to_string('emails/activation_account.html', {
+            email_body = render_to_string('emails/activation_account.html',>
                 'user': user,
                 'activation_link': activation_link,
             })
-            
+
             send_mail(
                 email_subject,
                 email_body,
@@ -44,8 +44,8 @@ def register(request):
                 [user.email],
                 fail_silently=False,
             )
-            
-            messages.success(request, f"Ton compte a été créé avec succès, {user.username}! Un email d'activation t'a été envoyé pour valider ton inscription.")
+
+            messages.success(request, f"Ton compte a été créé avec succès, >
 
             return redirect('login')
     else:
@@ -53,6 +53,7 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 def activate(request, uidb64, token):
+    uid = None  # Initialisation de la variable uid
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
@@ -76,7 +77,6 @@ def login(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
-            print(user)
             if user is None:
                 messages.error(request, "Nom d'utilisateur ou mot de passe incorrect.")
                 return redirect('login')
