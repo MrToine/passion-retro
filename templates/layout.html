@@ -91,7 +91,7 @@
                 <ul>
                     <!-- Si le membre est connecté -->
                     {% if request.user.is_authenticated %}
-                        <center><img src="/media/{{ request.user.avatar }}" style="width:150px;" alt="Avatar de {{ request.user.username }}"></center>
+                        <center><img src="/{{ request.user.avatar }}" style="width:150px;" alt="Avatar de {{ request.user.username }}"></center>
                         <li>Bonjour <strong>{{ request.user.username }}</strong></li>
                         <li><a href="{% url 'profile' %}">Mon Profil</a></li>
                         <li>

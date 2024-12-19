@@ -1,6 +1,6 @@
 {% block 'profile-nav' %}
     <div class="profile-header">
         <h2>Profil de {{ user.username }}</h2>
-        <center><img src="/media/{{ user.avatar }}" style="width:150px;" alt="Avatar de {{ user.username }}"></center>
+        <center><img src="/{{ user.avatar }}" style="width:150px;" alt="Avatar de {{ user.username }}"></center>
     </div>
 {% endblock %}
