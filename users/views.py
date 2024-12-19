@@ -30,8 +30,8 @@ def register(request):
             token = genToken.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
 
-            activation_link = request.build_absolute_uri(f"/activate/{user.uid}/{token}")
-     
+            activation_link = request.build_absolute_uri(f"/users/activate/{uid}/{token}")
+           
             email_subject = 'Activation de votre compte'
             email_body = render_to_string('emails/activation_account.html', {
                 'user': user,
@@ -63,7 +63,7 @@ def activate(request, uidb64, token):
 
     token_generator = PasswordResetTokenGenerator()
     if user is not None and token_generator.check_token(user, token):
-        user.is_active = True
+        user.active = True
         user.save()
         messages.success(request, "Votre compte a été activé avec succès.")
         return redirect('login')
@@ -106,7 +106,7 @@ def another_profile(request, user_id):
 @login_required(login_url='login')
 def profile_update(request):
     if request.method == 'POST':
-        user_form = UserUpdateForm(request.POST, instance=request.user)
+        user_form = UserUpdateForm(request.POST, request.FILES, instance=request.user)
         if user_form.is_valid():
             user_form.save()
             messages.success(request, 'Votre profil a été mis à jour avec succès !')

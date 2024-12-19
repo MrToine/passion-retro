@@ -1,4 +1,5 @@
 .venv
+.env
 venv
 passion_retro/settings.py
 .env

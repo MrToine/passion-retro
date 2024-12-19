@@ -36,7 +36,7 @@
                 <ul>
                     <li><a href="{% url 'home' %}">Accueil</a></li>
                     <li><a href="{% url 'forum_home' %}">Forum</a></li>
-                    <li><a href="#">Chat</a></li>
+                    <li><a href="#"><s>Chat</s></a>&nbsp;<small><i style="color:rgb(243, 87, 87)">(bientôt !)</i></small></li>
                     <li><a href="{% url 'contribute' %}" class="btn btn-add">Contribuer</a></li>
                 </ul>
             </div>
@@ -134,7 +134,7 @@
                 <h2>Stats Site</h2>
                 <ul>
                     <li>Membres : {{ request.total_users }}</li>
-                    <li>Dernier inscrit : <a href="">{{ request.last_request.user.username }}</a></li>
+                    <li>Dernier inscrit : <a href="{% url 'profile' request.last_user.id %}">{{ request.last_user }}</a></li>
                     <li>Visiteurs : {{ request.visitor_count }}</li>
                     <li>Nombre de visites totales : {{ request.total_visitor_count }}</li>
                 </ul>

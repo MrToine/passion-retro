@@ -27,6 +27,7 @@ class UserStatsMiddleware(MiddlewareMixin):
         # Ajouter les variables à l'objet request
         request.total_users = total_users
         request.last_user = last_user
+        print(f"dernier user : {request.last_user}")
         request.visitor_count = visitor_count
         request.total_visitor_count = total_visitor_count
         request.theme_active = theme_active
