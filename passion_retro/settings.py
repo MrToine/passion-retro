@@ -155,15 +155,15 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOGOUT_REDIRECT_URL = dotenv('LOGOUT_REDIRECT_URL', default='/')
-LOGIN_URL = dotenv('LOGIN_URL', default='/login/')
+LOGOUT_REDIRECT_URL = os.getenv('LOGOUT_REDIRECT_URL', default='/')
+LOGIN_URL = os.getenv('LOGIN_URL', default='/login/')
 
-AUTH_USER_MODEL = dotenv('AUTH_USER_MODEL', default='users.User')
+AUTH_USER_MODEL = os.getenv('AUTH_USER_MODEL', default='users.User')
 
-EMAIL_BACKEND = dotenv('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
-EMAIL_HOST = dotenv('EMAIL_HOST', default='smtp.gmail.com')
-EMAIL_PORT = dotenv('EMAIL_PORT', default=587)
-EMAIL_USE_TLS = dotenv('EMAIL_USE_TLS', default=True)
-EMAIL_HOST_USER = dotenv('EMAIL_HOST_USER', default='webmaster@localhost')
-EMAIL_HOST_PASSWORD =  
-DEFAULT_FROM_EMAIL = 'webmaster@localhost'
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = os.getenv('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT = os.getenv('EMAIL_PORT', default=587)
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', default=True)
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', default='webmaster@localhost')
+EMAIL_HOST_PASSWORD =  os.getenv('EMAIL_HOST_PASSWORD', default='password')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', default='webmaster@localhost')
