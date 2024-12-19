@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-chadwjbsn!hi&7wl2#iicv7kjwm-20jx==)nd%&5u@xltuiu7h"
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(',')
+USE_X_FORWARDED_HOST = os.getenv('USE_X_FORWARDED_HOST') == 'True'
+SECURE_PROXY_SSL_HEADER = tuple(os.getenv('SECURE_PROXY_SSL_HEADER').split(','))
 
 
 # Application definition
@@ -89,9 +95,9 @@ WSGI_APPLICATION = "passion_retro.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "database.sqlite3",
+    'default': {
+        'ENGINE': os.getenv('DATABASE_ENGINE'),
+        'NAME': BASE_DIR / os.getenv('DATABASE_NAME'),
     }
 }
 
@@ -149,15 +155,15 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOGOUT_REDIRECT_URL = '/'
-LOGIN_URL = "/users/login"
+LOGOUT_REDIRECT_URL = dotenv('LOGOUT_REDIRECT_URL', default='/')
+LOGIN_URL = dotenv('LOGIN_URL', default='/login/')
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = dotenv('AUTH_USER_MODEL', default='users.User')
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 465
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'anthony.flet@gmail.com'
-EMAIL_HOST_PASSWORD = 'Toinesteban'
+EMAIL_BACKEND = dotenv('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = dotenv('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT = dotenv('EMAIL_PORT', default=587)
+EMAIL_USE_TLS = dotenv('EMAIL_USE_TLS', default=True)
+EMAIL_HOST_USER = dotenv('EMAIL_HOST_USER', default='webmaster@localhost')
+EMAIL_HOST_PASSWORD =  
 DEFAULT_FROM_EMAIL = 'webmaster@localhost'

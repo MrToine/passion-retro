@@ -6,6 +6,7 @@ def user_avatar_path(instance, filename):
 
 class User(AbstractUser):
     avatar = models.ImageField(upload_to=user_avatar_path, default='avatars/default.gif')
+    email = models.EmailField(unique=True)
     biography = models.TextField(default='Pas de bio')
     birth_date = models.DateField(null=True, blank=True)
     active = models.BooleanField(default=False)

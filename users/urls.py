@@ -1,5 +1,6 @@
 from django.urls import path
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 from passion_retro import settings
 from . import views
@@ -13,4 +14,5 @@ urlpatterns = [
     path("profile/<str:user_id>/", views.another_profile, name="profile"),
     path("contribute/", views.contribute, name="contribute"),
     path("contribute/<str:type>/", views.form_contribute, name="form_contribute"),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
