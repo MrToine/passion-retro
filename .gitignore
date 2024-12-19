@@ -1,4 +1,6 @@
 .venv
+venv
+passion_retro/settings.py
 *.sqlite3
 */__pycache__/*
 **/__pycache__/*
