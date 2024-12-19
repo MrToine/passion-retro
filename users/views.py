@@ -29,7 +29,7 @@ def register(request):
             genToken = PasswordResetTokenGenerator()
             token = genToken.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
-            activation_link = request.build_absolute_uri(f"/activate/{user.id}/{token}")
+            activation_link = request.build_absolute_uri(f"/activate/{user.uid}/{token}")
             
             email_subject = 'Activation de votre compte'
             email_body = render_to_string('emails/activation_account.html', {
