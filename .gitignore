@@ -2,7 +2,7 @@
 .env
 venv
 passion_retro/settings.py
-.env
+.DS_Store
 *.sqlite3
 */__pycache__/*
 **/__pycache__/*

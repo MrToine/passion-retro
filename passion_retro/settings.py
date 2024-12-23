@@ -164,6 +164,26 @@ EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', default='django.core.mail.backends.sm
 EMAIL_HOST = os.getenv('EMAIL_HOST', default='smtp.gmail.com')
 EMAIL_PORT = os.getenv('EMAIL_PORT', default=587)
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', default=True)
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_TLS', default=False)
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', default='webmaster@localhost')
 EMAIL_HOST_PASSWORD =  os.getenv('EMAIL_HOST_PASSWORD', default='password')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', default='webmaster@localhost')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'debug.log'),
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
