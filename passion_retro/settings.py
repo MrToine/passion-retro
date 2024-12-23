@@ -25,6 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
+GOOGLE_PUBLIC_KEY = os.getenv('GOOGLE_PUBLIC_KEY')
+GOOGLE_PRIVATE_KEY = os.getenv('GOOGLE_PRIVATE_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG') == 'True'
@@ -164,6 +166,7 @@ EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', default='django.core.mail.backends.sm
 EMAIL_HOST = os.getenv('EMAIL_HOST', default='smtp.gmail.com')
 EMAIL_PORT = os.getenv('EMAIL_PORT', default=587)
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', default=True)
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_TLS', default=False)
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', default='webmaster@localhost')
 EMAIL_HOST_PASSWORD =  os.getenv('EMAIL_HOST_PASSWORD', default='password')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', default='webmaster@localhost')

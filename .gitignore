@@ -1,8 +1,8 @@
 .venv
 .env
+.DS_Store
 venv
-passion_retro/settings.py
-.env
+staticfiles/**/*
+media/**/*
 *.sqlite3
-*/__pycache__/*
 **/__pycache__/*

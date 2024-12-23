@@ -13,8 +13,48 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from .models import User
+import urllib
+import json
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('profile')
+    
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        recaptcha = request.POST.get('g-recaptcha-response')
+        if form.is_valid():
+
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': settings.GOOGLE_PRIVATE_KEY,
+                'response': recaptcha
+            }
+            data = urllib.parse.urlencode(values).encode()
+            req =  urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
+
+            print(result['success'])
+
+            if result['success']:
+                user = User.objects.create_user(
+                    username=form.cleaned_data['username'],
+                    email=form.cleaned_data['email'],
+                    password=form.cleaned_data['password1'],
+                    active=True
+                )
+
+                messages.success(request, f"Bonjour et bienvenue {user.username} ! Ton compte à été créer avec succès. Tu peux désormais te connecter.")
+
+                return redirect('login')
+            else:
+                messages.error(request, f"On y est presque ! Vérifie bien le captcha pour finaliser ton inscription.")            
+
+    form = UserRegistrationForm()
+    return render(request, 'users/register.html', {'form': form, 'GOOGLE_PUBLIC_KEY': settings.GOOGLE_PUBLIC_KEY})
+
+def register_with_token(request):
     # Si l'utilisateur est deja connecté, on le redirige vers la page de pr>
     if request.user.is_authenticated:
         return redirect('profile')
@@ -41,7 +81,7 @@ def register(request):
             send_mail(
                 email_subject,
                 email_body,
-                settings.EMAIL_HOST_USER,
+                settings.DEFAULT_FROM_EMAIL,
                 [user.email],
                 fail_silently=False,
             )

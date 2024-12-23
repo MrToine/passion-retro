@@ -1,0 +1,292 @@
+html, body {
+    background: url('/static/themes/default/img/bg_galactique2.png');
+}
+
+.notification li.success {
+    border-color: #ffffff;
+    color: #086123;
+    background-color: #00fc45;
+    box-shadow: #00ff00 0 0 15px;
+}
+
+.notification li.error {
+    border-color: #ffffff;
+    color: #4b0c0c;
+    background-color: #e00e0e;
+    box-shadow: #ff0000 0 0 15px;
+}
+
+.container, .menu {
+    background-color: #262d6d;
+    color: #e4e4dc;
+    border-color: #787e2f;
+}
+
+.container {
+    background: url('/static/themes/default/img/bg2.png');
+}
+
+.menu {
+    background: url('/static/themes/default/img/archer_sprite.png') bottom right;
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-color: #4750a3;
+}
+
+.menu h2 {
+    background-image: url('/static/themes/default/img/mage_sprite.png');
+    background-repeat: no-repeat;
+    background-color: #341f32;
+}
+
+.menu ul.guestbook {
+    background-color: rgba(0, 0, 0, 0.58);
+    border-color: #ffffff;    
+}
+
+.menu ul.guestbook li span.date {
+    color: #64886a;  
+}
+
+.menu ul.guestbook li span.author {
+    color: #816488;  
+}
+
+.container h2 {
+    /* background-image: url('/static/themes/default/img/mage_sprite.png'); */
+    background-repeat: no-repeat;
+    background-color: #1f2034;
+}
+
+.guestbook p span.author {
+    color: #ae00ff;
+}
+
+.news, .guestbook p {
+    background-color: #000000;
+    border-color: #ffffff;
+}
+
+.news-header {
+    border-color: #ffffff;
+    background-color: #000000;
+}
+
+.news-header h3 {
+    text-shadow: #00ffff 0 0 10px;
+}
+
+/* Contribution Page */
+
+.games {
+    background: url('/static/themes/default/img/gamepad2.png') right;
+    background-position: calc(100% + 100px);
+    background-repeat: no-repeat;
+    background-size: 30%;
+    background-color: rgba(0, 0, 0, 0.58);
+    border-color: #ffffff;
+    transition: background-position 0.8s;
+}
+
+.games:hover {
+    background-position: calc(100% - 20px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.movies {
+    background: url('/static/themes/default/img/television.png') right;
+    background-position: calc(100% + 100px);
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-color: rgba(0, 0, 0, 0.58);
+    border-color: #ffffff;
+    transition: background-position 0.8s;
+}
+
+.movies:hover {
+    background-position: calc(100% - 20px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.musics {
+    background: url('/static/themes/default/img/music.png') right;
+    background-position: calc(100% + 100px);
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-color: rgba(0, 0, 0, 0.58);
+    border-color: #ffffff;
+    transition: background-position 0.8s;
+}
+
+.musics:hover {
+    background-position: calc(100% - 20px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.tech {
+    background: url('/static/themes/default/img/computer.png') right;
+    background-position: calc(100% + 100px);
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-color: rgba(0, 0, 0, 0.58);
+    border-color: #ffffff;
+    transition: background-position 0.8s;
+}
+
+.tech:hover {
+    background-position: calc(100% - 20px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.category {
+    background: url('') right;
+    background-position: calc(100% + 100px);
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-color: rgba(0, 0, 0, 0.58);
+    border-color: #ffffff;
+    transition: background-position 0.8s;
+}
+
+.category:hover {
+    background-position: calc(100% - 20px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.news_contrib {
+    background: url('/static/themes/default/img/news_contrib.png') right;
+    background-position: calc(100% + 100px);
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-color: rgba(0, 0, 0, 0.58);
+    border-color: #ffffff;
+    transition: background-position 0.8s;
+}
+
+.news_contrib:hover {
+    background-position: calc(100% - 20px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+a {
+    color: #00d9ff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #df73df;
+    text-shadow: #00ff00 0 0 10px;
+}
+
+a.danger {
+    color: #ce6666;
+}
+
+.text-admin {
+    color: #cf3c3c;
+}
+
+.text-sadmin {
+    color: #ff0000;
+    text-shadow: #f700ff 0 0 15px;
+}
+
+/* Forum */
+
+.forum h3 {
+    color: #9cdda7;
+    text-shadow: #ff0000 0 0 10px;
+}
+
+.forum .category-name {
+    background-color: #111641;
+}
+
+.forum .forum-row {
+    background-color: #1e234e;
+}
+
+.forum .forum-header {
+    background-color: #262d6d;
+}
+
+.stats_forum ul {
+    background-color: #000000;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+span.unread-badge {
+    color: #00fc45;
+    text-shadow: #00ff00 0 0 15px;
+}
+
+button, .btn-default {
+    background-color: #002d33;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+button:hover, .btn-default:hover {
+    background-color: #00cfcf;
+    color: #fff;
+    box-shadow: #00cfcf 0 0 15px;
+}
+
+.btn-add {
+    background-color: #003311;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+.btn-add:hover {
+    background-color: #00cf45;
+    color: #fff;
+    box-shadow: #00ff00 0 0 15px;
+}
+
+.btn-danger {
+    background-color: #330000;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+.btn-danger:hover {
+    background-color: #ff0000;
+    color: #fff;
+    box-shadow: #ff0000 0 0 15px;
+}
+
+.btn-warning {
+    background-color: #333300;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+.btn-warning:hover {
+    background-color: #ffae00;
+    color: #9b3201;
+    box-shadow: #ffa600 0 0 15px;
+}
+
+input[type="text"], input[type="password"], input[type="email"], textarea {
+    background-color: #000000;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+/* Pagination */
+.page-link {
+    background-color: #000000;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+li.active span {
+    box-shadow: #00ff00 0 0 15px;
+}
+
+li.disabled span {
+    background-color: #494949;
+    color: #fff;
+}
