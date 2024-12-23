@@ -27,7 +27,7 @@ def register(request):
 
             url = 'https://www.google.com/recaptcha/api/siteverify'
             values = {
-                'secret': "6LfV9KMqAAAAAFq03exvDD56-vXmAnF_6uOd0MdZ",
+                'secret': settings.GOOGLE_PRIVATE_KEY,
                 'response': recaptcha
             }
             data = urllib.parse.urlencode(values).encode()
@@ -52,7 +52,7 @@ def register(request):
                 messages.error(request, f"On y est presque ! Vérifie bien le captcha pour finaliser ton inscription.")            
 
     form = UserRegistrationForm()
-    return render(request, 'users/register.html', {'form': form})
+    return render(request, 'users/register.html', {'form': form, 'GOOGLE_PUBLIC_KEY': settings.GOOGLE_PUBLIC_KEY})
 
 def register_with_token(request):
     # Si l'utilisateur est deja connecté, on le redirige vers la page de pr>

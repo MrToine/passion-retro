@@ -25,6 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
+GOOGLE_PUBLIC_KEY = os.getenv('GOOGLE_PUBLIC_KEY')
+GOOGLE_PRIVATE_KEY = os.getenv('GOOGLE_PRIVATE_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG') == 'True'
@@ -168,22 +170,3 @@ EMAIL_USE_SSL = os.getenv('EMAIL_USE_TLS', default=False)
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', default='webmaster@localhost')
 EMAIL_HOST_PASSWORD =  os.getenv('EMAIL_HOST_PASSWORD', default='password')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', default='webmaster@localhost')
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'debug.log'),
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}
