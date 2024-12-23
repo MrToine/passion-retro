@@ -9,20 +9,25 @@ class CategoryAdmin(admin.ModelAdmin):
     fields = ('name', 'description')
 
 class ForumAdmin(admin.ModelAdmin):
-    list_display = ('category', 'author', 'name', 'description', 'created', 'updated')
+    list_display = ('name', 'author', 'category', 'created', 'updated')
     list_filter = ('category', 'author', 'created', 'updated')
     search_fields = ('name', 'description')
     ordering = ('-created',)
     fields = ('category', 'author', 'name', 'description')
 
 class TopicAdmin(admin.ModelAdmin):
-    list_display = ('forum', 'author', 'title', 'created', 'updated', 'state')
+    list_display = ('title', 'author', 'created', 'updated')
     list_filter = ('forum', 'author', 'created', 'updated', 'state')
     search_fields = ('title',)
     ordering = ('-created',)
     fields = ('forum', 'author', 'title', 'state')
 
-admin.site.register(Category)
-admin.site.register(Forum)
-admin.site.register(Topic)
-admin.site.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('type', 'topic', 'author', 'created', 'updated')
+    list_filter = ('topic', 'author', 'created', 'updated', 'type')
+    fields = ('topic', 'author', 'content', 'type')
+
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Forum, ForumAdmin)
+admin.site.register(Topic, TopicAdmin)
+admin.site.register(Post, PostAdmin)
