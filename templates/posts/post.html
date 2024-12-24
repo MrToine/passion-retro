@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load bbcode_tags %}
 
 {% block content %}
 <div class="container">
@@ -6,7 +7,7 @@
     {% if post.type == 'news' %}
         <div style="float:left;margin:5px"><img src="/media/{{ post.image }}" style="max-width: 200px;" alt="{{ post.title }}"></div>
     {% endif %}
-    <p>{{ post.content|linebreaksbr }}</p>
+    <p>{{ post.content|bbcode|safe|linebreaksbr }}</p>
     {% if post.type == 'news' %}
         <p style="text-align: center;"><a href="/{{ post.forum_link }}" class="btn btn-default">Participer au sujet sur le forum</a></p>
     {% endif %}

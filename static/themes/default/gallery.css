@@ -1,0 +1,13 @@
+.gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start; 
+}
+
+.gallery-item {
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+}

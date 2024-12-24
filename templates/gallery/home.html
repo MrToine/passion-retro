@@ -1,0 +1,16 @@
+<h4>Galerie de {{ request.user }}</h4>
+
+<div class="gallery">
+    {% if images %}
+        {% for image in images %}
+            <div class="gallery-item" style="max-width: 200px; max-height: 300px; overflow: hidden;">
+                <img src="{{ image }}" alt="Image de la galerie" style="width: 100%; height: auto;">
+                <button class="bbcode-bar-item" type="button" data-tag="[img]{{ image }}[/img]" onclick="copyToClipboard(event)">Copier lien</button>
+            </div>
+        {% endfor %}
+    {% else %}
+         <p>Aucune image disponible dans la galerie.</p>
+    {% endif %}
+</div>
+
+<a href="#" class="btn btn-add" onclick="openPopup('/gallery/import')">Importer une image</a>
