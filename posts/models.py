@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+from commons.bbcode_parser import BBCodeParser
 
 class Category(models.Model):
     id = models.AutoField(primary_key=True)
@@ -27,9 +28,15 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     contribution = models.BooleanField(default=False)
     forum_link = models.CharField(max_length=200, null=True, blank=True)
+    post_parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
+    parent = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
+    
+    # def content_as_html(self):
+    #     parser = BBCodeParser()
+    #     return parser.parse(self.content)
     
     class Meta:
         verbose_name = 'Post'

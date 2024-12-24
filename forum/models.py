@@ -66,7 +66,7 @@ class Post(models.Model):
     id = models.AutoField(primary_key=True)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='posts')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='forum_author')
-    content = models.TextField(max_length=100)
+    content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     type = models.CharField(max_length=10, default='post')

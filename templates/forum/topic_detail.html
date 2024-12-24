@@ -2,6 +2,7 @@
 {% load forum_extras %}
 {% load users_custom_tags %}
 {% load paginator_tag %}
+{% load bbcode_tags %}
 
 {% block forum_content %}
         <div class="forum">
@@ -41,7 +42,7 @@
                             {% endif %}
                         </div>
                         <div class="forum-column-detail">
-                            {{ post.content|safe|linebreaksbr }}
+                            {{ post.content|bbcode|safe|linebreaksbr }}
                         </div>
                     </div><br>
                 </div>

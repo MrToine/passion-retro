@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Passion rétro</title>
+        <link rel="stylesheet" href="{% static 'themes/grid.css' %}">
+        <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/colors.css">
+        <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/typo.css">
+        <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/structure.css">
+    </head>
+    <body>        
+        {% if messages %}
+            <div class="notification">
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <div class="container">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Importer image">
+            </form>
+        </div>
+    </body>
+</html>

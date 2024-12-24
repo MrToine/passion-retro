@@ -7,7 +7,7 @@ from posts.forms import CreatePost
 from django.utils.text import slugify
 
 def view_post(request, slug):
-    post = Post.objects.filter(slug=slug, active=True).first()
+    post = Post.objects.filter(slug=slug, active=True, parent=True).first()
 
     context = {
         'post': post,

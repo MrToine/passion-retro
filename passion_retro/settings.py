@@ -13,8 +13,15 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
+
+if os.getenv('DATABASE_ENGINE') == "django.db.backends.mysql":
+    print("c'est mariaDB")
+    import pymysql
+    pymysql.install_as_MySQLdb()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,6 +58,7 @@ INSTALLED_APPS = [
     "home",
     "posts",
     "users",
+    "gallery",
     "forum",
     "tchat",
     "guestbook",
@@ -98,8 +106,13 @@ WSGI_APPLICATION = "passion_retro.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DATABASE_ENGINE'),
-        'NAME': BASE_DIR / os.getenv('DATABASE_NAME'),
+        'ENGINE': os.getenv('DATABASE_ENGINE'),  # Utilise MySQL/MariaDB
+        'NAME': os.getenv('DATABASE_NAME') if os.getenv('DATABASE_ENGINE') == "django.db.backends.mysql" else BASE_DIR / os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT', '3306'),  # Port par défaut de MySQL/MariaDB
+        'OPTIONS': json.loads(os.getenv('DATABASE_OPTIONS', '{}'))
     }
 }
 

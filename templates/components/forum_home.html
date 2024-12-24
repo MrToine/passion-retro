@@ -23,7 +23,7 @@
                                     <a href="{% url 'topic_list' forum.id %}">{{ forum.name }}</a>
                                 {% endif %}
                                 <br>
-                                <small>{{ forum.description }}</small>
+                                <small>{{ forum.description|safe }}</small>
                             </div>
                             <div class="forum-column">
                                 {{ count_topics|get_item:forum.id|default_if_none:'Aucun' }}
