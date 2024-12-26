@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # "django.contrib.sites",
 
+    "maintenance",
     "home",
     "posts",
     "users",
@@ -78,6 +79,7 @@ MIDDLEWARE = [
     "forum.middleware.ForumStatsMiddleware",
     "guestbook.middleware.GuestbookMiddleware",
     "posts.middleware.PostsMiddleware",
+    'maintenance.middleware.MaintenanceMiddleware',
 ]
 
 ROOT_URLCONF = "passion_retro.urls"

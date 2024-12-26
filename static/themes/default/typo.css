@@ -7,7 +7,7 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-h1, h2, .breadcrumbs, .btn, input, textarea, button, .notification, .page-link, .guestbook p {
+h1, h2, .breadcrumbs, .btn, input, select, textarea, button, .notification, .page-link, .guestbook p {
     font-family: 'Press Start 2P', cursive;
 }
 

@@ -5,6 +5,6 @@ from passion_retro import settings
 from . import views
 
 urlpatterns = [
-    path("", views.home, name="home"),
+    path("", views.home_gallery, name="home_gallery"),
     path("import", views.import_img, name="import"),
 ]

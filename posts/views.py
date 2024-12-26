@@ -7,10 +7,15 @@ from posts.forms import CreatePost
 from django.utils.text import slugify
 
 def view_post(request, slug):
-    post = Post.objects.filter(slug=slug, active=True, parent=True).first()
+    post = Post.objects.filter(slug=slug, active=True).first()
+    subposts = None
+
+    if post.parent:
+        subposts = Post.objects.filter(post_parent=post.id)
 
     context = {
         'post': post,
+        'subposts': subposts
     }
 
     return render(request, "posts/post.html", context)

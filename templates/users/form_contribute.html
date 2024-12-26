@@ -1,5 +1,4 @@
 {% extends 'layout.html' %}
-
 {% block content %}
     <div class="container">
         {% if type == 'games' %}
@@ -17,8 +16,15 @@
         {% endif %}
         <form action="" method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button>Créer</button>
+            <div class="form-inline">
+                <select id="post_type">
+                    <option value="solo">Article seul</option>
+                    <option value="multiple">Ensemble d'article</option>
+                </select>
+                {{ form.title }}
+            </div>
+            {{ form.content }}
+            <div class="form-inline" id="submit"><button id="submit-button">Créer</button></div>
         </form>
     </div>
 {% endblock %}

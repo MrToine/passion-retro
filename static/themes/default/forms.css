@@ -1,0 +1,34 @@
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn, input[type="submit"], button {
+    border: 2px solid;
+    padding: 5px 10px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: auto;
+    max-width: max-content;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+input[type="text"], input[type="password"], input[type="email"], select, textarea {
+    padding: 5px;
+    margin: 5px;
+    width: 100%;
+    border: 1px solid;
+}
+
+input[type="text"], input[type="password"], input[type="email"], select {
+    height: 35px;
+}
+
+.form-inline {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
