@@ -18,12 +18,15 @@
     <link rel="stylesheet" href="{% static 'themes/grid.css' %}">
     <link rel="stylesheet" href="{% static 'themes/bbcode.css' %}">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/colors.css">
+    <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/forms.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/typo.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/structure.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/banner.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/gallery.css">
+    <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/post.css">
     <script src="{% static 'js/utils/bbcode_display.js' %}"></script>
     <script src="{% static 'js/utils/functions.js' %}"></script>
+    <script src="{% static 'js/utils/multiple_posts.js' %}" defer></script>
 </head>
 <body>
     <div class="banner-container">
@@ -63,8 +66,8 @@
             <div class="menu">
                 <h2>Musique</h2>
                 <ul>
-                    {% for movies in request.music %}
-                        <li><a href="{% url 'view_post' music.slug %}">{{ movies.title }}</a></li>
+                    {% for music in request.posts_music %}
+                        <li><a href="{% url 'view_post' music.slug %}">{{ music.title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -210,7 +213,6 @@
         let currentBigStar = null;
 
         function spawnBigShootingStar() {
-            console.log("Spawning big shooting star");
 
             if(currentBigStar) {
                 currentBigStar.remove();
@@ -227,8 +229,6 @@
             const endX = Math.random() * 100; // Random end position (0 to 100%)
             const endY = Math.random() * 100; // Random end position (0 to 100%)
 
-            console.log(`Duration: ${randomDuration}s, Start: (${startX}, ${startY}), End: (${endX}, ${endY})`);
-
             star.style.animationDuration = `${randomDuration}s`;
             star.style.top = `${startY}`;
             star.style.left = `${startX}`;
@@ -236,7 +236,6 @@
             star.style.setProperty('--endY', `${endY - startY}vh`);
 
             star.addEventListener('animationend', () => {
-                console.log("Big shooting star animation ended");
                 star.remove();
                 currentBigStar = null;
             });
@@ -244,7 +243,6 @@
 
         function scheduleNextBigStarSpawn() {
             const randomDelay = Math.random() * (30 - 10) + 10; // Random delay between 10 and 30 seconds
-            console.log(`Next big shooting star in ${randomDelay} seconds`);
             setTimeout(() => {
                 spawnBigShootingStar();
                 scheduleNextBigStarSpawn();

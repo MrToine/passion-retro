@@ -6,7 +6,7 @@ import os
 from django.conf import settings
 
 @login_required()
-def home(request):
+def home_gallery(request):
     user_id = request.user.id
     user_directory = os.path.join(settings.MEDIA_ROOT, 'galleries', str(user_id))
     img_urls = []

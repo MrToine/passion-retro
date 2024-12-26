@@ -162,48 +162,60 @@ def contribute(request):
 @login_required(login_url='register')
 def form_contribute(request, type):
     if request.method == 'POST':
+        # Initialisation des articles
         form = PostForm(request.POST)
-        if form.is_valid():
-            title = form.cleaned_data.get('title')
-            content = form.cleaned_data.get('content')
-            type = type
-            author = request.user
-            active = False
-            if type == 'news':
-                image = form.cleaned_data.get('image')
-            else:
-                image = None
+        posts = []
 
-            post = Post.objects.create(
-                title=title,
-                slug = slugify(title),
-                content=content,
+        # Traite l'article principal (parent)
+        main_title = request.POST.get('title')  # Titre principal du formulaire Django
+        main_content = request.POST.get('content')  # Contenu principal
+        parent_post = None
+
+        if main_title and main_content:
+            # Crée le parent
+            parent_post = Post.objects.create(
+                title=main_title,
+                slug=slugify(main_title),
+                content=main_content,
                 type=type,
-                author=author,
-                active=active,
-                image=image,
-                contribution=True
+                author=request.user,
+                contribution=True,
+                parent=True
             )
+            posts.append(parent_post)
 
-            post.save()
+        # Vérifie si des articles dynamiques existent (type_form = multiple)
+        type_form = request.POST.get('type_form')
 
-            # On envoi un email à l'admin
-            send_mail(
-                'Nouvelle contribution',
-                f'Une nouvelle contribution a été proposée par {request.user}! Connectez-vous pour la valider.',
-                settings.EMAIL_HOST_USER,
-                [settings.EMAIL_HOST_USER],
-                fail_silently=False,
-            )
+        if type_form == 'multiple':
+            # Parcourt les champs dynamiques ajoutés en JS
+            for key in request.POST:
+                if key.startswith('title-post-'):
+                    # Récupère le numéro de l'article
+                    article_number = key.split('-')[-1]
 
-            messages.success(request, f"Merci pour votre contribution, {request.user}! Nous allons examiner votre proposition.")
-            return redirect('contribute')
-        else:
-            messages.error(request, "Une erreur s'est produite.")
+                    # Récupère les données de l'article enfant
+                    title = request.POST.get(f'title-post-{article_number}')
+                    content = request.POST.get(f'content-post-{article_number}')
+
+                    if title and content:
+                        # Crée l'article enfant
+                        child_post = Post.objects.create(
+                            title=title,
+                            slug=slugify(title),
+                            content=content,
+                            type=type,
+                            author=request.user,
+                            contribution=True,
+                            parent=False,
+                            post_parent=parent_post
+                        )
+                        posts.append(child_post)
+
+        messages.success(request, "Vos articles ont été soumis avec succès !")
 
     context = {
         'type': type,
-        'form': PostForm()
+        'form': PostForm(),
     }
-
     return render(request, "users/form_contribute.html", context)

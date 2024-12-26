@@ -221,6 +221,8 @@ span.unread-badge {
     text-shadow: #00ff00 0 0 15px;
 }
 
+/* FORMULAIRES */
+
 button, .btn-default {
     background-color: #002d33;
     color: #fff;
@@ -269,7 +271,7 @@ button:hover, .btn-default:hover {
     box-shadow: #ffa600 0 0 15px;
 }
 
-input[type="text"], input[type="password"], input[type="email"], textarea {
+input[type="text"], input[type="password"], input[type="email"], select, textarea {
     background-color: #000000;
     color: #fff;
     border-color: #ffffff;
