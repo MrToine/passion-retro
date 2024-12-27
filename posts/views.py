@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from posts.models import Post
 from forum.models import Topic, Forum, Post as ForumPost
 from django.contrib import messages
 from users.decorators import groups_required
-from posts.forms import CreatePost
+from posts.forms import CreatePost, EditPost
 from django.utils.text import slugify
+from django.contrib.auth.decorators import login_required
 
 def view_post(request, slug):
     post = Post.objects.filter(slug=slug, active=True).first()
@@ -75,3 +76,23 @@ def create_post(request, type):
     }
 
     return render(request, "posts/create_post.html", context)
+
+@login_required()
+def edit_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id, author=request.user)
+    
+    if request.method == 'POST':
+        form = EditPost(request.POST, instance=post)
+        if form.is_valid():
+            post.title = form.cleaned_data['title']
+            post.content = form.cleaned_data['content']
+            post.active = False
+            post.save()
+            return redirect('contributions') 
+    else:
+        form = CreatePost(initial={
+            'title': post.title,
+            'content': post.content,
+        })
+
+    return render(request, 'posts/edit_post.html', {'form': form, 'post': post})

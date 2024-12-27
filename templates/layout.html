@@ -101,6 +101,7 @@
                         <center><img src="/media/{{ request.user.avatar }}" style="width:150px;" alt="Avatar de {{ request.user.username }}"></center>
                         <li>Bonjour <strong>{{ request.user.username }}</strong></li>
                         <li><a href="{% url 'profile' %}">Mon Profil</a></li>
+                        <li><a href="{% url 'contributions' %}" class="new-item-menu">Mes contributions</a></li>
                         <li>
                             <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
                                 {% csrf_token %}
@@ -165,6 +166,9 @@
             </div>
         </div>
     </div>
+    <div class="footer"><p>
+        www.passion-retro.com &copy;2024 - 2025. Icônes par icon8
+    </p></div>
     <script>
         // Animation scintillante pour le texte de la bannière
         const bannerText = document.getElementById('bannerText');
