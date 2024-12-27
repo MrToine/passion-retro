@@ -15,7 +15,7 @@
 
             {% for post in posts %}
                 <div class="forum-header" id="{{ post.id }}">
-                    <div class="forum-column-detail"><div class="row"><h3>{{ post.author.username }}</h3> <small>le {{ post.created }}</small></div></div>
+                    <div class="forum-column-detail"><div class="row"><h3 id="author-post-{{ post.id }}">{{ post.author.username }}</h3> <small>le {{ post.created }}</small></div></div>
                 </div>
                 <div class="forum-body">
                     <div class="forum-row">
@@ -42,7 +42,8 @@
                             {% endif %}
                         </div>
                         <div class="forum-column-detail">
-                            {{ post.content|bbcode|safe|linebreaksbr }}
+                            <span id="post-{{ post.id }}">{{ post.content|bbcode|safe|linebreaksbr }}</span>
+                            <a style="float:right" id="quote" target="{{ post.id }}" class="btn btn-small">Citer</a>
                         </div>
                     </div><br>
                 </div>

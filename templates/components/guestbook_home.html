@@ -13,6 +13,8 @@
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
+        <!-- <script src='https://www.google.com/recaptcha/api.js'></script>
+        <div class="g-recaptcha" style="margin-left:50px" data-sitekey="{{ GOOGLE_PUBLIC_KEY }}"></div> -->
         <button>Envoyer</button>
     </form>
 </div>
