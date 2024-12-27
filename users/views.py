@@ -35,8 +35,6 @@ def register(request):
             response = urllib.request.urlopen(req)
             result = json.loads(response.read().decode())
 
-            print(result['success'])
-
             if result['success']:
                 user = User.objects.create_user(
                     username=form.cleaned_data['username'],

@@ -60,3 +60,38 @@
     padding: 15px;
     overflow-y: auto;
 }
+
+ul.bbcode-list {
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+h1.h1-bbcode {
+    font-family: "Roboto";
+    font-size: 1.8rem;
+}
+
+h2.h2-bbcode {
+    font-family: "Roboto";
+    font-size: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.0);
+    border: none;
+}
+
+h3.h3-bbcode {
+    font-family: "Roboto";
+    font-size: 1.2rem;
+}
+
+fieldset.quote-bbcode {
+    padding: 10px;
+    border: 1px solid #fff;
+    background-color: rgba(0,0,0, 0.4);
+}
+
+fieldset.quote-bbcode legend {
+    border: 1px solid #fff;
+    padding: 5px;
+    background-color: black;
+}

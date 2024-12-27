@@ -1,5 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     let textarea = document.querySelector('textarea');
+    const quoteButtons = document.querySelectorAll('#quote');
+    console.log(quoteButtons);
+    quoteButtons.forEach((elem) =>{
+        const post_id = elem.target;
+        elem.addEventListener('click', event => {
+            const author = document.querySelector(`#author-post-${post_id}`).textContent;
+            const content = document.querySelector(`#post-${post_id}`).textContent;
+            
+            textarea.value = `[citation=${author}]${content}[/citation]`;
+            textarea.focus();
+        });
+    });
+
     fetch('/static/js/utils/bbcode-bar.html')
         .then(response => {
             if (response.ok) {
@@ -17,7 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const tag = event.target.getAttribute('data-tag');
                     if (tag.includes('][')) {
                         const [openTag, closeTag] = tag.split('][');
-                        const startTag = openTag + ']';
+                        let startTag = openTag + ']';
+                        if(tag === '[list][/list]') {
+                            startTag = openTag + '][*]';
+                        }
                         const endTag = '[' + closeTag;
 
                         const startPos = textarea.selectionStart;

@@ -16,6 +16,10 @@ form {
     cursor: pointer;
 }
 
+.btn-small {
+    font-size: 0.5rem;
+}
+
 input[type="text"], input[type="password"], input[type="email"], select, textarea {
     padding: 5px;
     margin: 5px;
