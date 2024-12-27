@@ -217,3 +217,9 @@ def form_contribute(request, type):
         'form': PostForm(),
     }
     return render(request, "users/form_contribute.html", context)
+
+@login_required()
+def contributions(request):
+    posts = Post.objects.filter(author=request.user)
+
+    return render(request, "users/contributions.html", {'posts':posts})

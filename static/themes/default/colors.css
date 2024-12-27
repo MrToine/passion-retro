@@ -52,6 +52,13 @@ html, body {
     color: #816488;  
 }
 
+.new-item-menu::after {
+    color: rgb(255, 255, 255);
+    border-color: red;
+    background-color: rgb(233, 72, 72);
+    box-shadow: red 0 0 15px;
+}
+
 .container h2 {
     /* background-image: url('/static/themes/default/img/mage_sprite.png'); */
     background-repeat: no-repeat;
@@ -62,17 +69,17 @@ html, body {
     color: #ae00ff;
 }
 
-.news, .guestbook p {
+.post-card, .news, .guestbook p {
     background-color: #000000;
     border-color: #ffffff;
 }
 
-.news-header {
+.post-card-header, .news-header {
     border-color: #ffffff;
     background-color: #000000;
 }
 
-.news-header h3 {
+.post-card-header, .news-header h3 {
     text-shadow: #00ffff 0 0 10px;
 }
 
@@ -291,4 +298,9 @@ li.active span {
 li.disabled span {
     background-color: #494949;
     color: #fff;
+}
+
+.footer p {
+    color: #ffffff;
+    text-shadow: #ff0000 0 0 10px;
 }

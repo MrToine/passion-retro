@@ -1,4 +1,5 @@
 from django import forms
+from .models import Post
 
 class CreatePost(forms.Form):
     title = forms.CharField(
@@ -19,3 +20,12 @@ class CreatePost(forms.Form):
         label='Actif',
         initial=True
     )
+
+class EditPost(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content']
+        widgets = {
+            'title': forms.TextInput(attrs={'placeholder': 'Titre du post'}),
+            'content': forms.Textarea(attrs={'placeholder': 'Contenu du post'}),
+        }

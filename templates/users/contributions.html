@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% load bbcode_tags %}
+
+{% block content %}
+    <div class="container">
+        <h2>Mes contributions</h2>
+        <div>
+            <p>Vous avez accès ici à l'ensemble de vos contributions pour le site. Il vous est possible de modifier chaques articles. Lorsque vous souhaitez supprimer un article ou un dossier entier, la demande est enregistrée et en attente d'approbation.</p>
+            <p style="color:orange"><u>Précision : </u>pour tous les articles, dossiers, et autres forme d'éditions que vous propposez à la contribution, vous vous engagez la cession intelectuel de vos oeuvres.</p>
+        </div>
+        <h3>Mes dossiers & articles</h2>
+            <div class="row">
+                {% for post in posts %}
+                    <div class="col col-5">
+                        <div class="post-card-header" style="display:flex;flex-direction:row;justify-content: space-between;">
+                            <h3>{{ post.title }} </h3>
+                            {% if post.post_parent_id == None %}
+                                <span style="color:orange;font-weight:bold;margin:5px;">Dossier</span>
+                            {% endif %}
+                            {% if post.active == False %}
+                                <span class="post-offline"></span>
+                            {% else %}
+                                <span class="post-online"></span>
+                            {% endif %}
+                        </div>
+                        <div class="post-card">
+                            <p>{{ post.content|bbcode|safe|linebreaksbr|truncatewords:25 }} » <a href="{% url 'view_post' post.slug %}">Lire</a></p><br>
+                            <p class="date"><em>Publié le {{ post.created|date:" d F Y à H:i" }}</em> Par <a href="{% url 'profile' post.author.id %}">{{ post.author.username }}</a></p>
+                            <p><a href="{% url 'edit_post' post.id %}" class="btn btn-warning">Modifier</a></p>
+                        </div>
+                    </div>    
+                {% endfor %}
+            </div>
+    </div>
+{% endblock %}
