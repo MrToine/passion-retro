@@ -90,6 +90,12 @@ p.date {
     content: "nouveau !";
 }
 
+.badge {
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 2px;
+}
+
 form.incol {
     display: flex;
     flex-direction: column;

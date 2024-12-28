@@ -96,3 +96,9 @@ def edit_post(request, post_id):
         })
 
     return render(request, 'posts/edit_post.html', {'form': form, 'post': post})
+
+@groups_required('Administrateur', 'Super Admin')
+def prending_posts(request):
+    posts = Post.objects.filter(active=False)
+
+    return render(request, 'posts/pending_posts.html')

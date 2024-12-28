@@ -59,6 +59,12 @@ html, body {
     box-shadow: red 0 0 15px;
 }
 
+.badge {
+    background-color: red;
+    border-color: rgb(155, 14, 14);
+    color: #fff;
+}
+
 .container h2 {
     /* background-image: url('/static/themes/default/img/mage_sprite.png'); */
     background-repeat: no-repeat;
