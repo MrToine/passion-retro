@@ -110,6 +110,14 @@
                         </li>
                         <!-- Si c'est un admin -->
                         {% if request.user.is_staff %}
+                            <li>
+                                <a href="/admin/posts/post/?active__exact=0">
+                                    Articles en attente
+                                </a>
+                                {% if pending_posts_count > 0 %}
+                                    <span class="badge badge-warning">{{ pending_posts_count }}</span>
+                                {% endif %}
+                            </li>
                             <li><a href="/admin" target="_blank" class="danger">Administration</a></li>
                         {% endif %}
                     <!-- Si le membre n'est pas connecté -->
@@ -167,7 +175,8 @@
         </div>
     </div>
     <div class="footer"><p>
-        www.passion-retro.com &copy;2024 - 2025. Icônes par icon8
+        www.passion-retro.com &copy;2024 - 2025. Icônes par icon8<br>
+        Hebergé fièrement par <a href="https://www.toviohost.com" target="_blank">TovioHost</a> 
     </p></div>
     <script>
         // Animation scintillante pour le texte de la bannière
