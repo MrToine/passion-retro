@@ -1,0 +1,88 @@
+.card-game {
+    border: 1px solid #fff;
+    margin: 10px;
+}
+
+.card-game .header {
+    border-bottom: 1px solid #fff;
+    padding: 10px;
+    background-color: rgba(0, 153, 255, 0.71);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.card-game .header a {
+    color: #d89de2;
+}
+
+.card-game .body {
+    padding: 10px;
+}
+
+.card-game .footer {
+    border-top: 1px solid #fff;
+    background-color: rgba(0, 153, 255, 0.71);
+    padding: 10px;
+    font-size: 0.8rem;
+}
+
+ul.inline {
+    display: flex;
+    flex-direction: row;
+}
+
+ul.inline li {
+    display: flex;
+    list-style: none;
+    margin: 0 10px 0 0;
+}
+
+.countdown {
+    font-size: 20px; 
+    color: red; 
+    text-align: center;
+}
+
+/* PETIT BAC */
+.game-bac-letter {
+    position: absolute;
+    right: 10px;
+    top: 60px; 
+    border: 1px solid rgb(0, 204, 255);
+    background-color: rgba(0, 153, 255, 0.71);
+    box-shadow: 0 0 35px orangered;
+    border-radius: 5px;
+    margin: auto;
+    padding: 10px;
+    font-size: 1.5rem;
+}
+
+table.bac, table.bac th, table.bac tr, table.bac td {
+    border: 1px solid #fff;
+}
+
+table.bac {
+    width: 90%;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+table.bac th {
+    background-color: black;
+}
+
+table.bac th, table.bac td {
+    text-align: center;
+    padding: 5px;
+}
+
+table.bac td input[type="text"]{
+    border: none;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+table.bac td input:focus {
+    border: none;
+    background-color: transparent;
+}

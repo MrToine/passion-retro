@@ -20,6 +20,10 @@ form {
     font-size: 0.5rem;
 }
 
+.btn-large {
+    font-size: 1.2rem;
+}
+
 input[type="text"], input[type="password"], input[type="email"], select, textarea {
     padding: 5px;
     margin: 5px;

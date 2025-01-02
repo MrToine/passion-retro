@@ -24,9 +24,11 @@
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/banner.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/gallery.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/post.css">
+    <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/games.css">
     <script src="{% static 'js/utils/bbcode_display.js' %}"></script>
     <script src="{% static 'js/utils/functions.js' %}"></script>
     <script src="{% static 'js/utils/multiple_posts.js' %}" defer></script>
+    {% block extrajs %}{% endblock %} 
 </head>
 <body>
     <div class="banner-container">
@@ -43,6 +45,7 @@
                 <ul>
                     <li><a href="{% url 'home' %}">Accueil</a></li>
                     <li><a href="{% url 'forum_home' %}">Forum</a></li>
+                    <li><a href="{% url 'portal_games' %}" class="new-item-menu">Portail des jeux</a></li>
                     <li><a href="#"><s>Chat</s></a>&nbsp;<small><i style="color:rgb(243, 87, 87)">(bientôt !)</i></small></li>
                     <li><a href="{% url 'contribute' %}" class="btn btn-add">Contribuer</a></li>
                 </ul>
@@ -101,7 +104,7 @@
                         <center><img src="/media/{{ request.user.avatar }}" style="width:150px;" alt="Avatar de {{ request.user.username }}"></center>
                         <li>Bonjour <strong>{{ request.user.username }}</strong></li>
                         <li><a href="{% url 'profile' %}">Mon Profil</a></li>
-                        <li><a href="{% url 'contributions' %}" class="new-item-menu">Mes contributions</a></li>
+                        <li><a href="{% url 'contributions' %}">Mes contributions</a></li>
                         <li>
                             <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
                                 {% csrf_token %}
