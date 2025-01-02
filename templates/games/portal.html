@@ -11,7 +11,7 @@
                 <div class="card-game">
                     <div class="header"><a href="{% url 'bac_games' %}">Le petit bac</a></div>
                     <div class="body">Le célèbre jeu du petit bac ! Le Petit Bac est un jeu où les joueurs trouvent des mots correspondant à des catégories spécifiques, en commençant par une lettre donnée, pour marquer des points.</div>
-                    <div class="footer"><marquee>Jouer (x) fois | Meilleur joueur : Toine | Dernière partie : 30/12/2024</marquee></div>
+                    <div class="footer"><marquee>Jouer {{ nb_parties }} fois | Meilleur joueur : Toine | Dernière partie : {{ last_party.created }}</marquee></div>
                 </div>
             </div>
         </div>
