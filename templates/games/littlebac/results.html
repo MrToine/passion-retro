@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block extrajs %}
     <script>
@@ -26,25 +27,21 @@
                 {% for categorie in categories %}
                     <th>{{ categorie.name }}</th>
                 {% endfor %}
-                <!-- <th>Total</th> -->
+                <th>Score</th>
             </tr>
         </thead>
         <tbody>
             {% for player in players %}
                 <tr>
                     <td>{{ player.user.username }}</td>
-                    {% for response in answers %}
-                        {% if response.player and response.player == player %}
-                            <td>{{ response.answer }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %} 
+                    {% for category in categories %}
+                        <td>{{ organized_answers|get_item:player.id|get_item:category.id }}</td>
                     {% endfor %}
-                    <!-- <td></td> -->
+                    <td>{{ player.score }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
     <center><a href="{% url 'bac_games' %}" class="btn btn-default btn-large">Relancer une partie</a></center>
-</div>
-{% endblock %}
+    </div>
+    {% endblock %}

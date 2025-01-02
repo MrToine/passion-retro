@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from django.utils.timezone import now
 from django.contrib import messages
+from django.db.models import Count
+from django.db.models.functions import Lower
 
 def portal(request):
     games = LittleBacGames.objects.filter(author=request.user, status='waiting')
@@ -128,6 +130,7 @@ def little_bac_party_play(request, party_id):
                 'categories': categories,
                 'countdown_remaining': countdown_remaining,
         })
+
     # Passe les informations du décompte au template
     countdown_remaining = max(
         0, game.countdown_time - int((now() - game.countdown_start_time).total_seconds())
@@ -148,14 +151,43 @@ def game_little_bac_results(request, party_id):
     categories = LittleBacCategories.objects.all()
     answers = LittleBacAnswers.objects.filter(round__game=game)
 
-    print(players)
+    # On détermine qu'un mot est valide si il est unique pour une catégorie donnée
+    for round in rounds:
+        for category in categories:
+            valid_answers = answers.filter(round=round, category=category).annotate(
+                lower_answer=Lower('answer')
+            ).values('lower_answer').annotate(
+                count=Count('lower_answer')
+            ).filter(count=1)
+            for answer in valid_answers:
+                answers.filter(round=round, category=category, answer__iexact=answer['lower_answer']).update(is_valid=True)
+
+    # Calcule des points pour chaque joueur. Si il a donné une réponse valide, il gagne 5 points, si il a la même réponse qu'un autre joueur, il gagne 1 points
+    for player in players:
+        player.score = 0
+        for round in rounds:
+            player_answers = LittleBacAnswers.objects.filter(round=round, player=player)
+            for answer in player_answers:
+                if LittleBacAnswers.objects.filter(round=round, answer=answer.answer, is_valid=True):
+                    player.score += 5
+                else:
+                    player.score += 1
+        player.save()
+
+    # Organiser les réponses par joueur et par catégorie
+    organized_answers = {}
+    for player in players:
+        organized_answers[player.id] = {}
+        for category in categories:
+            answer = answers.filter(player=player, category=category).first()
+            organized_answers[player.id][category.id] = answer.answer if answer else ""
 
     return render(request, 'games/littlebac/results.html', {
         'game': game,
         'players': players,
         'rounds': rounds,
         'categories': categories,
-        'answers': answers
+        'organized_answers': organized_answers
     })
 
 # API REST DES JEUX
@@ -249,7 +281,7 @@ def game_start_countdown(request, game_id):
         if countdown_type == "ready_game" and not game.countdown_started and game.status == "waiting":
             game.countdown_started = True
             game.countdown_start_time = now()
-            game.countdown_time = 15
+            game.countdown_time = 5
             game.save()
 
         elif countdown_type == "finish_game" and game.status == "in_progress":
