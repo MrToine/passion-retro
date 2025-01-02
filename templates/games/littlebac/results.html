@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block extrajs %}
+    <script>
+        const csrfToken = "{{ csrf_token }}";
+    </script>
+    <script src="{% static 'js/games/bac-results.js' %}" defer></script>
+    <script src="{% static 'js/games/bac-utils.js' %}" defer></script>
+{% endblock %} 
+
+{% block content %}
+<div class="container" data-game-id="{{ game.id }}">
+    <h2>{{ game.name }}</h2>
+    <h5>Status : <span id="status">{{ game.status }}</span></h5>
+    <p style="display:flex;flex-direction:row;">
+        <strong>Joueur(s) actuellement connecté(s) : </strong>
+        <ul id="playersList" class="inline"></ul>
+    </p>
+    <!-- On affiche le resultat de chaques joueurs -->
+    <h3>Résultats</h3>
+    <table class="bac">
+        <thead>
+            <tr>
+                <th>Joueur</th>
+                {% for categorie in categories %}
+                    <th>{{ categorie.name }}</th>
+                {% endfor %}
+                <!-- <th>Total</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for player in players %}
+                <tr>
+                    <td>{{ player.user.username }}</td>
+                    {% for response in answers %}
+                        {% if response.player and response.player == player %}
+                            <td>{{ response.answer }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %} 
+                    {% endfor %}
+                    <!-- <td></td> -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <center><a href="{% url 'bac_games' %}" class="btn btn-default btn-large">Relancer une partie</a></center>
+</div>
+{% endblock %}

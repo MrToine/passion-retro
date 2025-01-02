@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Le petit bac</h2>
+        <p>Le Petit Bac, également connu sous le nom de Baccalauréat, est un jeu de société classique qui allie réflexion, rapidité et convivialité. Que ce soit en famille, entre amis ou même en ligne, ce jeu promet des moments d’amusement tout en stimulant votre esprit.</p>
+        <p>Le principe est simple : les joueurs doivent trouver des mots correspondant à des catégories données (comme “Prénom”, “Ville”, “Animal”, “Objet”, etc.) et commençant par une lettre tirée au sort. Plus vous êtes rapide et original dans vos réponses, plus vous marquez de points ! Mais attention, les réponses répétées entre joueurs rapportent moins de points, et les erreurs ne sont pas pardonnées.</p>
+        <p>Accessible à tous, le Petit Bac est un excellent moyen de tester vos connaissances, de faire travailler votre créativité, et de passer un moment agréable. Alors, préparez vos stylos ou vos claviers, et que le meilleur gagne !</p>
+        <p>
+            <center><a href="{% url 'bac_start_games' %}" class="btn default btn-large">Démarrer une partie</a></center>
+        </p>
+    </div>
+{% endblock %}

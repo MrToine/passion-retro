@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container" data-game-id="{{ game.id }}">
+        <h2>{{ game.name }}</h2>
+        <h3>Partie {{ round.round_counter }}</h3>
+        <div class="game-bac-letter">{{ round.letter }}</div>
+        <div>Le célèbre jeu du petit bac ! Le Petit Bac est un jeu où les joueurs trouvent des mots correspondant à des catégories spécifiques, en commençant par une lettre donnée, pour marquer des points.</div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <table class="bac">
+                <thead>
+                    <tr>
+                        <th>Lettre</th>
+                        {% for categorie in categories%}
+                            <th>{{ categorie.name }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ round.letter }}</td>
+                        {% for response in responses %}
+                            <td>{{ response.answer }}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+            <h1 style="color:orange">Réponse soumise.</h1>
+        </form>
+    </div>
+{% endblock %}
