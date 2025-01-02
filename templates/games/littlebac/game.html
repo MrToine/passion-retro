@@ -17,7 +17,7 @@
         <strong>Joueur(s) actuellement connecté(s) : </strong>
         <ul id="playersList" class="inline"></ul>
     </p>
-    <p><strong>Lien de la partie : </strong>localhost/games/bac/party/{{ game.id }}/join</p>
+    <p><strong>Lien de la partie : </strong><input type="text" value="https://www.passion-retro.com/games/bac/party/{{ game.id }}/join"></p>
     <center>
         <button id="playButton" class="btn btn-default btn-large" style="display:none;" data-player-id="{{ request.user.id }}">Jouer !</button>
         <h4 id="infoNbPlayersReady" style="display: none;">Joueurs prêt: <span id="readyCount">0</span></h4>

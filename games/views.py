@@ -6,7 +6,10 @@ from django.utils.timezone import now
 from django.contrib import messages
 
 def portal(request):
-    return render(request, 'games/portal.html')
+    games = LittleBacGames.objects.filter(author=request.user, status='waiting')
+    last_party = LittleBacGames.objects.filter().last()
+    nb_parties = LittleBacGames.objects.filter(status="finished").count()
+    return render(request, 'games/portal.html', {'games': games, 'last_party': last_party, 'nb_parties': nb_parties})
 
 def little_bac_home(request):
     return render(request, 'games/littlebac/home.html')
