@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block extrajs %}
+    <script>
+        const csrfToken = "{{ csrf_token }}";
+    </script>
+    <script src="{% static 'js/games/bac-results.js' %}" defer></script>
+    <script src="{% static 'js/games/bac-utils.js' %}" defer></script>
+{% endblock %} 
+
+{% block content %}
+<div class="container" data-game-id="{{ game.id }}">
+    <h2>{{ game.name }}</h2>
+    <h5>Status : <span id="status">{{ game.status }}</span></h5>
+    <p style="display:flex;flex-direction:row;">
+        <strong>Joueur(s) actuellement connecté(s) : </strong>
+        <ul id="playersList" class="inline"></ul>
+    </p>
+    <!-- On affiche le resultat de chaque round -->
+    {% for round in rounds %}
+        <h3>Résultats du Round {{ round.round_counter }} - Lettre : {{ round.letter }}</h3>
+        <table class="bac">
+            <thead>
+                <tr>
+                    <th>Joueur</th>
+                    {% for categorie in categories %}
+                        <th>{{ categorie.name }}</th>
+                    {% endfor %}
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players %}
+                    <tr>
+                        <td>{{ player.user.username }}</td>
+                        {% for category in categories %}
+                            <td>{{ all_organized_answers|get_item:round.id|get_item:player.id|get_item:category.id }}</td>
+                        {% endfor %}
+                        <td>{{ scores_by_round|get_item:round.id|get_item:player.id }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+    <h3>Score Total</h3>
+    <table class="bac">
+        <thead>
+            <tr>
+                <th>Joueur</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for player in players %}
+                <tr>
+                    <td>{{ player.user.username }}</td>
+                    <td>{{ total_scores|get_item:player.id }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <center><a href="{% url 'bac_start_new_round' game.id %}" class="btn btn-default btn-large">
+        {% if game.author == request.user %}
+            Relancer une partie
+        {% else %}
+            Rejoindre une nouvelle partie
+        {% endif %}
+    </a></center>
+</div>
+{% endblock %}

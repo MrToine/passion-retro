@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block extrajs %}
+    <script>
+        const csrfToken = "{{ csrf_token }}";
+    </script>
+    <script src="{% static 'js/games/bac-play.js' %}" defer></script>
+    <script src="{% static 'js/games/bac-utils.js' %}" defer></script>
+{% endblock %} 
+
+
+{% block content %}
+    <div class="container" data-game-id="{{ game.id }}" data-round-id="{{ round.id }}">
+        <h2>{{ game.name }}</h2>
+        <h3>Partie {{ round.round_counter }}</h3>
+        <h5 style="color:rgb(34, 146, 233)">Mon score actuel : {{ player.score }}</h5>
+        <div class="game-bac-letter">{{ round.letter }}</div>
+        <h5>Status : <span id="status">{{ game.status }}</span></h5>
+        <p style="display:flex;flex-direction:row;">
+            <strong>Joueurs dans le salon : </strong>
+            <ul id="playersList" class="inline"></ul>
+        </p>
+        <p>Le célèbre jeu du petit bac ! Le Petit Bac est un jeu où les joueurs trouvent des mots correspondant à des catégories spécifiques, en commençant par une lettre donnée, pour marquer des points.</p>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="form_submitted" value="true">
+            <table class="bac">
+                <thead>
+                    <tr>
+                        <th>Lettre</th>
+                        {% for categorie in categories%}
+                            <th>{{ categorie.name }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ round.letter }}</td>
+                        {% for categorie in categories%}
+                            <td><input type="text" name="col-{{ categorie.id }}"></td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+            <center>
+                <button id="buttonFinish" data-player-id="{{ request.user.username }}">Valider mes choix</button>
+                <h1 id="textFinished" style="color:orange;display:none">Vos réponses on été soumises</h1>
+                <div id="countdownDisplay" style="display:none;color:orange">
+                    {% if countdown_remaining %}
+                        Temps restant : {{ countdown_remaining }} secondes
+                    {% endif %}
+                </div>
+            </center>
+        </form>
+    </div>
+{% endblock %}

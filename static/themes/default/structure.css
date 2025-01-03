@@ -40,6 +40,10 @@ p.date {
     border-radius: 2px 2px 10px 10px;
 }
 
+.container {
+    position: relative;
+}
+
 .menu h2 {
     border-bottom: 2px solid;
     padding: 10px;

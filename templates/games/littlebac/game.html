@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block extrajs %}
+    <script>
+        const csrfToken = "{{ csrf_token }}";
+    </script>
+    <script src="{% static 'js/games/bac-start.js' %}" defer></script>
+    <script src="{% static 'js/games/bac-utils.js' %}" defer></script>
+{% endblock %} 
+
+{% block content %}
+<div class="container" data-game-id="{{ game.id }}">
+    <h2>{{ game.name }}</h2>
+    <h3>Partie {{ round.round_counter }}</h3>
+    <h5>Status : <span id="status">{{ game.status }}</span></h5>
+    <p style="display:flex;flex-direction:row;">
+        <strong>Joueur(s) actuellement connecté(s) : </strong>
+        <ul id="playersList" class="inline"></ul>
+    </p>
+    <p><strong>Lien de la partie : </strong><input type="text" value="https://www.passion-retro.com/games/bac/party/{{ game.id }}/join"></p>
+    <center>
+        <button id="playButton" class="btn btn-default btn-large" style="display:none;" data-player-id="{{ request.user.id }}">Jouer !</button>
+        <h4 id="infoNbPlayersReady" style="display: none;">Joueurs prêt: <span id="readyCount">0</span></h4>
+        <p id="waitingPlayers" style="color:orange">En attente de joueurs...</p>
+    </center>
+</div>
+{% endblock %}

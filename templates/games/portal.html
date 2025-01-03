@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Portail des Jeux</h2>
+        <p>
+            Afin que les membres qui parcour ce site web aient aussi dequoi se divertir, vous avez la possibilité sur cette page de jouer à différents jeux online. Ces jeux ont été entièrement réalisé par le fondateur de passion-retro. Vous pouvez remarquer que les jeux rapporte des points, ce qui veux dire qu'un ladderboard existe ! Soyez le meilleur, et restez le !
+        </p>
+        <div class="row">
+            <div class="col-3">
+                <div class="card-game">
+                    <div class="header"><a href="{% url 'bac_games' %}">Le petit bac</a></div>
+                    <div class="body">Le célèbre jeu du petit bac ! Le Petit Bac est un jeu où les joueurs trouvent des mots correspondant à des catégories spécifiques, en commençant par une lettre donnée, pour marquer des points.</div>
+                    <div class="footer"><marquee>Jouer {{ nb_parties }} fois | Meilleur joueur : Toine | Dernière partie : {{ last_party.created }}</marquee></div>
+                </div>
+            </div>
+        </div>
+        <h3>Mes parties en cours</h3>
+        {% if games %}
+            <table class="bac">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for game in games %}
+                        <tr>
+                            <td>{{ game.name }}</td>
+                            <td>{{ game.status }}</td>
+                            <td>
+                                <a href="{% url 'bac_party_games' game.id %}">Rejoindre</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Vous n'avez aucune partie en cours.</p>
+        {% endif %}
+    </div>
+{% endblock %}
