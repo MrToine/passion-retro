@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const countdownDisplay = document.querySelector('#countdownDisplay');
     const buttonFinish = document.querySelector('#buttonFinish');
     const playerId = buttonFinish.dataset.playerId;
-
+    const roundId = container.dataset.roundId;
+    
     let countdownInterval = null;
 
     /* Fonction pour récupérer les informations de la partie */

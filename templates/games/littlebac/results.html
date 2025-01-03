@@ -18,15 +18,37 @@
         <strong>Joueur(s) actuellement connecté(s) : </strong>
         <ul id="playersList" class="inline"></ul>
     </p>
-    <!-- On affiche le resultat de chaques joueurs -->
-    <h3>Résultats</h3>
+    <!-- On affiche le resultat de chaque round -->
+    {% for round in rounds %}
+        <h3>Résultats du Round {{ round.round_counter }} - Lettre : {{ round.letter }}</h3>
+        <table class="bac">
+            <thead>
+                <tr>
+                    <th>Joueur</th>
+                    {% for categorie in categories %}
+                        <th>{{ categorie.name }}</th>
+                    {% endfor %}
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players %}
+                    <tr>
+                        <td>{{ player.user.username }}</td>
+                        {% for category in categories %}
+                            <td>{{ all_organized_answers|get_item:round.id|get_item:player.id|get_item:category.id }}</td>
+                        {% endfor %}
+                        <td>{{ scores_by_round|get_item:round.id|get_item:player.id }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+    <h3>Score Total</h3>
     <table class="bac">
         <thead>
             <tr>
                 <th>Joueur</th>
-                {% for categorie in categories %}
-                    <th>{{ categorie.name }}</th>
-                {% endfor %}
                 <th>Score</th>
             </tr>
         </thead>
@@ -34,14 +56,17 @@
             {% for player in players %}
                 <tr>
                     <td>{{ player.user.username }}</td>
-                    {% for category in categories %}
-                        <td>{{ organized_answers|get_item:player.id|get_item:category.id }}</td>
-                    {% endfor %}
-                    <td>{{ player.score }}</td>
+                    <td>{{ total_scores|get_item:player.id }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    <center><a href="{% url 'bac_games' %}" class="btn btn-default btn-large">Relancer une partie</a></center>
-    </div>
-    {% endblock %}
+    <center><a href="{% url 'bac_start_new_round' game.id %}" class="btn btn-default btn-large">
+        {% if game.author == request.user %}
+            Relancer une partie
+        {% else %}
+            Rejoindre une nouvelle partie
+        {% endif %}
+    </a></center>
+</div>
+{% endblock %}
