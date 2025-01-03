@@ -1,6 +1,8 @@
 html, body {
-    background-color: #030303;
-    color: #fff;
+    background: #000000;
+    background-image: linear-gradient(to right, #ff00ff 1px, transparent 1px),
+                      linear-gradient(to bottom, #ff00ff 1px, transparent 1px);
+    background-size: 20px 20px;
 }
 
 .notification li.success {
@@ -18,42 +20,185 @@ html, body {
 }
 
 .container, .menu {
-    background-color: #330033;
-    color: #fff;
-    border-color: #fff;
-    box-shadow: 0 0 15px #df05df;
+    background-color: #000033;
+    border-color: #ff00ff;
+    box-shadow: 0 0 15px #ff00ff;
+}
+
+.container {
+    background: url('/static/themes/default/img/bg_container.png');
+}
+
+.menu {
+    background: url('/static/themes/default/img/archer_sprite.png') bottom right;
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-color: #4750a3;
 }
 
 .menu h2 {
-    text-shadow: 2px 2px 2px #ff0000;
-    border-color: #ffffff;
+    background: linear-gradient(90deg, #ff00ff, #00ffff);
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
 }
 
-.news {
+.menu ul.guestbook {
+    background-color: rgba(0, 0, 0, 0.58);
+    border-color: #ffffff;    
+}
+
+.menu ul.guestbook li span.date {
+    color: #64886a;  
+}
+
+.menu ul.guestbook li span.author {
+    color: #816488;  
+}
+
+.new-item-menu::after {
+    color: rgb(255, 255, 255);
+    border-color: red;
+    background-color: rgb(233, 72, 72);
+    box-shadow: red 0 0 15px;
+}
+
+.badge {
+    background-color: red;
+    border-color: rgb(155, 14, 14);
+    color: #fff;
+}
+
+.container h2 {
+    background: linear-gradient(90deg, #ff00ff, #00ffff);
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.guestbook p span.author {
+    color: #ae00ff;
+}
+
+.post-card, .news, .guestbook p {
     background-color: #000000;
     border-color: #ffffff;
 }
 
-.news-header {
+.post-card-header, .news-header {
     border-color: #ffffff;
     background-color: #000000;
 }
 
-.news-header h3 {
+.post-card-header, .news-header h3 {
     text-shadow: #00ffff 0 0 10px;
 }
 
-a {
-    color: #00d9ff;
-    text-decoration: none;
+/* Contribution Page */
+
+.games {
+    background: url('/static/themes/default/img/gamepad2.png') right;
+    background-position: calc(100% + 100px);
+    background-repeat: no-repeat;
+    background-size: 30%;
+    background-color: rgba(0, 0, 0, 0.58);
+    border-color: #ffffff;
+    transition: background-position 0.8s;
 }
+
+.games:hover {
+    background-position: calc(100% - 20px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.movies {
+    background: url('/static/themes/default/img/television.png') right;
+    background-position: calc(100% + 100px);
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-color: rgba(0, 0, 0, 0.58);
+    border-color: #ffffff;
+    transition: background-position 0.8s;
+}
+
+.movies:hover {
+    background-position: calc(100% - 20px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.musics {
+    background: url('/static/themes/default/img/music.png') right;
+    background-position: calc(100% + 100px);
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-color: rgba(0, 0, 0, 0.58);
+    border-color: #ffffff;
+    transition: background-position 0.8s;
+}
+
+.musics:hover {
+    background-position: calc(100% - 20px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.tech {
+    background: url('/static/themes/default/img/computer.png') right;
+    background-position: calc(100% + 100px);
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-color: rgba(0, 0, 0, 0.58);
+    border-color: #ffffff;
+    transition: background-position 0.8s;
+}
+
+.tech:hover {
+    background-position: calc(100% - 20px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.category {
+    background: url('') right;
+    background-position: calc(100% + 100px);
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-color: rgba(0, 0, 0, 0.58);
+    border-color: #ffffff;
+    transition: background-position 0.8s;
+}
+
+.category:hover {
+    background-position: calc(100% - 20px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.news_contrib {
+    background: url('/static/themes/default/img/news_contrib.png') right;
+    background-position: calc(100% + 100px);
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-color: rgba(0, 0, 0, 0.58);
+    border-color: #ffffff;
+    transition: background-position 0.8s;
+}
+
+.news_contrib:hover {
+    background-position: calc(100% - 20px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+a {
+    color: #00ffff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
 a:hover {
-    color: #3193b1;
-    text-shadow: #00ff00 0 0 10px;
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
 }
 
 a.danger {
-    color: #ff0000;
+    color: #ce6666;
 }
 
 .text-admin {
@@ -73,11 +218,15 @@ a.danger {
 }
 
 .forum .category-name {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #111641;
 }
 
 .forum .forum-row {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #1e234e;
+}
+
+.forum .forum-header {
+    background-color: #262d6d;
 }
 
 .stats_forum ul {
@@ -91,16 +240,18 @@ span.unread-badge {
     text-shadow: #00ff00 0 0 15px;
 }
 
-button {
-    background-color: #002d33;
-    color: #fff;
-    border-color: #ffffff;
+/* FORMULAIRES */
+
+button, .btn-default {
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
-button:hover {
-    background-color: #00cfcf;
-    color: #fff;
-    box-shadow: #00cfcf 0 0 15px;
+button:hover, .btn-default:hover {
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+    box-shadow: 0 0 15px #ff00ff;
 }
 
 .btn-add {
@@ -115,7 +266,31 @@ button:hover {
     box-shadow: #00ff00 0 0 15px;
 }
 
-input[type="text"], input[type="password"], input[type="email"], textarea {
+.btn-danger {
+    background-color: #330000;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+.btn-danger:hover {
+    background-color: #ff0000;
+    color: #fff;
+    box-shadow: #ff0000 0 0 15px;
+}
+
+.btn-warning {
+    background-color: #333300;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+.btn-warning:hover {
+    background-color: #ffae00;
+    color: #9b3201;
+    box-shadow: #ffa600 0 0 15px;
+}
+
+input[type="text"], input[type="password"], input[type="email"], select, textarea {
     background-color: #000000;
     color: #fff;
     border-color: #ffffff;
@@ -135,4 +310,9 @@ li.active span {
 li.disabled span {
     background-color: #494949;
     color: #fff;
+}
+
+.footer p {
+    color: #ffffff;
+    text-shadow: #ff0000 0 0 10px;
 }
