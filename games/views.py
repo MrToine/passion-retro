@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from django.utils.timezone import now
 from django.contrib import messages
+from django.db.models import Count, Sum
+from django.db.models.functions import Lower
 
 def portal(request):
     games = LittleBacGames.objects.filter(author=request.user, status='waiting')
@@ -25,7 +27,6 @@ def little_bac_start(request):
         game=game,
         score=0
     )
-
     
     # Liste des lettres de l'alphabet
     alphabet = string.ascii_uppercase  # 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -45,9 +46,11 @@ def little_bac_start(request):
 def little_bac_party(request, party_id):
     game = LittleBacGames.objects.get(id=party_id)
     players = LittleBacPlayers.objects.filter(game=game)
+    rounds = LittleBacRounds.objects.filter(game=game)
     
     if players.filter(user=request.user).exists():
-        return render(request, 'games/littlebac/game.html', {'game': game, 'players': players})
+        current_round = rounds.last()
+        return render(request, 'games/littlebac/game.html', {'game': game, 'players': players, 'round': current_round})
     else:
         return redirect('bac_games')
 
@@ -80,13 +83,15 @@ def little_bac_party_play(request, party_id):
         game.status = 'in_progress'
         game.save()
 
-    round = LittleBacRounds.objects.filter(game=game).first()  # Utilisation de .first() pour éviter IndexError
+    # Récupère le round actuel (dernier round)
+    current_round = LittleBacRounds.objects.filter(game=game).last()
     categories = LittleBacCategories.objects.all()
+    player = players.get(user=request.user)
 
     if request.method == "POST":
         print("POST")
         # On vérifie que les réponses commencent par la lettre du round
-        round_letter = round.letter.upper()
+        round_letter = current_round.letter.upper()
         all_valid = True
         for category in categories:
             answer = request.POST.get(f"col-{category.id}", "").strip()
@@ -111,7 +116,7 @@ def little_bac_party_play(request, party_id):
                 answer = answers.get(f"col-{category.id}", "").strip()  # Récupère la réponse ou une chaîne vide
                 if answer:  # Vérifie si une réponse est fournie
                     response = LittleBacAnswers.objects.create(
-                        round=round,
+                        round=current_round,
                         player=players.get(user=request.user),
                         category=category,
                         answer=answer,
@@ -119,15 +124,21 @@ def little_bac_party_play(request, party_id):
                     )
                     responses.append(response)
 
-            return render(request, 'games/littlebac/finish.html', {'responses': responses, 'round': round, 'categories': categories})
+            return render(request, 'games/littlebac/finish.html', {
+                'responses': responses, 
+                'round': current_round, 
+                'categories': categories,
+                'player': player
+            })
         else:
             messages.error(request, "Les réponses doivent commencer par la lettre du tour.")
             return render(request, 'games/littlebac/play.html', {
                 'game': game,
-                'round': round,
+                'round': current_round,
                 'categories': categories,
                 'countdown_remaining': countdown_remaining,
         })
+
     # Passe les informations du décompte au template
     countdown_remaining = max(
         0, game.countdown_time - int((now() - game.countdown_start_time).total_seconds())
@@ -135,28 +146,120 @@ def little_bac_party_play(request, party_id):
 
     return render(request, 'games/littlebac/play.html', {
         'game': game,
-        'round': round,
+        'round': current_round,
         'categories': categories,
-        'countdown_remaining': countdown_remaining
+        'countdown_remaining': countdown_remaining,
+        'player': player
     })
 
-login_required()
+@login_required()
 def game_little_bac_results(request, party_id):
-    game = LittleBacGames.objects.get(id=party_id)
+    game = get_object_or_404(LittleBacGames, id=party_id)
     players = LittleBacPlayers.objects.filter(game=game)
     rounds = LittleBacRounds.objects.filter(game=game)
     categories = LittleBacCategories.objects.all()
-    answers = LittleBacAnswers.objects.filter(round__game=game)
 
-    print(players)
+    all_organized_answers = {}
+    scores_by_round = {round.id: {} for round in rounds}
+    total_scores = {player.id: 0 for player in players}
+
+    for round in rounds:
+        answers = LittleBacAnswers.objects.filter(round=round)
+
+        # On détermine qu'un mot est valide s'il est unique pour une catégorie donnée
+        for category in categories:
+            valid_answers = answers.filter(category=category).annotate(
+                lower_answer=Lower('answer')
+            ).values('lower_answer').annotate(
+                count=Count('lower_answer')
+            ).filter(count=1)
+            for answer in valid_answers:
+                answers.filter(category=category, answer__iexact=answer['lower_answer']).update(is_valid=True, point=5)
+
+            # Marquer les réponses dupliquées et leur attribuer 1 point
+            duplicate_answers = answers.filter(category=category).annotate(
+                lower_answer=Lower('answer')
+            ).values('lower_answer').annotate(
+                count=Count('lower_answer')
+            ).filter(count__gt=1)
+            for answer in duplicate_answers:
+                answers.filter(category=category, answer__iexact=answer['lower_answer']).update(is_valid=False, point=1)
+
+        # Calcule des points pour chaque joueur pour ce round
+        for player in players:
+            player_score = answers.filter(
+                player=player
+            ).aggregate(
+                total=Sum('point')
+            )['total'] or 0
+            
+            scores_by_round[round.id][player.id] = player_score
+            total_scores[player.id] += player_score
+
+    # Organiser les réponses par joueur et par catégorie pour chaque round
+    for round in rounds:
+        answers = LittleBacAnswers.objects.filter(round=round)
+        organized_answers = {}
+        for player in players:
+            organized_answers[player.id] = {}
+            for category in categories:
+                answer = answers.filter(player=player, category=category).first()
+                if answer:
+                    organized_answers[player.id][category.id] = answer.answer
+                else:
+                    organized_answers[player.id][category.id] = ""
+        all_organized_answers[round.id] = organized_answers
+
+    # Mettre à jour les scores totaux des joueurs
+    for player in players:
+        player.score = total_scores[player.id]
+        player.save()
 
     return render(request, 'games/littlebac/results.html', {
         'game': game,
         'players': players,
         'rounds': rounds,
         'categories': categories,
-        'answers': answers
+        'all_organized_answers': all_organized_answers,
+        'scores_by_round': scores_by_round,
+        'total_scores': total_scores
     })
+
+login_required()
+def game_little_bac_start_new_round(request, game_id):
+    import random
+    import string
+
+    game = LittleBacGames.objects.get(id=game_id)
+    if game.author != request.user:
+        return redirect('bac_party_games', party_id=game_id)
+    
+    players = LittleBacPlayers.objects.filter(game=game)
+
+    game.status = 'waiting'
+    game.countdown_started = False
+    game.countdown_start_time = None
+    game.countdown_time = 0
+    game.current_phase = "ready_game"
+    game.save()
+
+    players.update(is_ready=False, status='playing')
+
+    # Sélectionne une lettre aléatoire pour le nouveau round
+    alphabet = string.ascii_uppercase
+    letter = random.choice(alphabet)
+
+    # Détermine le numéro du nouveau round
+    round_counter = game.rounds.count() + 1
+
+    # Crée un nouveau round
+    new_round = LittleBacRounds.objects.create(
+        game=game,
+        letter=letter,
+        round_counter=round_counter
+    )
+
+    return redirect('bac_party_games', party_id=game_id)
 
 # API REST DES JEUX
 @login_required()
@@ -249,7 +352,7 @@ def game_start_countdown(request, game_id):
         if countdown_type == "ready_game" and not game.countdown_started and game.status == "waiting":
             game.countdown_started = True
             game.countdown_start_time = now()
-            game.countdown_time = 15
+            game.countdown_time = 5
             game.save()
 
         elif countdown_type == "finish_game" and game.status == "in_progress":

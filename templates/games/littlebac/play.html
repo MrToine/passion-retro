@@ -11,9 +11,10 @@
 
 
 {% block content %}
-    <div class="container" data-game-id="{{ game.id }}">
+    <div class="container" data-game-id="{{ game.id }}" data-round-id="{{ round.id }}">
         <h2>{{ game.name }}</h2>
         <h3>Partie {{ round.round_counter }}</h3>
+        <h5 style="color:rgb(34, 146, 233)">Mon score actuel : {{ player.score }}</h5>
         <div class="game-bac-letter">{{ round.letter }}</div>
         <h5>Status : <span id="status">{{ game.status }}</span></h5>
         <p style="display:flex;flex-direction:row;">

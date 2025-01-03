@@ -12,6 +12,7 @@
 {% block content %}
 <div class="container" data-game-id="{{ game.id }}">
     <h2>{{ game.name }}</h2>
+    <h3>Partie {{ round.round_counter }}</h3>
     <h5>Status : <span id="status">{{ game.status }}</span></h5>
     <p style="display:flex;flex-direction:row;">
         <strong>Joueur(s) actuellement connecté(s) : </strong>
