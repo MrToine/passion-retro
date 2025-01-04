@@ -45,7 +45,7 @@ class UserUpdateForm(forms.ModelForm):
     theme = forms.CharField(
         # On créer une liste de choix pour le thème
         label='Thème',
-        widget=forms.Select(choices=[('default', 'Thème par defaut')]),
+        widget=forms.Select(choices=[('default', 'Thème par defaut'), ('00s', 'Thème années 2000')]),
     )
     class Meta:
         model = User

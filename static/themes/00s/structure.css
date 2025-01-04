@@ -20,7 +20,8 @@ p.date {
 }
 
 .notification {
-    margin: 10px;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 .notification ul {
@@ -37,12 +38,15 @@ p.date {
     padding: 0;
     border: 2px solid;
     margin-bottom: 10px;
-    border-radius: 2px 2px 10px 10px;
+    border-radius: 8px;
+}
+
+.menu {
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
+    position: relative;
 }
 
 .menu h2 {
@@ -67,72 +71,73 @@ p.date {
     font-size: 2em;
 }
 
+/* Menu horizontal */
+.menu-horizontal {
+    background: linear-gradient(to bottom, #4c4c4c 0%, #2c2c2c 100%);
+    border: 1px solid #666;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    position: relative;
+    width: 100%;
+}
 
-.menu ul {
-    list-style-type: none;
+.menu-horizontal ul {
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
 }
 
-.menu ul li {
-    margin: 5px 0;
+.menu-horizontal ul li {
+    position: relative;
 }
 
-.menu ul.guestbook {
-    max-height: 200px;
-    overflow-y: auto;
-    margin: 5px;
-    border: 1px solid;
+.menu-horizontal ul li a {
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.menu-horizontal ul li a:hover {
+    background: linear-gradient(to bottom, #666 0%, #333 100%);
+}
+
+.menu-horizontal .dropdown {
+    display: none;
+    position: absolute;
+    background: #333;
+    min-width: 200px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    z-index: 1000;
+    top: 100%;
+    left: 0;
+}
+
+.menu-horizontal li:hover .dropdown {
+    display: block;
+}
+
+.menu-horizontal .dropdown li {
+    width: 100%;
+    border: none;
+}
+
+.menu-horizontal .dropdown a {
+    margin: 10px;
+    padding: 10px;
     font-size: 0.8rem;
 }
 
-.new-item-menu::after {
-    margin-left: 10px;
-    padding: 2px;
-    font-size: 0.6rem;
+.post-card {
     border: 1px solid;
-    content: "nouveau !";
-}
-
-.badge {
-    border: 1px solid;
-    border-radius: 3px;
-    padding: 2px;
-}
-
-form.incol {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-items: auto;
-    justify-content: space-between;
-}
-
-.container .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.news, .post-card {
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid;
-}
-
-.guestbook p {
-    margin: 10px;
-    padding: 10px;
-    border: 2px solid;
-    font-size: 0.8rem;
 }
 
 .news-header, .post-card-header {
     display: flex;
     flex-direction: row;
     border: 1px solid;
-    margin: 10px 10px -10px 10px;
 }
 
 .contrib {
@@ -296,4 +301,32 @@ li.disabled {
 
 .footer {
     text-align: center;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 2px;
+    border: 2px outset #0066cc;
+}
+
+td, th {
+    border: 1px inset #0066cc;
+    padding: 4px;
+}
+
+input, select, textarea {
+    border: 2px inset #0066cc;
+    background: #ffffff;
+    color: #000000;
+}
+
+/* Ajout d'un compteur de visiteurs style années 2000 */
+.visitor-counter {
+    font-family: "Digital-7", monospace;
+    background: #000000;
+    color: #00ff00;
+    padding: 5px;
+    border: 1px solid #00ff00;
+    text-align: center;
+    margin: 10px 0;
 }

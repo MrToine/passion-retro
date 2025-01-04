@@ -1,0 +1,35 @@
+.postmenu {
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 300px;
+    margin: 10px;
+    float: right;
+    display: flex;
+    flex-direction: column;
+}
+
+.postmenu .header {
+    background-color: rgb(28, 42, 78);
+    padding: 5px;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #fff;
+}
+
+.postmenu .body {
+    padding: 10px;
+}
+
+.postmenu .body ul {
+    display: flex;
+    flex-direction: column;
+}
+
+.postmenu .body ul li {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+}
+
+.postmenu .body ul li:hover {
+    margin-left: 10px;
+}

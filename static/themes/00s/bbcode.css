@@ -5,18 +5,22 @@
 
 .bbcode-bar {
     flex-direction: column;
-    background-color: black;
-    border: 1px solid #fff;
+    background-color: rgba(0,0,0, 0.);
+    border-top: 2px inset #0066cc;
+    border-right: 2px inset #0066cc;
+    border-left: 2px inset #0066cc;
     margin: 0 -5px -5px 5px;
+    width: 99%;
 }
 
 .bbcode-bar ul {
     flex-direction: row;
+    flex-wrap: wrap;
     list-style-type: none;
 }
 
 .bbcode-bar li {
-    margin: 0 10px 0 10px;
+    margin: 0 3px 3px 3px;
     font-family: 'Press Start 2P';
 }
 

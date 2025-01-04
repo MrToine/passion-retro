@@ -6,7 +6,6 @@
         {% endblock %}
         <div class="profile-details">
             <p><strong>Username:</strong> {{ user.username }}</p>
-            <p><strong>Email:</strong> {{ user.email }}</p>
             <p><strong>Nom complet:</strong> {{ user.profile.first_name }} {{ user.profile.last_name }}</p>
             <p><strong>Inscription:</strong> {{ user.date_joined|date:" d F Y à H:i" }}</p>
             <p><strong>Bio:</strong> {{ user.biography }}</p>

@@ -1,0 +1,108 @@
+.card-game {
+    border: 1px solid #cccccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: #f9f9f9;
+    margin: 15px;
+    transition: all 0.3s ease;
+}
+
+.card-game:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-game .header {
+    border-bottom: 1px solid #cccccc;
+    padding: 10px;
+    background: #e0e0e0;
+    color: #333333;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.card-game .header a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.card-game .header a:hover {
+    text-decoration: underline;
+}
+
+.card-game .body {
+    padding: 10px;
+    color: #333333;
+}
+
+.card-game .footer {
+    border-top: 1px solid #cccccc;
+    background-color: #e0e0e0;
+    padding: 10px;
+    font-size: 0.8rem;
+    color: #333333;
+}
+
+ul.inline {
+    display: flex;
+    flex-direction: row;
+}
+
+ul.inline li {
+    display: flex;
+    list-style: none;
+    margin: 0 10px 0 0;
+}
+
+.countdown {
+    font-size: 20px; 
+    color: red; 
+    text-align: center;
+}
+
+/* PETIT BAC */
+.game-bac-letter {
+    position: absolute;
+    right: 10px;
+    top: 60px; 
+    border: 2px solid #cccccc;
+    background: #f0f0f0;
+    color: #333333;
+    font-family: 'Verdana', sans-serif;
+    border-radius: 5px;
+    margin: auto;
+    padding: 10px;
+    font-size: 1.5rem;
+}
+
+table.bac, table.bac th, table.bac tr, table.bac td {
+    border: 1px solid #cccccc;
+}
+
+table.bac {
+    width: 90%;
+    margin: auto;
+    border-collapse: collapse;
+    background: #f9f9f9;
+}
+
+table.bac th {
+    background: #e0e0e0;
+    color: #333333;
+}
+
+table.bac th, table.bac td {
+    text-align: center;
+    padding: 5px;
+}
+
+table.bac td input[type="text"]{
+    border: 1px solid #cccccc;
+    background-color: #ffffff;
+    font-family: 'Verdana', sans-serif;
+    color: #333333;
+}
+
+table.bac td input:focus {
+    border: 1px solid #0066cc;
+    background-color: #ffffff;
+}

@@ -14,9 +14,8 @@
     <meta name="author" content="Passion Rétro Team">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="">
-    <link rel="stylesheet" href="{% static 'themes/grid.css' %}">
-    <link rel="stylesheet" href="{% static 'themes/bbcode.css' %}">
+    <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/grid.css">
+    <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/bbcode.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/colors.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/forms.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/typo.css">
@@ -39,50 +38,96 @@
         </div>
     </div>
     <div class="row">
-        <div class="col col-2">
-            <div class="menu">
-                <h2>Communauté</h2>
-                <ul>
-                    <li><a href="{% url 'home' %}">Accueil</a></li>
-                    <li><a href="{% url 'forum_home' %}">Forum</a></li>
-                    <li><a href="{% url 'portal_games' %}" class="new-item-menu">Portail des jeux</a></li>
-                    <li><a href="{% url 'contribute' %}" class="btn btn-add">Contribuer</a></li>
-                </ul>
+        {% if request.theme_active != '00s' %}
+            <div class="col col-2">
+        {% endif %}
+        {% if request.theme_active != '00s' %}
+                <div class="menu">
+                    <h2>Communauté</h2>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Accueil</a></li>
+                        <li><a href="{% url 'forum_home' %}">Forum</a></li>
+                        <li><a href="{% url 'portal_games' %}" class="new-item-menu">Portail des jeux</a></li>
+                        <li><a href="{% url 'contribute' %}" class="btn btn-add">Contribuer</a></li>
+                    </ul>
+                </div>
+                <div class="menu">
+                    <h2>Jeux</h2>
+                    <ul>
+                        {% for games in request.posts_games %}
+                            <li><a href="{% url 'view_post' games.slug %}">{{ games.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="menu">
+                    <h2>Films & Series</h2>
+                    <ul>
+                        {% for movies in request.posts_movies %}
+                            <li><a href="{% url 'view_post' movies.slug %}">{{ movies.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="menu">
+                    <h2>Musique</h2>
+                    <ul>
+                        {% for music in request.posts_music %}
+                            <li><a href="{% url 'view_post' music.slug %}">{{ music.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="menu">
+                    <h2>Technologies</h2>
+                    <ul>
+                        {% for internet in request.posts_internet %}
+                            <li><a href="{% url 'view_post' technology.slug %}">{{ internet.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+        {% else %}
+                <!-- On créer le même menu que au dessus mais en horizontal -->
+                <div class="menu-horizontal">
+                    <ul>
+                        <li><a href="{% url 'home' %}">Accueil</a></li>
+                        <li><a href="{% url 'forum_home' %}">Forum</a></li>
+                        <li><a href="{% url 'portal_games' %}" class="new-item-menu">Portail des jeux</a></li>
+                        <li><a href="{% url 'contribute' %}" class="btn btn-add">Contribuer</a></li>
+                        <li><a href="">Internet</a>
+                            <ul>
+                                {% for internet in request.posts_internet %}
+                                    <li><a href="{% url 'view_post' technology.slug %}">{{ internet.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li><a href="">Musique</a>
+                            <ul>
+                                {% for music in request.posts_music %}
+                                    <li><a href="{% url 'view_post' music.slug %}">{{ music.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li><a href="">Films & Series</a>
+                            <ul>
+                                {% for movies in request.posts_movies %}
+                                    <li><a href="{% url 'view_post' movies.slug %}">{{ movies.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li><a href="">Jeux</a>
+                            <ul class="dropdown">
+                                {% for games in request.posts_games %}
+                                    <li><a href="{% url 'view_post' games.slug %}">{{ games.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+        {% endif %}
+        {% if request.theme_active == '00s' %}
+            <div class="col col-9">
+        {% else %}
             </div>
-            <div class="menu">
-                <h2>Jeux</h2>
-                <ul>
-                    {% for games in request.posts_games %}
-                        <li><a href="{% url 'view_post' games.slug %}">{{ games.title }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="menu">
-                <h2>Films & Series</h2>
-                <ul>
-                    {% for movies in request.posts_movies %}
-                        <li><a href="{% url 'view_post' movies.slug %}">{{ movies.title }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="menu">
-                <h2>Musique</h2>
-                <ul>
-                    {% for music in request.posts_music %}
-                        <li><a href="{% url 'view_post' music.slug %}">{{ music.title }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="menu">
-                <h2>Technologies</h2>
-                <ul>
-                    {% for internet in request.posts_internet %}
-                        <li><a href="{% url 'view_post' technology.slug %}">{{ internet.title }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div class="col col-7">
+            <div class="col col-7">
+        {% endif %}
             {% if messages %}
                 <div class="notification">
                     <ul class="messages">
