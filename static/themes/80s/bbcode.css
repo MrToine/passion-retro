@@ -1,0 +1,98 @@
+
+.bbcode-bar, .bbcode-bar ul {
+    display: flex;
+}
+
+.bbcode-bar {
+    flex-direction: column;
+    background-color: black;
+    border: 1px solid #fff;
+    margin: 0 -5px -5px 5px;
+}
+
+.bbcode-bar ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style-type: none;
+}
+
+.bbcode-bar li {
+    margin: 0 10px 5px 10px;
+    font-family: 'Press Start 2P';
+}
+
+.bbcode-bar button {
+    margin: 0;
+}
+
+.draggable {
+    width: 600px;
+    height: 300px;
+    overflow: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background-color: rgba(0,0,0, 0.8);
+    border: 2px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: none;
+}
+
+.draggable .header {
+    position: fixed;
+    width: 596px;
+    background-color: #082039;
+    color: #fff;
+    padding: 5px;
+    cursor: move;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.draggable .close-button {
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.draggable .content {
+    padding: 15px;
+    overflow-y: auto;
+}
+
+ul.bbcode-list {
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+h1.h1-bbcode {
+    font-family: "Roboto";
+    font-size: 1.8rem;
+}
+
+h2.h2-bbcode {
+    font-family: "Roboto";
+    font-size: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.0);
+    border: none;
+}
+
+h3.h3-bbcode {
+    font-family: "Roboto";
+    font-size: 1.2rem;
+}
+
+fieldset.quote-bbcode {
+    padding: 10px;
+    border: 1px solid #fff;
+    background-color: rgba(0,0,0, 0.4);
+}
+
+fieldset.quote-bbcode legend {
+    border: 1px solid #fff;
+    padding: 5px;
+    background-color: black;
+}
