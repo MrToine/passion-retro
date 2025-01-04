@@ -8,9 +8,13 @@ from django.db.models import Count, Sum
 from django.db.models.functions import Lower
 
 def portal(request):
-    games = LittleBacGames.objects.filter(author=request.user, status='waiting')
     last_party = LittleBacGames.objects.filter().last()
     nb_parties = LittleBacGames.objects.filter(status="finished").count()
+    
+    if not request.user.is_authenticated:
+        return render(request, 'games/portal.html', {'last_party': last_party, 'nb_parties': nb_parties})
+    games = LittleBacGames.objects.filter(author=request.user, status='waiting')
+
     return render(request, 'games/portal.html', {'games': games, 'last_party': last_party, 'nb_parties': nb_parties})
 
 def little_bac_home(request):
