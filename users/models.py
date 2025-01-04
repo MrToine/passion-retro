@@ -34,5 +34,8 @@ class User(AbstractUser):
         verbose_name = 'Utilisateur'
         verbose_name_plural = 'Utilisateurs'
         ordering = ['username']
-    
-    
+
+class VisitorStats(models.Model):
+    total_visitors = models.PositiveIntegerField(default=0)
+    last_reset = models.DateTimeField(auto_now=True)
+

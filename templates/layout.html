@@ -5,13 +5,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Passion rétro</title>
+    <title>Passion Rétro - Communauté des Passionnés de Jeux, Films et Séries Rétro</title>
 
     <!-- Balises méta pour le SEO -->
-    <meta name="description" content="Bienvenue sur Passion Rétro, le portail web 100% rétro pour les passionnés de jeux, films, séries et plus encore !">
-    <meta name="keywords" content="rétro, jeux, films, séries, communauté, années 80, années 90">
+    <meta name="description" content="Rejoignez Passion Rétro, la communauté dédiée aux passionnés de jeux, films et séries des années 80 et 90. Découvrez des contenus exclusifs et partagez votre passion !">
+    <meta name="keywords" content="passion retro, passion rétro, rétro, jeux, films, séries, communauté, années 80, années 90">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Passion Rétro Team">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Passion Rétro - Communauté des Passionnés de Jeux, Films et Séries Rétro">
+    <meta property="og:description" content="Rejoignez Passion Rétro, la communauté dédiée aux passionnés de jeux, films et séries des années 80 et 90. Découvrez des contenus exclusifs et partagez votre passion !">
+    <meta property="og:image" content="{% static 'images/logo.png' %}">
+    <meta property="og:url" content="https://www.passionretro.com">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Passion Rétro - Communauté des Passionnés de Jeux, Films et Séries Rétro">
+    <meta name="twitter:description" content="Rejoignez Passion Rétro, la communauté dédiée aux passionnés de jeux, films et séries des années 80 et 90. Découvrez des contenus exclusifs et partagez votre passion !">
+    <meta name="twitter:image" content="{% static 'images/logo.png' %}">
+    <meta name="twitter:site" content="@PassionRetro">
 
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/grid.css">
