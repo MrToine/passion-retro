@@ -43,7 +43,18 @@
                         </div>
                         <div class="forum-column-detail">
                             <span id="post-{{ post.id }}">{{ post.content|bbcode|safe|linebreaksbr }}</span>
-                            <a style="float:right" id="quote" target="{{ post.id }}" class="btn btn-small">Citer</a>
+                            <div class="footer-post" style="margin-top:50px;">
+                                <hr>
+                                <p style="padding: 10px;">{{ post.author.biography|bbcode|safe|linebreaksbr }}</p>
+                                {% if post.created|date:"Y-m-d H:i:s" != post.updated|date:"Y-m-d H:i:s" %}
+                                    <span style="font-style:italic;font-size: 0.8rem;">modifié le {{ post.updated }}</span>  
+                                {% endif %}
+                                <a style="float:right" id="quote" target="{{ post.id }}" class="btn btn-small">Citer</a>
+                                <!-- Ajouter ceci dans la boucle des posts, près des autres actions -->
+                                {% if request.user == post.author or request.user.is_staff %}
+                                    <a href="{% url 'edit_post' post.id %}" style="float:right" id="edit" target="{{ post.id }}" class="btn btn-small">Modifier</a>
+                                {% endif %}
+                            </div>                        
                         </div>
                     </div><br>
                 </div>

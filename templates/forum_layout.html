@@ -8,13 +8,13 @@
             <div class="col col-5">
                 <ul>
                     <li>{{ request.total_users }} utilisateurs enregistrés</li>
-                    <li>Bienvenue à notre dernier membre : <a href="#">{{ request.last_user.username }}</a></li>
+                    <li>Bienvenue à notre dernier membre : <a href="{% url 'profile' request.last_user.id %}">{{ request.last_user.username }}</a></li>
                 </ul>
             </div>
             <div class="col col-5">
                 <ul>
-                    <li>Bravo à <a href="#">{{ request.user_with_most_posts }}</a> qui compte {{ request.most_posts }} messages à son actif !</li>
-                    <li>Bravo à <a href="#">{{ request.user_with_most_topics }}</a> qui cumule {{ request.most_topics }} sujets !</li>
+                    <li>Bravo à <a href="{% url 'profile' request.user_with_most_posts.id %}">{{ request.user_with_most_posts }}</a> qui compte {{ request.most_posts }} messages à son actif !</li>
+                    <li>Bravo à <a href="{% url 'profile' request.user_with_most_topics.id %}">{{ request.user_with_most_topics }}</a> qui cumule {{ request.most_topics }} sujets !</li>
                 </ul>
             </div>
         </div>

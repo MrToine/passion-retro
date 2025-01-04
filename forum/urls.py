@@ -16,4 +16,5 @@ urlpatterns = [
     path("<int:forum_id>/<int:topic_id>/activate/", views.activate_topic, name="activate_topic"),
     path("<int:post_id>/deactivate/", views.deactivate_post, name="deactivate_post"),
     path("<int:post_id>/activate/", views.activate_post, name="activate_post"),
+    path('post/<int:post_id>/edit/', views.edit_post, name='edit_post'),
 ]

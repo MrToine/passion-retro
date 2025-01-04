@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.utils import timezone
 from .models import Category, Forum, Topic, Post, TopicRead
-from .forms import CreateTopic, CreatePost
+from .forms import CreateTopic, CreatePost, EditPost
 from django.db.models import Max
 from users.decorators import groups_required
 
@@ -273,3 +273,28 @@ def activate_topic(request, topic_id):
     topic.save()
     messages.success(request, 'Sujet activé avec succès.')
     return redirect('topic_list', forum_id=topic.forum.id)
+
+@login_required
+def edit_post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    
+    # Vérifier si l'utilisateur a le droit d'éditer
+    if not (request.user == post.author or request.user.groups.filter(name__in=['Administrateur', 'Super Admin']).exists()):
+        return HttpResponseForbidden("Vous n'êtes pas autorisé à éditer ce message.")
+    
+    if request.method == 'POST':
+        form = EditPost(request.POST)
+        if form.is_valid():
+            post.content = form.cleaned_data['content']
+            post.updated = timezone.now()
+            post.save()
+            messages.success(request, 'Message modifié avec succès.')
+            return redirect('post_list', forum_id=post.topic.forum.id, topic_id=post.topic.id)
+    else:
+        form = EditPost(initial={'content': post.content})
+    
+    context = {
+        'form': form,
+        'post': post
+    }
+    return render(request, "forum/edit_post.html", context)
