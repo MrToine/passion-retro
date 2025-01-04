@@ -1,8 +1,9 @@
 # yourapp/middleware.py
 
-from .models import User
-from django.utils.deprecation import MiddlewareMixin
+from django.core.cache import cache
 from django.utils import timezone
+from .models import User, VisitorStats
+from django.utils.deprecation import MiddlewareMixin
 
 class UserStatsMiddleware(MiddlewareMixin):
     def process_request(self, request):
@@ -12,11 +13,23 @@ class UserStatsMiddleware(MiddlewareMixin):
         # Dernier utilisateur inscrit
         last_user = User.objects.latest('date_joined') if total_users > 0 else None
         
-        # Nombre de visiteurs uniques actuels
-        visitor_count = 0
+        # Gestion des visiteurs actuels
+        current_time = timezone.now()
+        visitor_key = request.session.session_key or request.META.get('REMOTE_ADDR')
+        
+        # Mise à jour du cache des visiteurs actuels
+        active_visitors = cache.get('active_visitors', set())
+        active_visitors.add(visitor_key)
+        cache.set('active_visitors', active_visitors, 300)  # expire après 5 minutes
+        visitor_count = len(active_visitors)
 
-        # Nombre de visiteurs uniques depuis la création du site
-        total_visitor_count = 0
+        # Gestion du total des visiteurs
+        stats, created = VisitorStats.objects.get_or_create(pk=1)
+        if 'first_visit' not in request.session:
+            request.session['first_visit'] = True
+            stats.total_visitors += 1
+            stats.save()
+        total_visitor_count = stats.total_visitors
 
         # Si l'utilisateur est authentifié
         if request.user.is_authenticated:
