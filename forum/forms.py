@@ -21,3 +21,6 @@ class CreatePost(forms.Form):
         label='', 
         widget=forms.Textarea(attrs={'placeholder': 'Contenu du message'})
     )
+
+class EditPost(forms.Form):
+    content = forms.CharField(widget=forms.Textarea, label="Message")
