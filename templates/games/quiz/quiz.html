@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="quiz-title">{{ quiz.name }}</h2>
+    <ul class="breadcrumbs">
+        <li><a href="{% url 'portal_games' %}">Portail de jeux</a> »</li>
+        <li><a href="{% url 'quiz_home' %}">Quiz</a> »</li>
+        <li>{{ quiz.name }}</li>
+    </ul>
+
+    <form method="post" class="quiz-form">
+        {% csrf_token %}
+        {% for question in questions %}
+        <div class="quiz-question">
+            <div class="question-header">Question {{ forloop.counter }}</div>
+            <div class="question-content">
+                <h3>{{ question.question }}</h3>
+                <div class="choices-container">
+                    {% for choice in question.choices.all %}
+                    <div class="choice-item">
+                        <input type="radio" 
+                               name="question_{{ question.id }}" 
+                               value="{{ choice.id }}" 
+                               id="choice_{{ choice.id }}" 
+                               required>
+                        <label for="choice_{{ choice.id }}">
+                            {{ choice.choice }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="submit-container">
+            <button type="submit" class="submit-button">Valider mes réponses</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

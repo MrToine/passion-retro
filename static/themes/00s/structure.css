@@ -253,7 +253,7 @@ span.post-online {
 ul.breadcrumbs {
     display: flex;
     flex-direction: row;
-    font-size: 0.6rem;
+    font-size: 1rem;
     list-style-type: none;
     margin: 10px 0 10px 0;
 }
