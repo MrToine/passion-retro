@@ -3,8 +3,11 @@
 {% block content %}
     <div class="container">
         <h2>Portail des Jeux</h2>
+        <ul class="breadcrumbs">
+            <li><a href="{% url 'portal_games' %}">Portail de jeux</a></li>
+        </ul>
         <p>
-            Afin que les membres qui parcour ce site web aient aussi dequoi se divertir, vous avez la possibilité sur cette page de jouer à différents jeux online. Ces jeux ont été entièrement réalisé par le fondateur de passion-retro. Vous pouvez remarquer que les jeux rapporte des points, ce qui veux dire qu'un ladderboard existe ! Soyez le meilleur, et restez le !
+            Afin que les membres qui parcourent ce site web aient aussi dequoi se divertir, vous avez la possibilité sur cette page de jouer à différents jeux online. Ces jeux ont été entièrement réalisé par le fondateur de passion-retro. Vous pouvez remarquer que les jeux rapporte des points, ce qui veux dire qu'un ladderboard existe ! Soyez le meilleur, et restez le !
         </p>
         <div class="row">
             <div class="col-3">
@@ -12,6 +15,13 @@
                     <div class="header"><a href="{% url 'bac_games' %}">Le petit bac</a></div>
                     <div class="body">Le célèbre jeu du petit bac ! Le Petit Bac est un jeu où les joueurs trouvent des mots correspondant à des catégories spécifiques, en commençant par une lettre donnée, pour marquer des points.</div>
                     <div class="footer"><marquee>Jouer {{ nb_parties }} fois | Meilleur joueur : Toine | Dernière partie : {{ last_party.created }}</marquee></div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card-game">
+                    <div class="header"><a href="{% url 'quiz_home' %}">Quiz</a></div>
+                    <div class="body">Teste tes connaissances avec des quiz variés créés par nos utilisateurs. Que tu sois passionné par la culture générale, le sport, le cinéma, ou tout autre sujet, il y a forcément un quiz fait pour toi.</div>
+                    <div class="footer"><marquee></marquee></div>
                 </div>
             </div>
         </div>

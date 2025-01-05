@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Créer un quiz</h2>
+        <ul class="breadcrumbs">
+            <li><a href="{% url 'portal_games' %}">Portail de jeux</a> »</li>
+            <li><a href="{% url 'quiz_home' %}">Quiz</a> »</li>
+            <li>Créer un quiz</li>
+        </ul>
+        <p>
+            Créez un quiz pour tester les connaissances des autres membres de la communauté. Vous pouvez ajouter autant de questions que vous le souhaitez, et pour chaque question, autant de réponses que vous le souhaitez. Pour chaque question, une seule réponse est correcte.
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-add">Créer le quiz et ajouter des réponses</button>
+        </form>  
+    </div>
+{% endblock %}

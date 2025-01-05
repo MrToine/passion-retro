@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     "tchat",
     "guestbook",
     "games",
+    "quiz",
 ]
 
 SITE_ID = 1

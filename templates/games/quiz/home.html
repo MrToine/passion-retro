@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="container">
+    <h2>Liste des quiz</h2>
+    <ul class="breadcrumbs">
+        <li><a href="{% url 'portal_games' %}">Portail de jeux</a> »</li>
+        <li>Quiz</li>
+    </ul>
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'create_quiz' %}" class="btn btn-primary">Créer un quiz</a>
+    {% endif %}
+    <div class="row">
+        {% for quiz in quizes %}
+        <div class="col-5">
+            <div class="card-game">
+                <div class="header">
+                    <h3><a href="{% url 'quiz' quiz.id %}">{{ quiz.name }}</a></h3>
+                    {% if quiz.id in user_scores %}
+                        <span>Mon score: {{ user_scores|get_item:quiz.id }}/{{ quiz.questions.count }}</span>
+                    {% endif %}
+                </div>
+                <div class="body">
+                        <p>{{ quiz.description }}</p>
+                        <p>{{ quiz.questions.count }} questions</p>
+                </div>
+                <div class="footer">Créé par {{ quiz.author }} le {{ quiz.created }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <h3>Mes quiz</h3>
+    <table class="quiz">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Créé le</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for my_quiz in my_quizes %}
+                <tr>
+                    <td><a href="{% url 'quiz' my_quiz.id %}">{{ my_quiz.name }}</a></td>
+                    <td>{{ my_quiz.created }}</td>
+                    <td>
+                        {% if my_quiz.is_active %}
+                            <span style="color:green"">Publié</span>
+                        {% else %}
+                        <span style="color:orangered"">Non Publié</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'create_responses_quiz' my_quiz.id %}">Modifier</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

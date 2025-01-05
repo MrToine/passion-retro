@@ -86,3 +86,253 @@ table.bac td input:focus {
     border: none;
     background-color: transparent;
 }
+
+table.quiz, table.quiz th, table.quiz tr, table.quiz td {
+    border: 1px solid #fff;
+}
+
+table.quiz {
+    width: 90%;
+    margin: auto;
+    border-collapse: collapse;
+    margin-bottom: 50px;
+}
+
+table.quiz th {
+    background-color: black;
+}
+
+table.quiz th, table.quiz td {
+    text-align: center;
+    padding: 5px;
+}
+
+table.quiz td ul {
+    list-style-type: none;
+}
+
+.progress-circle {
+    position: relative;
+}
+.circular-chart {
+    display: block;
+    max-width: 100%;
+}
+.circular-chart path:nth-child(2) {
+    transition: stroke-dasharray 1s ease-in-out;
+}
+.score-details {
+    animation: fadeInUp 0.5s ease-out;
+    margin-bottom: 4;
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Quiz Results Styles */
+.quiz-result-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.quiz-result-card {
+    background-color: rgba(0, 153, 255, 0.1);
+    border: 1px solid #fff;
+    padding: 30px;
+    text-align: center;
+}
+
+.quiz-title {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.progress-circle-container {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.progress-circle {
+    width: 200px;
+    height: 200px;
+    position: relative;
+}
+
+.circular-chart {
+    display: block;
+    margin: 0 auto;
+    max-height: 200px;
+}
+
+.progress-path {
+    transition: stroke-dasharray 1s ease-in-out;
+}
+
+.progress-path.high { stroke: #00ff00; }
+.progress-path.medium { stroke: #ffff00; }
+.progress-path.low { stroke: #ff0000; }
+
+.percentage-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    color: #fff;
+}
+
+.score-details {
+    margin: 30px 0;
+}
+
+.score-details h3 {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.score-number {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.score-number.high { color: #00ff00; }
+.score-number.medium { color: #ffff00; }
+.score-number.low { color: #ff0000; }
+
+.score-message {
+    color: #fff;
+    font-size: 18px;
+    margin: 15px 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.score-details {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.quiz-score {
+    float: right;
+    color: #d89de2;
+    font-size: 0.9rem;
+    padding: 2px 5px;
+}
+
+/* Nouveaux styles pour la page quiz */
+.quiz-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.quiz-title {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.quiz-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.quiz-question {
+    background: rgba(0, 153, 255, 0.1);
+    border: 1px solid #fff;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.question-header {
+    background: rgba(0, 153, 255, 0.71);
+    padding: 10px 15px;
+    color: white;
+    font-weight: bold;
+    border-bottom: 1px solid #fff;
+}
+
+.question-content {
+    padding: 20px;
+}
+
+.question-content h3 {
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.choices-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 10px;
+}
+
+.choice-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.choice-item:hover {
+    background: rgba(0, 153, 255, 0.2);
+}
+
+.choice-item input[type="radio"] {
+    margin-right: 10px;
+}
+
+.choice-item label {
+    color: #fff;
+    cursor: pointer;
+    flex: 1;
+}
+
+.submit-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.submit-button {
+    background: rgba(0, 153, 255, 0.71);
+    color: white;
+    border: 1px solid #fff;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+    background: rgba(0, 153, 255, 0.9);
+    box-shadow: 0 0 15px rgba(0, 153, 255, 0.5);
+}

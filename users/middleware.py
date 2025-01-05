@@ -35,7 +35,7 @@ class UserStatsMiddleware(MiddlewareMixin):
         if request.user.is_authenticated:
             theme_active = request.user.theme
         else:
-            theme_active = 'default'
+            theme_active = '00s'
         
         # Ajouter les variables à l'objet request
         request.total_users = total_users
