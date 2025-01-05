@@ -130,6 +130,154 @@ p.date {
     font-size: 0.8rem;
 }
 
+/* Style du menu burger */
+.burger-menu {
+    display: none;
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(to bottom, #4c4c4c 0%, #2c2c2c 100%);
+    border: 1px solid #666;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.burger-icon {
+    background: none;
+    border: none;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.burger-icon span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        margin-top: 80px;
+    }
+
+    .burger-menu {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 10px;
+    }
+
+    .menu-horizontal {
+        display: none;
+        position: fixed;
+        top: 50px; /* Hauteur du burger menu */
+        left: 0;
+        width: 100%;
+        height: auto;
+        background: #000;
+        z-index: 999;
+    }
+
+    .menu-horizontal.active {
+        display: block;
+    }
+
+    .menu-horizontal ul {
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+    }
+
+    .menu-horizontal ul li {
+        width: 100%;
+        border-bottom: 1px solid #333;
+    }
+
+    .menu-horizontal ul li a {
+        padding: 15px;
+        display: block;
+        width: 100%;
+    }
+
+    /* Style des sous-menus sur mobile */
+    .menu-horizontal ul ul {
+        position: static;
+        display: none;
+        width: 100%;
+        background: #222;
+    }
+
+    .menu-horizontal li.active > ul {
+        display: block;
+    }
+
+    .menu-horizontal .dropdown {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+    }
+
+    .menu-horizontal .dropdown li {
+        padding-left: 20px; /* Indentation pour les sous-menus */
+    }
+
+    .menu-horizontal li:hover .dropdown {
+        display: none; /* Désactive l'affichage au hover sur mobile */
+    }
+
+    .menu-horizontal li.active .dropdown {
+        display: block;
+    }
+
+    /* Animation du burger quand actif */
+    .burger-menu.active .burger-icon span:first-child {
+        transform: rotate(45deg) translate(8px, 6px);
+    }
+
+    .burger-menu.active .burger-icon span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .burger-menu.active .burger-icon span:last-child {
+        transform: rotate(-45deg) translate(8px, -6px);
+    }
+
+    /* Styles des sous-menus sur mobile */
+    .menu-horizontal .dropdown {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        background: #222;
+    }
+
+    .menu-horizontal li:hover .dropdown {
+        display: none; /* Désactive l'affichage au hover sur mobile */
+    }
+
+    .menu-horizontal li.active .dropdown {
+        display: block; /* Affiche uniquement quand .active est présent */
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .burger-menu {
+        display: none;
+    }
+
+    .menu-horizontal {
+        display: block !important;
+    }
+}
+
 .post-card {
     border: 1px solid;
 }
