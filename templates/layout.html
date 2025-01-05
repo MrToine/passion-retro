@@ -98,7 +98,15 @@
                     </ul>
                 </div>
         {% else %}
-                <!-- On créer le même menu que au dessus mais en horizontal -->
+                <!-- Ajout du bouton burger -->
+                <div class="burger-menu">
+                    <button class="burger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+                <!-- Menu horizontal existant -->
                 <div class="menu-horizontal">
                     <ul>
                         <li><a href="{% url 'home' %}">Accueil</a></li>
@@ -332,6 +340,30 @@
                 notif.remove();
             }
         }, 10000);
+      </script>
+      <script>
+        // Ajouter l'event listener sur le burger menu
+        document.querySelector('.burger-icon').addEventListener('click', toggleMenu);
+
+        function toggleMenu() {
+            const menu = document.querySelector('.menu-horizontal');
+            const burger = document.querySelector('.burger-menu');
+            menu.classList.toggle('active');
+            burger.classList.toggle('active');
+        }
+
+        // Gérer les sous-menus sur mobile
+        document.querySelectorAll('.menu-horizontal > ul > li').forEach(item => {
+            opacity: 0;
+            if(window.innerWidth <= 768) {
+                item.addEventListener('click', (e) => {
+                    if(e.target.tagName === 'A' && item.querySelector('.dropdown')) {
+                        e.preventDefault();
+                        item.classList.toggle('active');
+                    }
+                });
+            }
+        });
       </script>
       <style>
         @keyframes moveStar {
