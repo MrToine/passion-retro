@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
+@login_required
 def home(request):
     quizes = Quiz.objects.filter(is_active=True)
     my_quizes = Quiz.objects.filter(author=request.user)
