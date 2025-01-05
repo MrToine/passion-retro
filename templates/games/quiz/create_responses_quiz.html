@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block extrajs %}
+    <script src="{% static 'js/games/quiz.js' %}" defer></script>
+{% endblock %} 
+
+{% block content %}
+    <div class="container">
+        <h2>{{ quiz.name }}</h2>
+        <ul class="breadcrumbs">
+            <li><a href="{% url 'portal_games' %}">Portail de jeux</a> »</li>
+            <li><a href="{% url 'quiz_home' %}">Quiz</a> »</li>
+            <li><a href="{% url 'quiz' quiz.id %}">{{ quiz.name }}</a> »</li>
+            <li>Création</li>
+        </ul>
+        <p>
+            Créez des questions pour votre quiz. Pour chaque question, vous pouvez ajouter autant de réponses que vous le souhaitez. Pour chaque question, une seule réponse est correcte.
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+            <div id="questions"></div>
+            <a class="btn btn-default btn-small" id="add-ask">Ajouter une question</a>
+            <button type="submit" class="btn btn-add">Mettre à jour le quiz</button>
+        </form>  
+        <h3>Questions existantes pour le quiz</h3>
+        <table class="quiz">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Réponses</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for question in quiz.questions.all %}
+                <tr>
+                    <td>{{ question.question }}</td>
+                    <td>
+                        <ul>
+                            {% for choice in question.choices.all %}
+                            <li style="{% if choice.is_correct %}color:green;{% else %}color:orange;{% endif %}">{{ choice.choice }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

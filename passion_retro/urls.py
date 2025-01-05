@@ -29,6 +29,7 @@ urlpatterns = [
     path("guestbook/", include("guestbook.urls")),
     path("gallery/", include("gallery.urls")),
     path("games/", include("games.urls")),
+    path("quiz/", include("quiz.urls")),
 
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]

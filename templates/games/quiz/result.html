@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ user_quiz.quiz.name }}</h2>
+    <ul class="breadcrumbs">
+        <li><a href="{% url 'portal_games' %}">Portail de jeux</a> »</li>
+        <li><a href="{% url 'quiz_home' %}">Quiz</a> »</li>
+        <li><a href="{% url 'quiz' user_quiz.quiz.id %}">{{ user_quiz.quiz.name }}</a> »</li>
+        <li>Résultas</li>
+    </ul>
+    <div class="quiz-result-card"> 
+        <!-- Progress Circle -->
+        <div class="progress-circle-container">
+            <div class="progress-circle">
+                <svg viewBox="0 0 36 36" class="circular-chart">
+                    <!-- Cercle de fond -->
+                    <path d="M18 2.0845
+                          a 15.9155 15.9155 0 0 1 0 31.831
+                          a 15.9155 15.9155 0 0 1 0 -31.831"
+                          stroke="#eee"
+                          fill="none"
+                          stroke-width="3"/>
+                    <!-- Cercle de progression -->
+                    <path d="M18 2.0845
+                          a 15.9155 15.9155 0 0 1 0 31.831
+                          a 15.9155 15.9155 0 0 1 0 -31.831"
+                          stroke-dasharray="{{ percentage }}, 100"
+                          class="progress-path {% if percentage >= 75 %}high{% elif percentage >= 50 %}medium{% else %}low{% endif %}"
+                          fill="none"
+                          stroke-width="3"/>
+                </svg>
+                <div class="percentage-text">
+                    {{ percentage|floatformat:0 }}%
+                </div>
+            </div>
+        </div>
+
+        <!-- Score Details -->
+        <div class="score-details">
+            <h3>Score final</h3>
+            <div class="score-number {% if percentage >= 75 %}high{% elif percentage >= 50 %}medium{% else %}low{% endif %}">
+                {{ user_quiz.score }} / {{ total_questions }}
+            </div>
+            <p class="score-message">
+                {% if percentage >= 75 %}
+                    🎉 Excellent travail !
+                {% elif percentage >= 50 %}
+                    🎯 Bon effort !
+                {% else %}
+                    💪 Continue tes efforts !
+                {% endif %}
+            </p>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+            <a href="{% url 'quiz_home' %}" class="btn btn-large">Retour aux quiz</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
