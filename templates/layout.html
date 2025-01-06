@@ -45,6 +45,11 @@
     {% block extrajs %}{% endblock %} 
 </head>
 <body>
+    {% if request.theme_active != '00s' %}
+        <div class="warning-announce-not-mobile-compatible">
+            Le design séléctionné n'est pas compatible avec les appareils mobiles. Veuillez choisir un autre design pour une meilleure expérience utilisateur.
+        </div>
+    {% endif %}
     <div class="banner-container">
         <div class="banner">
             <div class="galaxy-background"></div>
