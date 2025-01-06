@@ -76,7 +76,7 @@
                         <li><a href="{% url 'forum_home' %}">Forum</a></li>
                         <li>
                             <a href="{% url 'portal_games' %}" class="new-item-menu">Portail des jeux</a>
-                            {% if pending_quizes_count > 0 %}
+                            {% if request.user.is_staff and pending_quizes_count > 0 %}
                                 <span class="badge badge-warning">{{ pending_quizes_count }}</span>
                             {% endif %}
                         </li>
@@ -132,7 +132,7 @@
                         <li>
                             <a href="{% url 'portal_games' %}" class="new-item-menu">
                                 Portail des jeux
-                                {% if pending_quizes_count > 0 %}
+                                {% if request.user.is_staff and pending_quizes_count > 0 %}
                                     <span class="badge badge-warning">{{ pending_quizes_count }}</span>
                                 {% endif %}
                             </a>
