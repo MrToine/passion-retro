@@ -130,6 +130,12 @@ p.date {
     font-size: 0.8rem;
 }
 
+.badge {
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 2px;
+}
+
 /* Style du menu burger */
 .burger-menu {
     display: none;
