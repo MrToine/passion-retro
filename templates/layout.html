@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/gallery.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/post.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/games.css">
+    <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/pm.css">
     <script src="{% static 'js/utils/bbcode_display.js' %}"></script>
     <script src="{% static 'js/utils/functions.js' %}"></script>
     <script src="{% static 'js/utils/multiple_posts.js' %}" defer></script>
@@ -75,7 +76,7 @@
                         <li><a href="{% url 'home' %}">Accueil</a></li>
                         <li><a href="{% url 'forum_home' %}">Forum</a></li>
                         <li>
-                            <a href="{% url 'portal_games' %}" class="new-item-menu">Portail des jeux</a>
+                            <a href="{% url 'portal_games' %}">Portail des jeux</a>
                             {% if request.user.is_staff and pending_quizes_count > 0 %}
                                 <span class="badge badge-warning">{{ pending_quizes_count }}</span>
                             {% endif %}
@@ -195,6 +196,12 @@
                         <center><img src="/media/{{ request.user.avatar }}" style="width:150px;" alt="Avatar de {{ request.user.username }}"></center>
                         <li>Bonjour <strong>{{ request.user.username }}</strong></li>
                         <li><a href="{% url 'profile' %}">Mon Profil</a></li>
+                        <li>
+                            <a href="{% url 'pm_home' %}" class="new-item-menu">Messagerie privée</a>
+                            {% if pending_pm_count > 0 %}
+                                <span class="badge badge-warning">{{ pending_pm_count }}</span>
+                            {% endif %}
+                        </li>
                         <li><a href="{% url 'contributions' %}">Mes contributions</a></li>
                         <li>
                             <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
