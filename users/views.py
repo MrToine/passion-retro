@@ -12,7 +12,8 @@ from django.conf import settings
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
-from .models import User
+from .models import User, UserLevel
+from django.db.models import F
 import urllib.request
 import json
 
@@ -165,11 +166,26 @@ def login(request):
     return render(request, 'users/login.html', {'form': form})
 
 def profile(request):
-    return render(request, 'users/profile.html')
+    from forum.models import Topic, Post
+    from posts.models import Post
+    user = User.objects.get(id=request.user.id)
+    # On compte le nombre de topics du forum de l'utilisateur
+    topics = Topic.objects.filter(author=user).count()
+    forum_posts = Post.objects.filter(author=user).count()
+    posts = Post.objects.filter(author=user).count()
+
+    return render(request, 'users/profile.html', { 'user': user, 'topics': topics, 'forum_posts': forum_posts, 'posts': posts })
 
 def another_profile(request, user_id):
+    from forum.models import Topic, Post
+    from posts.models import Post
     user = User.objects.get(id=user_id)
-    return render(request, 'users/profile.html', {'user': user})
+    # On compte le nombre de topics du forum de l'utilisateur
+    topics = Topic.objects.filter(author=user).count()
+    forum_posts = Post.objects.filter(author=user).count()
+    posts = Post.objects.filter(author=user).count()
+
+    return render(request, 'users/profile.html', {'user': user, 'topics': topics, 'forum_posts': forum_posts, 'posts': posts})
 
 @login_required(login_url='login')
 def profile_update(request):
@@ -211,6 +227,7 @@ def form_contribute(request, type):
                 parent=True
             )
             posts.append(parent_post)
+            UserLevel.objects.update(user=request.user, experience=F('experience') + 10)
 
         # Vérifie si des articles dynamiques existent (type_form = multiple)
         type_form = request.POST.get('type_form')
@@ -239,6 +256,7 @@ def form_contribute(request, type):
                             post_parent=parent_post
                         )
                         posts.append(child_post)
+                        UserLevel.objects.update(user=request.user, experience=F('experience') + 5)
 
         messages.success(request, "Vos articles ont été soumis avec succès !")
 
@@ -253,3 +271,10 @@ def contributions(request):
     posts = Post.objects.filter(author=request.user)
 
     return render(request, "users/contributions.html", {'posts':posts})
+
+@login_required
+def new_feature_user_level(request):
+    # On créer une entree dans la table user_level pour l'utilisateur si il n'en a pas
+    if not request.user.level:
+        request.user.levels.create(level=1)
+    return render(request, "features/new_feature_user_level.html")

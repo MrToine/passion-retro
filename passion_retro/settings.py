@@ -83,6 +83,8 @@ MIDDLEWARE = [
     "guestbook.middleware.GuestbookMiddleware",
     "posts.middleware.PostsMiddleware",
     'maintenance.middleware.MaintenanceMiddleware',
+    "users.middleware.UserLevelMiddleware",
+    "users.middleware.UserLevelUpMiddleware",
 ]
 
 ROOT_URLCONF = "passion_retro.urls"

@@ -1,9 +1,40 @@
 # yourapp/middleware.py
-
+from django.shortcuts import redirect
 from django.core.cache import cache
 from django.utils import timezone
 from .models import User, VisitorStats
 from django.utils.deprecation import MiddlewareMixin
+from django.contrib import messages
+
+# On vérifie que l'user existe dans la table  user_level. Si pas, on le redirige vers la page tuto de la nouvelle feature
+class UserLevelMiddleware(MiddlewareMixin):
+    # On vérifie que l'on est pas sur la page de tuto de la nouvelle feature
+    def process_request(self, request):
+        print(request.path)
+        if request.path != '/users/new/feature/leveling':
+            if request.user.is_authenticated:
+                if not request.user.levels.exists():
+                    return redirect('new_feature_user_level')
+
+class UserLevelUpMiddleware(MiddlewareMixin):
+    def process_request(self, request):
+        # On augmente le niveau de l'utilisateur si son expérience est suffisante. level 2: 100xp, pour les levels suivants: (level * 10) + (level + 20)
+        if request.user.is_authenticated:
+            user = request.user
+            user_level = user.level  # Accède à l'objet UserLevel associé à l'utilisateur
+            
+            # Calcul de l'XP requise pour le prochain niveau
+            def xp_required(level):
+                return int(33.33 * (level ** 2) - 16.66 * level)
+
+            if user_level.experience >= xp_required(user_level.level):
+                user_level.level += 1
+                user_level.save()
+                messages.success(request, f"Bravo ! Vous avez atteint le niveau {user_level.level} !")
+        
+            # On affiche l'experience restante pour le prochain niveau
+            if user_level:
+                request.user.experience_left = xp_required(user_level.level) - user_level.experience
 
 class UserStatsMiddleware(MiddlewareMixin):
     def process_request(self, request):

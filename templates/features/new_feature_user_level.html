@@ -1,0 +1,153 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <style>
+        .firework {
+            position: absolute;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+            z-index: 1000;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty));
+                opacity: 0;
+            }
+        }
+
+        .rocket {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .rocket::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(to top, transparent, #fff);
+            bottom: 2px;
+            left: 1px;
+        }
+
+        @keyframes rocketUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            90% {
+                transform: translateY(var(--targetY)) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(var(--targetY)) scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+
+    <div class="fireworks-container"></div>
+    <div class="container">
+        <h2>Nouveauté !</h2>
+        <div style="float:right;margin:5px;"><img src="/static/img/retrobot.png" style="max-width: 200px;border-bottom:3px solid black;" alt="RetroBot"></div>
+        <p style="font-size:1.2rem">
+            C'est nouveau sur notre site ! Les utilisateurs ont désormais un level !<br>
+            Comme dans les RPG d'antan, vous pouvez monter de level en participant activement au site.<br>
+            Plus vous participez, plus vous montez en level !<br>
+            <br>
+            <strong>Votre level actuel est : {{ user.level.level }}</strong><br>
+            <br>
+            Vous pouvez voir votre level sur votre profil, et celui des autres utilisateurs sur leur profil.<br>
+        </p>
+        <h3 style="color:red">Dans la prochaine mise à jour</h3>
+        <div style="background-color:rgb(176, 230, 159);border:1px solid rgb(0, 234, 255)">
+            <p style="font-size:1.2rem">
+                En plus d'un level, chaque membres aura desormais un inventaire !<br>
+                Celui-ci vous permettra d'y voir en un clin d'oeil tout ce que vous avez débloqué sur le site. Car oui, en plus d'un level, vous obtiendrez de l'argent virtuel que vous pourrez dépenser dans une boutique dédiée !<br>
+            </p>
+        </div>
+        <p style="font-size: 1.2rem;font-weight: 800;">
+            Votre  ami, Sir. RetroBot IV
+        </p>
+        <center><a href="/" class="btn btn-default btn-large">Retourner sur le site</a></center><br>
+    </div>
+
+    <script>
+        function createRocket() {
+            const rocket = document.createElement('div');
+            rocket.className = 'rocket';
+            
+            const startX = Math.random() * window.innerWidth;
+            const startY = window.innerHeight;
+            const targetY = -(Math.random() * 400 + 200);
+            
+            rocket.style.left = startX + 'px';
+            rocket.style.bottom = '0';
+            rocket.style.setProperty('--targetY', targetY + 'px');
+            
+            document.querySelector('.fireworks-container').appendChild(rocket);
+            
+            rocket.style.animation = 'rocketUp 1s ease-out forwards';
+            
+            rocket.addEventListener('animationend', () => {
+                createFirework(startX, window.innerHeight + targetY);
+                rocket.remove();
+            });
+        }
+
+        function createFirework(x, y) {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.left = x + 'px';
+            firework.style.top = y + 'px';
+
+            const colors = ['#ff00ff', '#00ffff', '#ffff00', '#ff0000', '#00ff00'];
+
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const angle = (i / 30) * Math.PI * 2;
+                const velocity = 50 + Math.random() * 50;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+                
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                
+                firework.appendChild(particle);
+            }
+
+            document.querySelector('.fireworks-container').appendChild(firework);
+            setTimeout(() => firework.remove(), 500);
+        }
+
+        // Lancer des fusées et des feux d'artifice
+        setInterval(() => {
+            if (Math.random() < 0.5) {
+                createRocket();
+            } else {
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * (window.innerHeight / 2);
+                createFirework(x, y);
+            }
+        }, 500);
+    </script>
+{% endblock %}

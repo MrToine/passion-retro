@@ -6,8 +6,9 @@ from django.http import HttpResponseForbidden
 from django.utils import timezone
 from .models import Category, Forum, Topic, Post, TopicRead
 from .forms import CreateTopic, CreatePost, EditPost
-from django.db.models import Max
+from django.db.models import Max, F
 from users.decorators import groups_required
+from users.models import UserLevel
 
 def forum_home(request):
     categories = Category.objects.all()
@@ -167,6 +168,7 @@ def create_topic(request, forum_id):
         topic.save()
         post.save()
         messages.success(request, 'Topic créer avec succès.')
+        UserLevel.objects.update(user=request.user, experience=F('experience') + 15)
         # on renvoie l'utilisateur sur la page du topic contenu l'id du forum et du topic créer
         return redirect('post_list', forum_id=forum_id, topic_id=topic.id)
     
@@ -191,6 +193,7 @@ def topic_detail(request, topic_id, forum_id):
                 content=post_form.cleaned_data['content'],
             )
             post.save()
+            UserLevel.objects.update(user=request.user, experience=F('experience') + 10)
             messages.success(request, 'Message posté avec succès.')
     
     topic = Topic.objects.get(id=topic_id)

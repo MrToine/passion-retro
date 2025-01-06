@@ -5,15 +5,85 @@
         {% block profile-nav %}
             {% include "../components/profile_nav.html" %}
         {% endblock %}
-        <div class="profile-details">
-            <p><strong>Username:</strong> {{ user.username }}</p>
-            <p><strong>Nom complet:</strong> {{ user.profile.first_name }} {{ user.profile.last_name }}</p>
-            <p><strong>Inscription:</strong> {{ user.date_joined|date:" d F Y à H:i" }}</p>
-            <p><strong>Bio:</strong> {{ user.biography|bbcode|safe|linebreaksbr }}</p>
+
+        <div class="profile-grid">
+            <!-- Colonne de gauche -->
+            <div class="profile-main">
+                <div class="profile-header">
+                    <div class="avatar-container">
+                        <div class="level-badge">
+                            <span class="level-text">LEVEL</span>
+                            <span class="level-number">{{ user.level.level }}</span>
+                        </div>
+                    </div>
+                    <div class="profile-info">
+                        <h2 class="username">{{ user.username }}</h2>
+                        {% if user == request.user %}
+                            Prochain niveau: {{ request.user.experience_left }} XP
+                        {% endif %}
+                        <p class="joined-date">Membre depuis le {{ user.date_joined|date:"d F Y" }}</p>
+                        {% if user.first_name or user.last_name %}
+                            <p class="real-name">{{ user.first_name }} {{ user.last_name }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="profile-bio">
+                    <h3>Biographie</h3>
+                    <div class="bio-content">
+                        {{ user.biography|bbcode|safe|linebreaksbr|default:"Aucune biographie disponible" }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonne de droite -->
+            <div class="profile-stats">
+                <div class="stats-card">
+                    <h3>Statistiques</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-value">{{ forum_posts }}</span>
+                            <span class="stat-label">Messages</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">{{ topics }}</span>
+                            <span class="stat-label">Sujets</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">{{ posts }}</span>
+                            <span class="stat-label">Articles</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">{{ user.level.experience }}</span>
+                            <span class="stat-label">XP</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">{{ user.level.coins }}</span>
+                            <span class="stat-label">Pièces</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="achievements-card">
+                    <h3>Badges</h3>
+                    <div class="achievements-grid">
+                        {% for badge in user.badges.all %}
+                            <div class="badge-item" title="{{ badge.description }}">
+                                <img src="{{ badge.image.url }}" alt="{{ badge.name }}">
+                                <span class="badge-name">{{ badge.name }}</span>
+                            </div>
+                        {% empty %}
+                            <p class="no-badges">Aucun badge pour le moment</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
+
         {% if user.id == request.user.id %}
             <div class="profile-actions">
-                <a href="{% url 'profile_update' %}" class="btn btn-primary">Modifier le profil publique</a><br><br>
+                <a href="{% url 'profile_update' %}" class="btn btn-default">Modifier le profil</a>
+                <a href="" class="btn btn-warning">Voir l'inventaire</a>
             </div>
         {% endif %}
     </div>
