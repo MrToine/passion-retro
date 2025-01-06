@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from posts.models import Post
 from forum.models import Topic, Forum, Post as ForumPost
+from users.models import UserLevel
 from django.contrib import messages
 from users.decorators import groups_required
 from posts.forms import CreatePost, EditPost
@@ -45,6 +46,8 @@ def create_post(request, type):
                 content=content_forum,
                 author=request.user
             )
+
+            UserLevel.objects.update(user=request.user, experience=F('experience') + 20)
 
             topic.save()
             forum_post.save()

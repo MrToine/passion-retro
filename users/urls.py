@@ -15,5 +15,7 @@ urlpatterns = [
     path("profile/<str:user_id>/", views.another_profile, name="profile"),
     path("contribute/", views.contribute, name="contribute"),
     path("contribute/<str:type>/", views.form_contribute, name="form_contribute"),
+    path("new/feature/leveling", views.new_feature_user_level, name="new_feature_user_level"),
+
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
