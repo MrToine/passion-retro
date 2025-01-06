@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.table {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto 10px auto;
+    background: rgba(0, 0, 51, 0.7);
+    border: 2px solid #ff00ff;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+    padding: 10px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.table .header {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    border-bottom: 2px solid #00ffff;
+    font-weight: 800;
+    font-size: 0.8rem;
+    color: #00ffff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+    padding: 10px 0;
+}
+
+.table .body {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+    color: #ffffff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    padding: 8px 0;
+    transition: background-color 0.3s ease;
+    font-size: 0.7rem;
+}
+
+.table .body:hover {
+    background: rgba(255, 0, 255, 0.1);
+    cursor: pointer;
+}
+
+.new-message {
+    display: inline-block;
+    color: #000000;
+    background-color: #ff00ff;
+    border: 1px solid #ff00ff;
+    font-size: 0.5rem;
+    margin-right: 10px;
+    padding: 3px 6px;
+    border-radius: 2px;
+    text-shadow: none;
+    box-shadow: 0 0 5px rgba(255, 0, 255, 0.8);
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px rgba(255, 0, 255, 0.8);
+    }
+    to {
+        box-shadow: 0 0 10px rgba(255, 0, 255, 1);
+    }
+}

@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     "guestbook",
     "games",
     "quiz",
+    "messagerie",
 ]
 
 SITE_ID = 1
@@ -99,6 +100,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "posts.context_processors.pending_posts_count",
                 "quiz.context_processors.pending_quizes_count",
+                "messagerie.context_processors.pending_pm_count",
             ],
         },
     },

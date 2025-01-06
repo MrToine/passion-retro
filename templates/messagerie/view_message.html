@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% load forum_extras %}
+{% load users_custom_tags %}
+{% load paginator_tag %}
+{% load bbcode_tags %}
+
+{% block content %}
+    <div class="container">
+        <h2>Messagerie privée</h2>
+        <h3>{{ pm_message.subject }}</h3>
+        {% for message in private_messages %}
+            <div class="forum">
+                <div class="forum-header" id="{{ message.id }}">
+                    <div class="forum-column-detail">
+                        <div class="row">
+                            le {{ message.date_sent }}
+                        </div>
+                    </div>
+                </div>
+                <div class="forum-body">
+                    <div class="forum-row">
+                        <div class="forum-column-detail details">
+                            <center><img src="/media/{{ message.author.avatar }}" style="width:100px;" alt="Avatar de {{ message.author.username }}"></center>
+                            <small>
+                                <ul>
+                                    <li style="font-size:1.2rem;">
+                                        <center>{{ message.author.username }}</center>
+                                    </li>
+                                </ul>
+                            </small>
+                        </div>
+                        <div class="forum-column-detail">
+                            <span id="message-{{ message.id }}">{{ message.message|bbcode|safe|linebreaksbr }}</span>
+                            <div class="footer-message" style="margin-top:50px;">
+                                <hr>
+                                <p style="padding: 10px;">{{ message.author.biography|bbcode|safe|linebreaksbr }}</p>
+                                {% if message.created|date:"Y-m-d H:i:s" != message.updated|date:"Y-m-d H:i:s" %}
+                                    <span style="font-style:italic;font-size: 0.8rem;">modifié le {{ message.updated }}</span>  
+                                {% endif %}
+                            </div>                        
+                        </div>
+                    </div><br>
+                </div>
+            </div>
+        {% endfor %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button>Envoyer</button>
+        </form>
+    </div>
+{% endblock %}

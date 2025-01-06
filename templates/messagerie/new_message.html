@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Nouveau message</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form_subject.as_p }}
+            {{ form_message.as_p }}
+            <button>Envoyer</button>
+        </form>
+    </div>
+{% endblock %}

@@ -17,6 +17,7 @@ import urllib.request
 import json
 
 def register(request):
+    from messagerie.models import PrivateMessageSubject, PrivateMessage
     if request.user.is_authenticated:
         return redirect('profile')
     
@@ -40,10 +41,39 @@ def register(request):
                     username=form.cleaned_data['username'],
                     email=form.cleaned_data['email'],
                     password=form.cleaned_data['password1'],
+                    theme='00s',
                     active=True
                 )
 
                 messages.success(request, f"Bonjour et bienvenue {user.username} ! Ton compte à été créer avec succès. Tu peux désormais te connecter.")
+
+                subject = PrivateMessageSubject.objects.create(
+                    receiver=user,
+                    sender=User.objects.get(username='RetroBot'),
+                    subject="Bienvenue sur PassionRetro !"
+                )
+
+                PrivateMessage.objects.create(
+                    subject=subject,
+                    author=User.objects.get(username='RetroBot'),
+                    message=f"""[b]Bienvenue sur Passion Retro ![/b]
+
+Salut [b]{user.username}[/b] !,
+
+Merci de nous avoir rejoints dans cette aventure dédiée aux passionnés de rétro ! Que tu sois fan de consoles vintage, collectionneur d'objets d'époque ou simple curieux, tu es ici chez toi. 
+
+✨ [b]Découvre tout ce que Passion Retro a à offrir :[/b]  
+Plonge dans nos articles pour en apprendre plus sur les trésors du passé, participe aux discussions sur le forum et teste tes connaissances avec nos jeux rétro. Chaque section est là pour te permettre de partager ta passion et d'en apprendre davantage.  
+
+🚀 [b]Rejoins la communauté :[/b]  
+Ton avis et tes contributions sont précieux ! N’hésite pas à lancer une discussion sur le forum, à réagir aux articles ou à défier les autres membres sur nos jeux. Plus nous sommes actifs, plus l’expérience sera enrichissante pour tous.  
+
+Si tu as des questions ou des suggestions pour améliorer le site, contacte-nous. Nous sommes là pour t'accompagner !  
+
+Encore une fois, bienvenue parmi nous et prépare-toi à replonger dans l’univers du rétro !  
+
+À bientôt,  
+[b]L'équipe Passion Retro[/b]""")
 
                 return redirect('login')
             else:
