@@ -1,0 +1,86 @@
+.profile-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.profile-header {
+    background-color: #1a1b2e;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.level-badge {
+    background: linear-gradient(135deg, #7e3ace, #6425c9);
+    color: #ffffff;
+    border-radius: 50%;
+    padding: 0.5rem;
+}
+
+.profile-info .username {
+    color: #8a2be2;
+    font-size: 1.8rem;
+}
+
+.profile-bio {
+    background-color: #1a1b2e;
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.stats-card, .achievements-card {
+    background-color: #1a1b2e;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-item {
+    background-color: #242642;
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.stat-value {
+    color: #8a2be2;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.badge-item {
+    background-color: #242642;
+    border-radius: 6px;
+    padding: 0.8rem;
+    transition: transform 0.2s;
+}
+
+.badge-item:hover {
+    transform: translateY(-2px);
+    background-color: #2f325a;
+}
+
+.profile-actions .btn-primary {
+    background-color: #8a2be2;
+    border: none;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+.profile-actions .btn-primary:hover {
+    background-color: #7e3ace;
+}
+
+.profile-actions .btn-secondary {
+    background-color: #242642;
+    border: 1px solid #8a2be2;
+    color: #8a2be2;
+    transition: all 0.2s;
+}
+
+.profile-actions .btn-secondary:hover {
+    background-color: #8a2be2;
+    color: white;
+}
