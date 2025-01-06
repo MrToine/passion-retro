@@ -19,7 +19,12 @@
             </div>
             <div class="col-3">
                 <div class="card-game">
-                    <div class="header"><a href="{% url 'quiz_home' %}">Quiz</a></div>
+                    <div class="header">
+                        <a href="{% url 'quiz_home' %}">Quiz</a>
+                        {% if pending_quizes_count > 0 %}
+                            <span class="badge badge-warning">{{ pending_quizes_count }}</span>
+                        {% endif %}
+                    </div>
                     <div class="body">Teste tes connaissances avec des quiz variés créés par nos utilisateurs. Que tu sois passionné par la culture générale, le sport, le cinéma, ou tout autre sujet, il y a forcément un quiz fait pour toi.</div>
                     <div class="footer"><marquee></marquee></div>
                 </div>

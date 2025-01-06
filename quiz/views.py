@@ -7,6 +7,10 @@ from .forms import *
 def home(request):
     quizes = Quiz.objects.filter(is_active=True)
     my_quizes = Quiz.objects.filter(author=request.user)
+
+    if request.user.is_superuser:
+        quizes = Quiz.objects.all()
+    
     
     # Récupérer les meilleurs scores de l'utilisateur pour chaque quiz
     user_scores = {}

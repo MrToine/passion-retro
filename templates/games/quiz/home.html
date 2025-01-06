@@ -11,12 +11,20 @@
     {% if request.user.is_authenticated %}
         <a href="{% url 'create_quiz' %}" class="btn btn-primary">Créer un quiz</a>
     {% endif %}
+    {% if pending_quizes_count > 0 %}
+        <a href="/admin/quiz/quiz/" class="btn btn-warning">Activer {{ pending_quizes_count }} quizes</a>
+    {% endif %}
     <div class="row">
         {% for quiz in quizes %}
         <div class="col-5">
-            <div class="card-game">
+            <div class="card-game {% if not quiz.is_active %}deactivate{% endif %}">
                 <div class="header">
-                    <h3><a href="{% url 'quiz' quiz.id %}">{{ quiz.name }}</a></h3>
+                    <h3>
+                        <a href="{% url 'quiz' quiz.id %}">{{ quiz.name }}</a>
+                        {% if not quiz.is_active %}
+                            <span style="color:red">Non Publié</span>
+                        {% endif %}
+                    </h3>
                     {% if quiz.id in user_scores %}
                         <span>Mon score: {{ user_scores|get_item:quiz.id }}/{{ quiz.questions.count }}</span>
                     {% endif %}

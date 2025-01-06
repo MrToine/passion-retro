@@ -97,7 +97,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "posts.context_processors.pending_posts_count"
+                "posts.context_processors.pending_posts_count",
+                "quiz.context_processors.pending_quizes_count",
             ],
         },
     },
