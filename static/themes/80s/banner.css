@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Piedra&family=Press+Start+2P&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 .banner {
     width: 100%;
     min-width: 1000px;
-    height: 140px;
+    height: 300px;
     background: linear-gradient(180deg, #000033 0%, #330066 100%);
     border-top: 3px solid #ff00ff;
     border-bottom: 3px solid #00ffff;
@@ -16,6 +16,75 @@
     margin: auto;
 }
 
+/* Soleil rétro */
+.sun {
+    position: absolute;
+    top: 12%;  /* Ajusté pour mieux positionner le soleil plus grand */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px; /* Doublé la largeur */
+    height: 200px; /* Doublé la hauteur */
+    background: linear-gradient(to top, #ff6b6b, #ffd93d);
+    border-radius: 200px 200px 0 0; /* Ajusté pour maintenir la forme en demi-cercle */
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Barres horizontales du soleil */
+.sun::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 10%,
+        rgba(0, 0, 0, 0.2) 10%,
+        rgba(0, 0, 0, 0.2) 20%
+    );
+    mask: linear-gradient(
+        to bottom,
+        transparent,
+        black 50%
+    );
+    -webkit-mask: linear-gradient(
+        to bottom,
+        transparent,
+        black 50%
+    );
+}
+
+/* Grille au sol */
+.grid {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    background: 
+        linear-gradient(to top, 
+            rgba(255, 0, 255, 1) 0%,
+            rgba(255, 0, 255, 0) 100%
+        ),
+        linear-gradient(
+            90deg,
+            rgb(255, 255, 255) 1px,
+            transparent 1px
+        ) 0 0,
+        linear-gradient(
+            rgb(255, 255, 255) 1px,
+            transparent 1px
+        ) 0 0;
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+    transform: perspective(500px) rotateX(60deg);
+    transform-origin: bottom;
+    z-index: 2;
+}
+
+/* Arrière-plan galaxie */
 .galaxy-background {
     position: absolute;
     top: 0;
@@ -27,68 +96,11 @@
             rgba(255, 0, 255, 0.1) 0%, 
             rgba(0, 255, 255, 0.1) 100%
         ),
-        linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%),
-        repeating-linear-gradient(
-            0deg,
-            transparent 0%,
-            transparent 1px,
-            rgba(255, 0, 255, 0.3) 1px,
-            rgba(255, 0, 255, 0.3) 2px
-        ),
-        repeating-linear-gradient(
-            90deg,
-            transparent 0%,
-            transparent 1px,
-            rgba(0, 255, 255, 0.3) 1px,
-            rgba(0, 255, 255, 0.3) 2px
-        );
-    transform: perspective(500px) rotateX(45deg);
-    transform-origin: center 100%;
-    animation: grid-animation 20s linear infinite;
+        linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+    z-index: 0;
 }
 
-@keyframes grid-animation {
-    from {
-        background-position: 0 0, 0 0, 0 0, 0 0;
-    }
-    to {
-        background-position: 0 0, 0 0, 0 20px, 20px 0;
-    }
-}
-
-.big-shooting-star {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 10px;
-    height: 10px;
-    background: white;
-    box-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white;
-    border-radius: 50%;
-    opacity: 0;
-    animation: big-shooting-star linear infinite;
-}
-
-@keyframes big-shooting-star {
-    0% {
-        transform: translate(0, 0);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(var(--endX), var(--endY));
-        opacity: 1;
-    }
-}
-
-@keyframes galaxy-animation {
-    from {
-      background-position: 0 0, 0 0;
-    }
-    to {
-      background-position: 0 0, 0 -200px;
-    }
-}
-
+/* Texte principal */
 .banner-text {
     font-family: 'Press Start 2P', cursive;
     word-spacing: 10px;
@@ -99,32 +111,17 @@
         -3px -3px 0 #ff00ff,
         0 0 10px rgba(255, 0, 255, 0.8),
         0 0 20px rgba(0, 255, 255, 0.8);
-    z-index: 1;
+    z-index: 2;
     position: relative;
+    animation: text-flicker 2s infinite;
 }
 
-.banner-text span {
-    animation: twinkle 3s ease-in-out infinite;
-    animation-delay: calc(var(--char-index) * 0.1s);
+@keyframes text-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
 }
 
-@keyframes twinkle {
-    0%, 100% {
-      opacity: 1;
-      text-shadow: 
-        2px 2px 4px rgba(255, 255, 255, 0.5),
-        -2px -2px 4px rgba(0, 0, 0, 0.5),
-        0 0 10px rgba(255, 255, 255, 0.3);
-    }
-    50% {
-      opacity: 0.8;
-      text-shadow: 
-        1px 1px 2px rgba(255, 255, 255, 0.3),
-        -1px -1px 2px rgba(0, 0, 0, 0.3),
-        0 0 5px rgba(255, 255, 255, 0.2);
-    }
-}
-
+/* Slogan */
 .slogan {
     color: #00ffff;
     font-family: 'Press Start 2P', cursive;
@@ -139,13 +136,123 @@
 }
 
 @keyframes slide {
-    0% {
-        transform: translateX(100%);
+    0% { transform: translateX(100%); }
+    50% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Vaisseau spatial */
+.spaceship {
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    z-index: 3;
+    animation: fly 15s linear infinite;
+}
+
+/* Corps principal du vaisseau */
+.spaceship::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ff00ff 0%, #00ffff 100%);
+    clip-path: polygon(
+        100% 50%,   /* Point droit */
+        80% 20%,    /* Haut droit */
+        60% 20%,    /* Haut milieu arrière */
+        40% 0%,     /* Pointe avant */
+        20% 20%,    /* Haut milieu avant */
+        0% 30%,     /* Haut avant */
+        0% 70%,     /* Bas avant */
+        20% 80%,    /* Bas milieu avant */
+        40% 100%,   /* Pointe arrière */
+        60% 80%,    /* Bas milieu arrière */
+        80% 80%     /* Bas droit */
+    );
+    filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.8));
+}
+
+/* Cockpit */
+.spaceship::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    right: 40%;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 255, 255, 0.8);
+    border-radius: 50%;
+    box-shadow: 
+        0 0 10px #00ffff,
+        inset 0 0 5px #ffffff;
+}
+
+/* Réacteur */
+.spaceship .engine {
+    position: absolute;
+    left: -15px;
+    right: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 10px;
+    overflow: hidden;
+}
+
+.spaceship .engine::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-90deg, #ff6b6b, #ffd93d); /* Direction inversée */
+    animation: thrust 0.2s linear infinite;
+    clip-path: polygon(
+        0 0,
+        100% 50%,
+        0 100%
+    );
+    transform: rotate(180deg); /* Rotation complète au lieu du scaleX */
+    filter: blur(2px);
+}
+
+@keyframes thrust {
+    0%, 100% {
+        opacity: 1;
+        transform: rotate(180deg) scaleX(1);
     }
     50% {
-        transform: translateX(-100%);
+        opacity: 0.5;
+        transform: rotate(180deg) scaleX(0.8);
+    }
+}
+
+@keyframes fly {
+    0% {
+        right: -100px;
+        top: 30%;
+        transform: rotate(175deg);
+    }
+    25% {
+        right: 25%;
+        top: 20%;
+        transform: rotate(185deg);
+    }
+    50% {
+        right: 50%;
+        top: 15%;
+        transform: rotate(175deg);
+    }
+    75% {
+        right: 75%;
+        top: 25%;
+        transform: rotate(185deg);
     }
     100% {
-        transform: translateX(100%);
+        right: 100%;
+        top: 30%;
+        transform: rotate(175deg);
     }
 }

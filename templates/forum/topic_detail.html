@@ -52,7 +52,7 @@
                                 <a style="float:right" id="quote" target="{{ post.id }}" class="btn btn-small">Citer</a>
                                 <!-- Ajouter ceci dans la boucle des posts, près des autres actions -->
                                 {% if request.user == post.author or request.user.is_staff %}
-                                    <a href="{% url 'forum_edit_post' post.id %}" style="float:right" id="edit" target="{{ post.id }}" class="btn btn-small">Modifier</a>
+                                    <a href="{% url 'forum_edit_post' post.id %}" style="float:right" id="edit" class="btn btn-small">Modifier</a>
                                 {% endif %}
                             </div>                        
                         </div>
