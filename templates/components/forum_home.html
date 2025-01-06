@@ -23,7 +23,7 @@
                                     <a href="{% url 'topic_list' forum.id %}">{{ forum.name }}</a>
                                 {% endif %}
                                 <br>
-                                <small>{{ forum.description|safe }}</small>
+                                <span class="forum-description"><small>{{ forum.description|safe }}</small></span>
                             </div>
                             <div class="forum-column">
                                 {{ count_topics|get_item:forum.id|default_if_none:'Aucun' }}
@@ -33,7 +33,7 @@
                                     {% if last_post %}
                                         <strong><a href="{% url 'profile' last_post.author.id %}">{{ last_post.author.username }}</a></strong> dans <a href="{% url 'post_list' last_post.topic.forum.id last_post.topic.id %}">{{ last_post.topic.title }}</a>
                                         <br>
-                                        <small>{{ last_post.created }}</small>
+                                        <small>{{ last_post.created }}</small></span>
                                     {% else %}
                                         Aucun message
                                     {% endif %}

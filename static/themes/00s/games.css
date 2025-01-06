@@ -95,6 +95,8 @@ table.bac th, table.bac td {
     padding: 5px;
 }
 
+/* QUIZ */
+
 table.quiz, table.quiz th, table.quiz tr, table.quiz td {
     border: 1px solid #cccccc;
 }

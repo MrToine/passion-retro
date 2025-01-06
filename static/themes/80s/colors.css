@@ -48,6 +48,10 @@ html, body {
     border-color: #ffffff;    
 }
 
+.menu ul.guestbook li {
+    text-shadow: none;
+}
+
 .menu ul.guestbook li span.date {
     color: #64886a;  
 }
@@ -238,6 +242,10 @@ a.danger {
 span.unread-badge {
     color: #00fc45;
     text-shadow: #00ff00 0 0 15px;
+}
+
+.forum-description {
+    text-shadow: none;
 }
 
 /* FORMULAIRES */
