@@ -85,7 +85,7 @@ def forum_home(request):
 
 def topic_list(request, forum_id):
     forum = Forum.objects.get(id=forum_id)
-    topics = Topic.objects.filter(forum=forum)
+    topics = Topic.objects.filter(forum=forum).order_by('-created')
     paginator = Paginator(topics, 20)
 
     page_number = request.GET.get('page')
