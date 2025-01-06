@@ -297,3 +297,23 @@ li.disabled {
 .footer {
     text-align: center;
 }
+
+@media screen and (min-width: 768px) {
+    .warning-announce-not-mobile-compatible {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .warning-announce-not-mobile-compatible {
+        display: block;
+        position: absolute;
+        border: 1px solid orange;
+        background-color: rgb(255, 215, 140);
+        padding: 10px;
+        margin: 10px;
+        color: rgb(152, 120, 60);
+        text-shadow: none;
+        z-index: 1000;
+    }
+}
