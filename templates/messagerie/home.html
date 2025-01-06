@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Messagerie privée</h2>
+        <div class="table">
+            <a href="{% url 'pm_new' %}" class="btn btn-add">Nouveau message</a>
+            <!-- Header -->
+            <div class="header">
+                <div class="col">Auteur</div>
+                <div class="col">Titre message</div>
+                <div class="col">Action</div>
+            </div>
+            <!-- Body -->
+             {% for message in private_messages %}
+                <div class="body">
+                    <div class="col">
+                        {% if message.messages.first.author.id != request.user.id and not message.is_read %}
+                            <span class="new-message">nouveau !</span>
+                        {% endif %}
+                        <a href="{% url 'profile' message.sender.id %}">{{ message.sender }}</a>
+                    </div>
+                    <div class="col"><a href="{% url 'pm_view' message.id %}">{{ message.subject }}</a></div>
+                    <div class="col"><a href="{% url 'pm_delete' message.id %}">Supprimer</a></div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
