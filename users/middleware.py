@@ -18,23 +18,24 @@ class UserLevelMiddleware(MiddlewareMixin):
 
 class UserLevelUpMiddleware(MiddlewareMixin):
     def process_request(self, request):
-        # On augmente le niveau de l'utilisateur si son expérience est suffisante. level 2: 100xp, pour les levels suivants: (level * 10) + (level + 20)
-        if request.user.is_authenticated:
-            user = request.user
-            user_level = user.level  # Accède à l'objet UserLevel associé à l'utilisateur
-            
-            # Calcul de l'XP requise pour le prochain niveau
-            def xp_required(level):
-                return int(33.33 * (level ** 2) - 16.66 * level)
+        if request.user.levels.exists():
+            # On augmente le niveau de l'utilisateur si son expérience est suffisante. level 2: 100xp, pour les levels suivants: (level * 10) + (level + 20)
+            if request.user.is_authenticated:
+                user = request.user
+                user_level = user.level  # Accède à l'objet UserLevel associé à l'utilisateur
+                
+                # Calcul de l'XP requise pour le prochain niveau
+                def xp_required(level):
+                    return int(33.33 * (level ** 2) - 16.66 * level)
 
-            if user_level.experience >= xp_required(user_level.level):
-                user_level.level += 1
-                user_level.save()
-                messages.success(request, f"Bravo ! Vous avez atteint le niveau {user_level.level} !")
-        
-            # On affiche l'experience restante pour le prochain niveau
-            if user_level:
-                request.user.experience_left = xp_required(user_level.level) - user_level.experience
+                if user_level.experience >= xp_required(user_level.level):
+                    user_level.level += 1
+                    user_level.save()
+                    messages.success(request, f"Bravo ! Vous avez atteint le niveau {user_level.level} !")
+            
+                # On affiche l'experience restante pour le prochain niveau
+                if user_level:
+                    request.user.experience_left = xp_required(user_level.level) - user_level.experience
 
 class UserStatsMiddleware(MiddlewareMixin):
     def process_request(self, request):
