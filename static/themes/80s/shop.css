@@ -1,0 +1,139 @@
+a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 400;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #333;
+}
+
+.shop {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    background: linear-gradient(0deg, #000 0%, #1a1a1a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.shop::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(transparent 0%, rgba(255,0,255,0.1) 100%);
+    background-size: 100% 2px;
+    pointer-events: none;
+}
+
+.card-shop {
+    background: #1a1a1a;
+    border: 2px solid #ff00ff;
+    border-radius: 0;
+    margin: 15px 0;
+    padding: 15px;
+    box-shadow: 0 0 10px #ff00ff, inset 0 0 5px #ff00ff;
+    transition: all 0.3s ease;
+    width: 250px;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-right: 15px;
+    vertical-align: top;
+    justify-content: space-between;
+}
+
+.card-shop:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px #ff00ff, inset 0 0 10px #ff00ff;
+}
+
+.card-shop img {
+    max-width: 220px;
+    margin-bottom: 10px;
+    margin: auto;
+}
+
+.card-shop .card-title {
+    font-family: "Press Start 2P", cursive;
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.card-shop .card-text {
+    font-family: "VT323", monospace;
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.card-shop .card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-shop .button-container {
+    margin-top: auto;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.btn-primary {
+    background: linear-gradient(to bottom right, #ff00ff, #00ffff);
+    border: 2px solid #fff;
+    border-radius: 0;
+    padding: 8px 15px;
+    color: #fff;
+    font-family: "Press Start 2P", cursive;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-block;
+    min-width: 120px;
+    text-shadow: 0 0 5px rgba(255,255,255,0.5);
+    box-shadow: 0 0 10px rgba(255,0,255,0.5);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to bottom right, #00ffff, #ff00ff);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255,0,255,0.8);
+}
+
+.btn-secondary {
+    background: linear-gradient(to bottom right, #ff0099, #ff6600);
+    border: 2px solid #fff;
+    border-radius: 0;
+    padding: 8px 15px;
+    color: #fff;
+    font-family: "Press Start 2P", cursive;
+    font-size: 0.8em;
+    text-shadow: 0 0 5px rgba(255,255,255,0.5);
+    box-shadow: 0 0 10px rgba(255,102,0,0.5);
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(to bottom right, #ff6600, #ff0099);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255,102,0,0.8);
+}
+
+.btn-large {
+    padding: 10px 20px;
+    height: 65px;
+}
+
+.fa-coins {
+    color: #ffd700;
+    text-shadow: 0 0 5px #ffd700;
+}

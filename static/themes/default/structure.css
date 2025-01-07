@@ -308,10 +308,10 @@ li.disabled {
     .warning-announce-not-mobile-compatible {
         display: block;
         position: absolute;
-        border: 1px solid orange;
-        background-color: rgb(255, 215, 140);
         padding: 10px;
         margin: 10px;
+        border: 1px solid orange;
+        background-color: rgb(255, 215, 140);
         color: rgb(152, 120, 60);
         text-shadow: none;
         z-index: 1000;

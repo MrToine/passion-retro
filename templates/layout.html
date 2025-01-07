@@ -29,6 +29,9 @@
     <meta name="twitter:site" content="@PassionRetro">
 
     <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'themes/' %}/generic.css">
+    <link rel="stylesheet" href="{% static 'themes/' %}/border-avatars.css">
+    <link rel="stylesheet" href="{% static 'themes/' %}/decoration-username.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/grid.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/bbcode.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/colors.css">
@@ -41,8 +44,9 @@
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/games.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/pm.css">
     <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/profile.css">
+    <link rel="stylesheet" href="{% static 'themes/' %}{{ request.theme_active }}/shop.css">
     <script src="{% static 'js/utils/bbcode_display.js' %}"></script>
-    <script src="{% static 'js/utils/functions.js' %}"></script>
+    <script src="{% static 'js/utils/functions.js' %}" defer></script>
     <script src="{% static 'js/utils/multiple_posts.js' %}" defer></script>
     {% block extrajs %}{% endblock %} 
 </head>
@@ -81,6 +85,9 @@
                             {% if request.user.is_staff and pending_quizes_count > 0 %}
                                 <span class="badge badge-warning">{{ pending_quizes_count }}</span>
                             {% endif %}
+                        </li>
+                        <li>
+                            <a href="{% url 'shop_home' %}" class="new-item-menu">Boutique</a>
                         </li>
                         <li><a href="{% url 'contribute' %}" class="btn btn-add">Contribuer</a></li>
                     </ul>
@@ -132,13 +139,14 @@
                         <li><a href="{% url 'home' %}">Accueil</a></li>
                         <li><a href="{% url 'forum_home' %}">Forum</a></li>
                         <li>
-                            <a href="{% url 'portal_games' %}" class="new-item-menu">
+                            <a href="{% url 'portal_games' %}">
                                 Portail des jeux
                                 {% if request.user.is_staff and pending_quizes_count > 0 %}
                                     <span class="badge badge-warning">{{ pending_quizes_count }}</span>
                                 {% endif %}
                             </a>
                         </li>
+                        <li><a href="{% url 'shop_home' %}" class="new-item-menu">Boutique</a></li>
                         <li><a href="{% url 'contribute' %}" class="btn btn-add">Contribuer</a></li>
                         <li><a href="">Internet</a>
                             <ul>
@@ -194,11 +202,11 @@
                 <ul>
                     <!-- Si le membre est connecté -->
                     {% if request.user.is_authenticated %}
-                        <center><img src="/media/{{ request.user.avatar }}" style="width:150px;" alt="Avatar de {{ request.user.username }}"></center>
-                        <li>Bonjour <strong>{{ request.user.username }}</strong></li>
+                        <center><img src="/media/{{ request.user.avatar }}" style="width:150px;" alt="Avatar de {{ request.user.username }}" class="{{ request.user.border_avatar }}"></center>
+                        <li>Bonjour <strong><span class="{{ request.user.username_decoration }}">{{ request.user.username }}</span></strong></li>
                         <li><a href="{% url 'profile' %}">Mon Profil</a></li>
                         <li>
-                            <a href="{% url 'pm_home' %}" class="new-item-menu">Messagerie privée</a>
+                            <a href="{% url 'pm_home' %}">Messagerie privée</a>
                             {% if pending_pm_count > 0 %}
                                 <span class="badge badge-warning">{{ pending_pm_count }}</span>
                             {% endif %}
@@ -240,7 +248,7 @@
                 <h2>Livre d'Or</h2>
                 <ul class="guestbook">
                     {% for message in request.guestbook %}    
-                        <li><span class="date">[{{ message.created }}]</span> <span class="author">{{ message.author }}</span> : {{ message.content|bbcode|safe|linebreaksbr }}</li>
+                        <li><span class="date">[{{ message.created }}]</span> <span class="author {{ message.author.username_decoration }}">{{ message.author }}</span> : {{ message.content|bbcode|safe|linebreaksbr }}</li>
                     {% endfor %}
                 </ul>
                 <ul>

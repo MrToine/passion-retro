@@ -32,6 +32,6 @@
     {% if post.type == 'news' %}
         <p style="text-align: center;"><a href="/{{ post.forum_link }}" class="btn btn-default">Participer au sujet sur le forum</a></p>
     {% endif %}
-    <small>Article créer le {{ post.created }} par <a href="{% url 'profile' post.author.id %}">{{ post.author.username }}</a></small>
+    <small>Article créer le {{ post.created }} par <a href="{% url 'profile' post.author.id %}" class="{{ request.user.username_decoration }}">{{ post.author.username }}</a></small>
 </div>
 {% endblock %}

@@ -16,3 +16,26 @@ function copyToClipboard(event) {
     // Utilise l'API Clipboard pour copier dans le presse-papiers
     navigator.clipboard.writeText(tag)
 }
+
+function modal(id, price) {
+    const modal = document.querySelector('.modal');
+    if (modal) {
+        modal.style.display = 'block';
+        const close = document.querySelector('.modal-close');
+        const accept = modal.querySelector('#accept');
+        accept.innerHTML = `Payer <span class="money">${price}</span>`;
+        const decline = modal.querySelector('#decline');
+
+        accept.addEventListener('click', () => {
+            window.location.href = `/shop/buy/${id}`;
+        });
+
+        decline.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        close.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    }
+}
