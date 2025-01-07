@@ -1,0 +1,36 @@
+.sparkling-username {
+    position: relative;
+    display: inline-block;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.sparkling-username::before, .sparkling-username::after {
+    content: '✨';
+    position: absolute;
+    font-size: 1rem;
+    color: #ff0;
+    animation: sparkle 2s infinite;
+}
+
+.sparkling-username::before {
+    top: -10px;
+    left: -10px;
+    animation-delay: 0s;
+}
+
+.sparkling-username::after {
+    bottom: -10px;
+    right: -10px;
+    animation-delay: 1s;
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0.5) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5) rotate(45deg);
+    }
+}

@@ -148,7 +148,7 @@
 }
 
 .joined-date {
-    color: #336699;
+    color: #9fcfff;
     font-size: 0.9rem;
 }
 
@@ -160,7 +160,7 @@
 
 .bio-content {
     line-height: 1.6;
-    color: #333333;
+    color: #d3d3d3;
 }
 
 /* Colonne de droite */
@@ -273,7 +273,7 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) { 
+@media (max-width: 768px) {
     .profile-grid {
         grid-template-columns: 1fr;
     }

@@ -20,11 +20,11 @@
                 <div class="forum-body">
                     <div class="forum-row">
                         <div class="forum-column-detail details">
-                            <center><img src="/media/{{ message.author.avatar }}" style="width:100px;" alt="Avatar de {{ message.author.username }}"></center>
+                            <center><img src="/media/{{ message.author.avatar }}" style="width:100px;" alt="Avatar de {{ message.author.username }}" class="{{ message.author.border_avatar }}"></center>
                             <small>
                                 <ul>
                                     <li style="font-size:1.2rem;">
-                                        <center>{{ message.author.username }}</center>
+                                        <center><span class="{{ message.author.username_decoration }}">{{ message.author.username }}</span></center>
                                     </li>
                                 </ul>
                             </small>

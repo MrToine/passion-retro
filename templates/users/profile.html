@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% load bbcode_tags %}
+
 {% block content %}
     <div class="container">
         {% block profile-nav %}
@@ -79,12 +80,79 @@
                 </div>
             </div>
         </div>
-
+        
         {% if user.id == request.user.id %}
+            <div class="inventory">
+                <h3>Inventaire</h3>
+                <div class="inventory-grid">
+                    {% for inventory in request.user.inventory.all %}
+                    {%if inventory.item.name != 'Or' %}
+                        <a href="{% url 'use_item' inventory.item.id %}">
+                    {% endif %}
+                            <div class="inventory-item" id="bubbleinfo">
+                                <span class="item-name">
+                                    {% if inventory.item.category.name == 'Décoration pseudo' %}
+                                        <center><span id="item" data-info="{{ inventory.item }} : {{ inventory.item.description }}" class="{{ inventory.item.name|slugify }}" style="font-size: 1.5rem">{{ request.user }}</span></center>
+                                    {% else %}
+                                        {% if inventory.item.category.name == 'cadres' %}
+                                            <center><img src="/media/{{ request.user.avatar }}" style="width:100px;" class="{{ inventory.item.name|slugify }}" alt=""></center>
+                                        {% else %}
+                                            <img id="item" data-info="{{ inventory.item }} : {{ inventory.item.description }}" src="/media/shop/items/{{ inventory.item.image }}" alt="{{ inventory.item }} : {{ inventory.item.description }}">
+                                        {% endif %}
+                                    {% endif %}
+                                </span>
+                                <span class="item-quantity">{{ inventory.quantity }}</span>
+                                <div id="div-bubble" style="
+                                    display: none;
+                                    position: absolute;
+                                    background-color: rgba(0, 0, 0, 0.5);
+                                    color: white;
+                                    text-shadow: none;
+                                    padding: 10px;
+                                    border-radius: 5px;
+                                    top: 0px; 
+                                    left: 0px;
+                                    z-index: 9998;
+                                "></div>
+                            </div>
+                    {%if inventory.item != 'Or' %}
+                        </a>
+                    {% endif %}
+                    {% empty %}
+                        <p class="no-items">
+                            Aucun objet dans l'inventaire
+                        </p>
+                    {% endfor %}
+                </div>
+            </div>
             <div class="profile-actions">
                 <a href="{% url 'profile_update' %}" class="btn btn-default">Modifier le profil</a>
-                <a href="" class="btn btn-warning">Voir l'inventaire</a>
+                <!-- <a href="" class="btn btn-warning">Voir l'inventaire</a> -->
             </div>
         {% endif %}
     </div>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', () => {
+            const bubble = document.querySelector('#bubbleinfo');
+                console.log(bubble);
+                if (!bubble) {
+                    console.error('Element with ID "bubbleinfo" not found.');
+                    return;
+                }
+    
+            const item = bubble.querySelector('#item');
+            const div = document.querySelector('#div-bubble');
+            let info = item.dataset.info;
+    
+            bubble.addEventListener('mouseover', function() {
+                div.style.top = item.offsetTop + -10 + 'px';
+                div.style.left = item.offsetLeft +'px';
+                div.textContent = info;
+                div.style.display = 'block';
+            });
+            bubble.addEventListener('mouseout', function() {
+                div.style.display = 'none';
+            });
+        })
+    </script>
 {% endblock %}

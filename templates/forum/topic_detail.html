@@ -15,12 +15,12 @@
 
             {% for post in posts %}
                 <div class="forum-header" id="{{ post.id }}">
-                    <div class="forum-column-detail"><div class="row"><h3 id="author-post-{{ post.id }}">{{ post.author.username }}</h3> <small>le {{ post.created }}</small></div></div>
+                    <div class="forum-column-detail"><div class="row"><h3 id="author-post-{{ post.id }}" class="{{ post.author.username_decoration }}">{{ post.author.username }}</h3> <small>le {{ post.created }}</small></div></div>
                 </div>
                 <div class="forum-body">
                     <div class="forum-row">
                         <div class="forum-column-detail details">
-                            <center><img src="/media/{{ post.author.avatar }}" style="width:100px;" alt="Avatar de {{ post.author.username }}"></center>
+                            <center><img src="/media/{{ post.author.avatar }}" style="width:100px;" alt="Avatar de {{ post.author.username }}" class="{{ post.author.border_avatar }}"></center>
                             <small>
                                 <ul>
                                     <li>Groupe :

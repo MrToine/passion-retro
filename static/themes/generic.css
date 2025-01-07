@@ -1,0 +1,66 @@
+span.money {
+    color: orange;
+    font-weight: bold;
+}
+
+span.money::after {
+    content: url('../../img/icons/money_25x25.png');
+}
+
+span.bag::before {
+    content: url('../../img/icons/bag_25x25.png');
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal .modal-item {
+    background-color: rgba(0,0,0,0.7);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    width: 50%;
+    min-height: 100px;
+}
+
+.modal .modal-item .modal-close {
+    color: #c70a0a;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.modal .modal-item .modal-close:hover {
+    color: rgb(255, 0, 0);
+}
+
+.modal .modal-item .modal-header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: none;
+    color:#e3e3e3;
+}
+
+.modal .modal-item .modal-body {
+    margin-bottom: 10px;
+    text-shadow: none;
+    color:#e3e3e3;
+}
+
+.modal .modal-item .modal-footer {
+    text-align: right;
+}

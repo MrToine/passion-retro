@@ -27,7 +27,7 @@
             <div class="news">
                 <div style="float:left;margin:5px"><img src="/media/{{ actus.image }}" style="max-width: 100px;" alt="{{ actus.title }}"></div>
                 <p>{{ actus.content|bbcode|safe|linebreaksbr|truncatewords:50 }} » <a href="{% url 'view_post' actus.slug %}">Lire l'actu</a></p><br>
-                <p class="date"><em>Publié le {{ actus.created|date:" d F Y à H:i" }}</em> Par <a href="{% url 'profile' actus.author.id %}">{{ actus.author.username }}</a></p>
+                <p class="date"><em>Publié le {{ actus.created|date:" d F Y à H:i" }}</em> Par <a href="{% url 'profile' actus.author.id %}" class="{{ request.user.username_decoration }}">{{ actus.author.username }}</a></p>
             </div>
         </div>
         {% endfor %}
