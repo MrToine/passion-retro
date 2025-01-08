@@ -118,11 +118,126 @@ document.addEventListener('DOMContentLoaded', () => {
                             });
                         }
                     }
+                } else if (event.target.tagName === 'BUTTON' && event.target.classList.contains('bbcode-bar-button-colors')) {
+                    console.log('coucou');
+                    const colors = [
+                        // Basiques
+                        'black',
+                        'white',
+                        
+                        // Gris
+                        'gray',
+                        'darkgray',
+                        'silver',
+                        
+                        // Rouges
+                        'red',
+                        'darkred',
+                        'maroon',
+                        'crimson',
+                        'coral',
+                        
+                        // Roses/Violets
+                        'pink',
+                        'hotpink',
+                        'fuchsia',
+                        'purple',
+                        'blueviolet',
+                        'darkmagenta',
+                        
+                        // Bleus
+                        'blue',
+                        'navy',
+                        'darkblue',
+                        'royalblue',
+                        'cornflowerblue',
+                        'skyblue',
+                        'aqua',
+                        'cyan',
+                        'darkcyan',
+                        'teal',
+                        
+                        // Verts
+                        'green',
+                        'darkgreen',
+                        'lime',
+                        'limegreen',
+                        'springgreen',
+                        'aquamarine',
+                        'chartreuse',
+                        
+                        // Jaunes/Oranges
+                        'yellow',
+                        'gold',
+                        'orange',
+                        'darkorange',
+                        
+                        // Marrons
+                        'brown',
+                        'chocolate',
+                        'saddlebrown',
+                        'burlywood',
+                        
+                        // Tons pastel
+                        'aliceblue',
+                        'antiquewhite',
+                        'azure',
+                        'beige',
+                        'bisque',
+                        'blanchedalmond',
+                        'cornsilk',
+                        'darkkhaki',
+                        'olive'
+                    ];
+
+                    const colorButtons = colors.map(color => {
+                        const link = document.createElement('a');
+                        link.classList.add('bbcode-bar-item-color');
+                        link.style.backgroundColor = color;
+                        link.style.width = '20px';
+                        link.style.height = '20px';
+                        link.style.display = 'inline-block';
+                        link.style.margin = '2px';
+                        link.setAttribute('data-color', color);
+                        link.href = '#';
+                        return link;
+                    });
+        
+                    const colorBar = document.createElement('div');
+                    colorBar.classList.add('bbcode-bar-colors');
+                    colorButtons.forEach(link => colorBar.appendChild(link));
+        
+                    bbcodeBar.appendChild(colorBar);
+                } else if (event.target.tagName === 'A' && event.target.classList.contains('bbcode-bar-item-color')) {
+                    event.preventDefault();
+                    const color = event.target.getAttribute('data-color');
+                    if (color) {
+                        insertBBCode(`[color=${color}]`, `[/color]`);
+                    }
                 }
             });
         })
+        
         .catch(error => console.error('Erreur: ', error));
 });
+
+function insertBBCode(openTag, closeTag) {
+    const textarea = document.querySelector('textarea'); // Assurez-vous de sélectionner le bon textarea
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const text = textarea.value;
+
+    const before = text.substring(0, start);
+    const selected = text.substring(start, end);
+    const after = text.substring(end);
+
+    textarea.value = `${before}${openTag}${selected}${closeTag}${after}`;
+    textarea.focus();
+    textarea.selectionStart = start + openTag.length;
+    textarea.selectionEnd = end + openTag.length;
+}
 
 function load_gallery() {
     const contentArea = document.querySelector('.content-gallery')

@@ -385,3 +385,82 @@ table.quiz th, table.quiz td {
 .low {
     stroke: #f44336; /* Red */
 }
+
+/* Responsive table styles */
+.responsive-table {
+    width: 100%;
+    margin-bottom: 1.5em;
+}
+
+.responsive-table input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+/* Mobile first styles */
+@media screen and (max-width: 600px) {
+    .responsive-table thead {
+        display: none;
+    }
+
+    .responsive-table tr {
+        margin-bottom: 20px;
+        display: block;
+        border: 1px solid #cccccc;
+    }
+
+    .responsive-table td {
+        display: block;
+        text-align: left;
+        border: none;
+        border-bottom: 1px solid #cccccc;
+    }
+
+    .responsive-table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .game-bac-letter {
+        position: static;
+        text-align: center;
+        margin: 1em auto;
+        width: fit-content;
+    }
+}
+
+/* Desktop styles */
+@media screen and (min-width: 601px) {
+    .responsive-table {
+        display: table;
+    }
+
+    .responsive-table thead {
+        display: table-header-group;
+    }
+
+    .responsive-table tbody {
+        display: table-row-group;
+    }
+
+    .responsive-table tr {
+        display: table-row;
+    }
+
+    .responsive-table td, 
+    .responsive-table th {
+        display: table-cell;
+    }
+
+    .responsive-table td:before {
+        content: none;
+    }
+
+    .responsive-table input[type="text"] {
+        width: 90%;
+    }
+}
