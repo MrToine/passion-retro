@@ -15,7 +15,7 @@
 
             {% for post in posts %}
                 <div class="forum-header" id="{{ post.id }}">
-                    <div class="forum-column-detail"><div class="row"><h3 id="author-post-{{ post.id }}" class="{{ post.author.username_decoration }}">{{ post.author.username }}</h3> <small>le {{ post.created }}</small></div></div>
+                    <div class="forum-column-detail"><div class="row"><span id="author-post-{{ post.id }}" class="{{ post.author.username_decoration }}" style="font-size:1.3rem;">{{ post.author.username }}</span> <small>le {{ post.created }}</small></div></div>
                 </div>
                 <div class="forum-body">
                     <div class="forum-row">
