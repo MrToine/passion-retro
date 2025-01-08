@@ -254,15 +254,22 @@
 
 .inventory-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 15px;
 }
 
 .inventory-item {
     text-align: center;
-    padding: 1rem;
+    margin: 15px;
+    padding: 15px;
     background: #ffffff78;
     border-radius: 6px;
+}
+
+.inventory-item a {
+    text-decoration: none;
+    color: #003366;
 }
 
 .item-quantity {

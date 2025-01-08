@@ -34,3 +34,44 @@
         transform: scale(1.5) rotate(45deg);
     }
 }
+
+.retro-wave-username {
+    position: relative;
+    display: inline-block;
+    font-family: 'Arial Black', sans-serif;
+    font-weight: bold;
+    font-size: 1.2em;
+    background: linear-gradient(
+        45deg,
+        #ff00ff,
+        #00ffff,
+        #ff00ff
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 
+        2px 2px 0px rgba(255, 0, 255, 0.2),
+        4px 4px 0px rgba(0, 255, 255, 0.2);
+    animation: waveText 2s ease-in-out infinite,
+              gradientFlow 3s linear infinite;
+}
+
+@keyframes waveText {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 200% 50%;
+    }
+}

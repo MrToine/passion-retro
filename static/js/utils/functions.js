@@ -39,3 +39,19 @@ function modal(id, price) {
         });
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const avatars = document.querySelectorAll('.cadre-retro-gameboy');
+    avatars.forEach(avatar => {
+        console.log("on a trouvé l'avatar");
+        const divButtons = document.createElement('div');
+        const divCross = document.createElement('div');
+        const divStartSelect = document.createElement('div');
+        divButtons.classList.add('buttons');
+        divCross.classList.add('controls');
+        divStartSelect.classList.add('start-select');
+        avatar.appendChild(divButtons);
+        avatar.appendChild(divCross);
+        avatar.appendChild(divStartSelect);
+    });
+});
