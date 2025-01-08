@@ -22,7 +22,7 @@
                         {% if item.category.name == 'Décoration pseudo' %}
                             <center><span class="{{ item.name|slugify }}" style="font-size: 1.5rem;border:1px solid black; padding:5px">Pseudo</span></center>
                         {% else %}
-                            <center><img src="/media/{{ item.image }}" class="card-img-top {% if item.category.name == 'cadres' %}border-avatar-{{ item.name|slugify }}{% endif %}" alt="{{ item.name }}"></center>
+                            <center><div class="card-img {% if item.category.name == 'cadres' %}{{ item.name|slugify }}{% endif %}"><img src="/media/{{ item.image }}" alt="{{ item.name }}"></div></center>
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ item.name }}</h5>

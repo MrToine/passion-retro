@@ -95,7 +95,7 @@
                                         <center><span id="item" data-info="{{ inventory.item }} : {{ inventory.item.description }}" class="{{ inventory.item.name|slugify }}" style="font-size: 1.5rem">{{ request.user }}</span></center>
                                     {% else %}
                                         {% if inventory.item.category.name == 'cadres' %}
-                                            <center><img src="/media/{{ request.user.avatar }}" style="width:100px;" class="{{ inventory.item.name|slugify }}" alt=""></center>
+                                            <center><div class="{{ inventory.item.name|slugify }}""><img src="/media/{{ request.user.avatar }}" style="width:100px;" alt=""></div></center>
                                         {% else %}
                                             <img id="item" data-info="{{ inventory.item }} : {{ inventory.item.description }}" src="/media/shop/items/{{ inventory.item.image }}" alt="{{ inventory.item }} : {{ inventory.item.description }}">
                                         {% endif %}
