@@ -273,8 +273,36 @@ def contributions(request):
     return render(request, "users/contributions.html", {'posts':posts})
 
 @login_required
-def new_feature_user_level(request):
+def new_feature_user(request):
     # On créer une entree dans la table user_level pour l'utilisateur si il n'en a pas
     if not request.user.level:
         request.user.levels.create(level=1)
-    return render(request, "features/new_feature_user_level.html")
+        return render(request, "features/new_feature_user_level.html")
+
+    if not request.user.inventory.exists():
+        request.user.inventory.create(item_id=1, quantity=100)
+    return render(request, "features/new_feature_user_inventory.html")
+
+@login_required
+def use_item(request, item_id):
+    item = request.user.inventory.get(item_id=item_id)
+
+    # On slugify le nom de l'item pour l'utiliser dans les conditions
+    item_name = slugify(item.item.name)
+
+    if item.quantity > 0:
+        if item.item.category.name == 'cadres':
+            request.user.border_avatar = item_name
+        
+        if item.item.category.name == 'themes':
+            request.user.theme_active = item_name
+
+        if item.item.category.name == 'Décoration pseudo':
+            request.user.username_decoration = item_name
+        
+        request.user.save()
+        
+        messages.success(request, f"Vous avez utilisé {item.item.name}.")
+    else:
+        messages.error(request, f"Vous n'avez pass de {item.item.name}.")
+    return redirect('profile')

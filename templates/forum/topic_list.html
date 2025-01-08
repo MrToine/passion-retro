@@ -32,7 +32,7 @@
                             <small>{{ topic.created_at }}</small>
                         </div>
                         <div class="forum-column">
-                            {{ topic.author.username }}
+                            <span class="{{ topic.author.username_decoration }}">{{ topic.author.username }}</span>
                         </div>
                         <div class="forum-column">
                             {{ count_posts|get_item:topic.id|default_if_none:'Aucun' }}
@@ -40,7 +40,7 @@
                         <div class="forum-column">
                             {% with last_post=last_posts|get_item:topic.id %}
                                 {% if last_post %}
-                                    <strong>{{ last_post.author.username }}</strong>
+                                    <strong><span class="{{ last_post.author.username_decoration }}">{{ last_post.author.username }}</span></strong>
                                     <br>
                                     <small>
                                         <a href="{% url 'post_list' last_post.topic.forum.id last_post.topic.id %}?page={{ page_numbers|get_item:topic.id }}#{{ last_post.id }}">

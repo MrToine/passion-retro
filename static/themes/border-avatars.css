@@ -1,0 +1,247 @@
+.cadre-retro-80s {
+  display: inline-block;
+  margin: 5px;
+  position: relative;
+  border: 4px solid transparent;
+  box-shadow: 
+    0 0 15px rgba(255, 0, 255, 0.6),
+    0 0 25px rgba(0, 255, 255, 0.4);
+  background: 
+    linear-gradient(#1a1a1a, #1a1a1a) padding-box,
+    linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff) border-box;
+  padding: 2px;
+  transform: perspective(500px) rotateX(5deg);
+  animation: 
+    pulseFrame 1.5s ease-in-out infinite,
+    rotateFrame 4s linear infinite;
+}
+
+.cadre-retro-80s::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ff00ff, #00ffff);
+  background-size: 200% 100%;
+  z-index: -1;
+  animation: 
+    neonGlow 2s infinite linear,
+    gradientMove 4s linear infinite;
+  filter: blur(8px);
+  opacity: 0.7;
+}
+
+@keyframes neonGlow {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+@keyframes pulseFrame {
+  0% { transform: perspective(500px) rotateX(5deg) scale(1); }
+  50% { transform: perspective(500px) rotateX(5deg) scale(1.05); }
+  100% { transform: perspective(500px) rotateX(5deg) scale(1); }
+}
+
+@keyframes gradientMove {
+  0% { background-position: -100% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes rotateFrame {
+  0% { transform: perspective(500px) rotateX(5deg) rotateY(0deg); }
+  50% { transform: perspective(500px) rotateX(-5deg) rotateY(5deg); }
+  100% { transform: perspective(500px) rotateX(5deg) rotateY(0deg); }
+}
+
+/* TV RETRO */
+.cadre-retro-tv {
+    position: relative;
+    border: 20px solid #2c2c2c;
+    border-radius: 15px;
+    background: #000;
+    padding: 5px;
+    box-shadow: 
+        inset 0 0 10px rgba(255, 255, 255, 0.3),
+        0 0 15px rgba(0, 0, 0, 0.8);
+}
+
+.cadre-retro-tv::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 0, 0, 0.3) 50%
+    );
+    background-size: 100% 4px;
+    animation: scanlines 1s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.cadre-retro-tv::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at center,
+        transparent 60%,
+        rgba(0, 0, 0, 0.6) 100%
+    );
+    pointer-events: none;
+    z-index: 2;
+}
+
+@keyframes scanlines {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(4px);
+    }
+}
+
+/* GAMEBOY RETRO */
+.cadre-retro-gameboy {
+    position: relative;
+    width: fit-content;
+    padding: 25px 25px 65px 25px;
+    margin: 10px 10px 20px 10px;
+    background: #8b8b8b;
+    border-radius: 10px 10px 30px 10px;
+    box-shadow: 
+        -5px -5px 0 #9b9b9b,
+        5px 5px 0 #737373;
+}
+
+.cadre-retro-gameboy::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    height: calc(100% - 90px);
+    background: transparent;
+    border-radius: 3px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.cadre-retro-gameboy::after {
+    content: '🔴';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 0.2rem;
+    color: #cc0000;
+}
+
+.cadre-retro-gameboy img {
+    position: relative;
+    top: -11px;
+    z-index: 1;
+    filter: sepia(20%) hue-rotate(60deg) saturate(0.6) contrast(1.2);
+}
+
+.cadre-retro-gameboy .controls {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+    background: #8b8b8b;
+    clip-path: polygon(
+        35% 0%, 65% 0%, 
+        100% 35%, 100% 65%, 
+        65% 100%, 35% 100%,
+        0% 65%, 0% 35%
+    );
+    z-index: 3;
+}
+
+.cadre-retro-gameboy .controls::after {
+    content: '+';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #2a2a2a;
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+.cadre-retro-gameboy .buttons {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    width: 45px;
+    height: 45px;
+    z-index: 3;
+}
+
+.cadre-retro-gameboy .buttons::before {
+    content: 'B';
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    width: 15px;
+    height: 15px;
+    background: #373737;
+    border-radius: 50%;
+    color: #8b8b8b;
+    font-size: 10px;
+    line-height: 15px;
+    text-align: center;
+}
+
+.cadre-retro-gameboy .buttons::after {
+    content: 'A';
+    position: absolute;
+    top: 15px;
+    right: -10px;
+    width: 15px;
+    height: 15px;
+    background: #373737;
+    border-radius: 50%;
+    color: #8b8b8b;
+    font-size: 10px;
+    line-height: 15px;
+    text-align: center;
+}
+
+/* Ajout des boutons start/select */
+.cadre-retro-gameboy .start-select {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    z-index: 3;
+}
+
+.cadre-retro-gameboy .start-select::before,
+.cadre-retro-gameboy .start-select::after {
+    content: '';
+    width: 25px;
+    height: 8px;
+    background: #373737;
+    border-radius: 4px;
+    transform: rotate(-25deg);
+}
+
+.cadre-retro-gameboy .start-select::before {
+    margin-right: 5px;
+}
+
+.cadre-retro-gameboy .start-select::after {
+    margin-left: 5px;
+}

@@ -33,7 +33,7 @@
                         <p>{{ quiz.description }}</p>
                         <p>{{ quiz.questions.count }} questions</p>
                 </div>
-                <div class="footer">Créé par {{ quiz.author }} le {{ quiz.created }}</div>
+                <div class="footer">Créé par <span class="{{ quiz.author.username_decoration }}">{{ quiz.author }}</span> le {{ quiz.created }}</div>
             </div>
         </div>
         {% endfor %}

@@ -31,7 +31,7 @@
                             <div class="forum-column">
                                 {% with last_post=last_posts|get_item:forum.id %}
                                     {% if last_post %}
-                                        <strong><a href="{% url 'profile' last_post.author.id %}">{{ last_post.author.username }}</a></strong> dans <a href="{% url 'post_list' last_post.topic.forum.id last_post.topic.id %}">{{ last_post.topic.title }}</a>
+                                        <strong><a href="{% url 'profile' last_post.author.id %}" class="{{ last_post.author.username_decoration }}">{{ last_post.author.username }}</a></strong> dans <a href="{% url 'post_list' last_post.topic.forum.id last_post.topic.id %}">{{ last_post.topic.title }}</a>
                                         <br>
                                         <small>{{ last_post.created }}</small></span>
                                     {% else %}

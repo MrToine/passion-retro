@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     "games",
     "quiz",
     "messagerie",
+    "shop",
 ]
 
 SITE_ID = 1

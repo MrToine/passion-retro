@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Boutique</h2>
+        <div style="float:right;margin:5px;"><img src="/static/img/retrobot.png" style="max-width: 200px;border-bottom:3px solid black;" alt="RetroBot"></div>
+        <p>
+            Salut, voyageur temporel ! Moi, RetroBot, j’ai ouvert ma boutique rien que pour toi sur Passion-Rétro ! 🎉 
+        </p>
+        <p>
+            Ici, tu trouveras tout un tas de trésors exclusifs pour personnaliser ton expérience sur le site.
+            Envie d’un avatar unique qui claque ? D’une déco pour ton pseudo qui en jette ? Ou peut-être d’un cadre d’avatar rétro pour te démarquer dans la communauté ? Je propose aussi des thèmes originaux pour que ton espace perso soit à ton image : vintage, chic, ou carrément décalé.
+            Alors, qu’attends-tu pour venir découvrir mes trouvailles ? Allez, fonce, et fais briller ton style rétro comme jamais ! ✨
+        </p>
+            — RetroBot, ton fidèle marchand venu de Retronia 🛠️
+        </p>
+        <h3>Mon argent : <span class="bag">{{ request.user.money }}</span></h3>
+        <div class="shop">
+            {% for item in items %}
+                {% if item.name != 'Or' %}
+                    <div class="card-shop">
+                        {% if item.category.name == 'Décoration pseudo' %}
+                            <center><span class="{{ item.name|slugify }}" style="font-size: 1.5rem;border:1px solid black; padding:5px">Pseudo</span></center>
+                        {% else %}
+                            <center><div class="card-img {% if item.category.name == 'cadres' %}{{ item.name|slugify }}{% endif %}"><img src="/media/{{ item.image }}" alt="{{ item.name }}"></div></center>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.name }}</h5>
+                            <p class="card-text">{{ item.description }}</p>
+                            <p class="card-text">Prix : <span class="money">{{ item.price }}</span> <i class="fas fa-coins"></i></p>
+                            <a onclick="modal('{{ item.id }}', '{{ item.price }}')" class="btn-shop btn-shop-primary">Acheter</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="modal">
+        <div class="modal-item">
+            <div class="modal-close">&times;</div>
+            <div class="modal-header">Achat d'un item</div>
+            <div class="modal-body">
+                <p>Payer et obtenir cet item ?</p>
+                <a class="btn-shop btn-shop-primary btn-shop-large" id="accept"></a>
+                <a class="btn-shop btn-shop-secondary" id="decline">Annuler</a>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+{% endblock %}

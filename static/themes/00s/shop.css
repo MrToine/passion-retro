@@ -1,0 +1,101 @@
+.shop {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.card-shop {
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 8px;
+    margin: 15px 0;
+    padding: 15px;
+    box-shadow: 3px 3px 0px #000;
+    transition: transform 0.2s;
+    width: 250px;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-right: 15px;
+    vertical-align: top;
+    justify-content: space-between;
+}
+
+.card-shop:hover {
+    transform: translateY(-5px);
+    background: #f0f7ff;
+}
+
+.card-shop img {
+    max-width: 220px;
+    margin-bottom: 10px;
+    margin: auto;
+}
+
+.card-shop .card-title {
+    font-family: "Comic Sans MS", cursive;
+    color: #0066cc;
+    margin-bottom: 10px;
+}
+
+.card-shop .card-text {
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card-shop .card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-shop .button-container {
+    margin-top: auto;
+    text-align: center;
+    padding-top: 15px;
+}
+
+a.btn-shop {
+    text-decoration: none;
+}
+
+.btn-shop-primary {
+    background: linear-gradient(to bottom, #0099ff, #0066cc);
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 5px 15px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-block;
+    min-width: 120px;
+}
+
+.btn-shop-primary:hover {
+    background: linear-gradient(to bottom, #00bbff, #0099ff);
+}
+
+.btn-shop-secondary {
+    background: linear-gradient(to bottom, #ffcc00, #ff9900);
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 5px 15px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-block;
+    min-width: 120px;
+}
+
+.btn-shop-large {
+    padding: 10px 20px;
+    height: 65px;
+}
+
+.fa-coins {
+    color: #ffd700;
+}

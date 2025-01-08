@@ -10,8 +10,8 @@ from .models import User
 class UserAdmin(BaseUserAdmin):
     model = User
     fieldsets = (
-        (None, {'fields': ('username', 'password')}),
-        ('Informations personnelles', {'fields': ('first_name', 'last_name', 'email', 'theme', 'avatar', 'biography', 'birth_date')}),
+        (None, {'fields': ('username', 'username_decoration', 'password')}),
+        ('Informations personnelles', {'fields': ('first_name', 'last_name', 'email', 'theme', 'avatar', 'border_avatar', 'biography', 'birth_date')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Dates importantes', {'fields': ('last_login', 'date_joined')}),
     )

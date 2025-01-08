@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import *
+from users.models import UserLevel, UserInventory
+from shop.models import Item
 from .forms import *
 
 @login_required
@@ -68,6 +70,22 @@ def quiz(request, quiz_id):
 def result(request, user_quiz_id):
     user_quiz = get_object_or_404(UserQuiz, id=user_quiz_id, user=request.user)
     total_questions = user_quiz.quiz.questions.count()
+
+    # Vérifiez si l'utilisateur a déjà joué à ce quiz
+    if not UserQuiz.objects.filter(user=request.user, quiz=user_quiz.quiz).exists():
+        # Si c'est la première fois que l'on joue, alors on gagne 10 pièces d'or + 10 points d'expérience par réponse correcte
+        inventory_item = UserInventory.objects.get(user=user_quiz.user, item=Item.objects.get(name='Or'))
+        inventory_item.quantity += 10
+        inventory_item.save()
+        
+        user_level = request.user.level
+        user_level.experience += 10 * user_quiz.score
+        user_level.save()
+    else:
+        # Si l'utilisateur a déjà joué, ajoutez 1 point d'expérience par réponse correcte
+        user_level = request.user.level
+        user_level.experience += 1 * user_quiz.score
+        user_level.save()
     
     return render(request, "games/quiz/result.html", {
         "user_quiz": user_quiz,
