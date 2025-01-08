@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    let colorBarVisible = false;
+    let existingColorBar = null;
+
     fetch('/static/js/utils/bbcode-bar.html')
         .then(response => {
             if (response.ok) {
@@ -119,7 +122,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                 } else if (event.target.tagName === 'BUTTON' && event.target.classList.contains('bbcode-bar-button-colors')) {
-                    console.log('coucou');
+                    event.preventDefault();
+                    
+                    if (existingColorBar) {
+                        // Si la barre existe déjà, on bascule sa visibilité
+                        existingColorBar.style.display = colorBarVisible ? 'none' : 'block';
+                        colorBarVisible = !colorBarVisible;
+                        return;
+                    }
+
+                    // Si la barre n'existe pas encore, on la crée
                     const colors = [
                         // Basiques
                         'black',
@@ -190,6 +202,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         'olive'
                     ];
 
+                    const colorBar = document.createElement('div');
+                    colorBar.classList.add('bbcode-bar-colors');
+                    colorBar.style.display = 'block';
+                    
                     const colorButtons = colors.map(color => {
                         const link = document.createElement('a');
                         link.classList.add('bbcode-bar-item-color');
@@ -202,12 +218,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         link.href = '#';
                         return link;
                     });
-        
-                    const colorBar = document.createElement('div');
-                    colorBar.classList.add('bbcode-bar-colors');
+
                     colorButtons.forEach(link => colorBar.appendChild(link));
-        
                     bbcodeBar.appendChild(colorBar);
+                    
+                    existingColorBar = colorBar;
+                    colorBarVisible = true;
                 } else if (event.target.tagName === 'A' && event.target.classList.contains('bbcode-bar-item-color')) {
                     event.preventDefault();
                     const color = event.target.getAttribute('data-color');
