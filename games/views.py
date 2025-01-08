@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import *
+from users.models import UserLevel
 from django.utils.timezone import now
 from django.contrib import messages
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, F
 from django.db.models.functions import Lower
 
 def portal(request):
@@ -196,9 +197,18 @@ def game_little_bac_results(request, party_id):
             ).aggregate(
                 total=Sum('point')
             )['total'] or 0
+
             
             scores_by_round[round.id][player.id] = player_score
             total_scores[player.id] += player_score
+
+            # On ajoute X experience au joueur (X: score du round)
+            user_level = UserLevel.objects.get(user=player.user)
+            last_round_updated = request.session.get(f'last_round_updated_{player.user.id}', 0)
+            if last_round_updated < round.id:
+                user_level.experience += player_score
+                user_level.save()
+                request.session[f'last_round_updated_{player.user.id}'] = round.id
 
     # Organiser les réponses par joueur et par catégorie pour chaque round
     for round in rounds:

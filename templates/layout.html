@@ -203,7 +203,7 @@
                     <!-- Si le membre est connecté -->
                     {% if request.user.is_authenticated %}
                         <center><div class="{{ request.user.border_avatar }}"><img src="/media/{{ request.user.avatar }}" style="width:150px;" alt="Avatar de {{ request.user.username }}"></div></center>
-                        <li>Bonjour <strong><span class="{{ request.user.username_decoration }}">{{ request.user.username }}</span></strong></li>
+                        <li>Bonjour <strong><span class="{{ request.user.username_decoration }}" data-text="{{ request.user.username }}">{{ request.user.username }}</span></strong></li>
                         <li><a href="{% url 'profile' %}">Mon Profil</a></li>
                         <li>
                             <a href="{% url 'pm_home' %}">Messagerie privée</a>
@@ -248,7 +248,7 @@
                 <h2>Livre d'Or</h2>
                 <ul class="guestbook">
                     {% for message in request.guestbook %}    
-                        <li><span class="date">[{{ message.created }}]</span> <span class="author {{ message.author.username_decoration }}">{{ message.author }}</span> : {{ message.content|bbcode|safe|linebreaksbr }}</li>
+                        <li><span class="date">[{{ message.created }}]</span> <span class="author {{ message.author.username_decoration }}" data-text="{{ message.author.username }}<">{{ message.author }}</span> : {{ message.content|bbcode|safe|linebreaksbr }}</li>
                     {% endfor %}
                 </ul>
                 <ul>
