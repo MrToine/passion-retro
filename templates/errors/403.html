@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="error-container">
+    <div class="error-code">403</div>
+    <div class="error-message">
+        <h1>Accès interdit</h1>
+        <p>Désolé, vous n'avez pas les permissions nécessaires pour accéder à cette page.</p>
+    </div>
+    <div class="error-actions">
+        <a href="/" class="error-btn">Retour à l'accueil</a>
+    </div>
+</div>
+{% endblock %}

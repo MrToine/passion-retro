@@ -22,51 +22,56 @@ class UserLevelMiddleware(MiddlewareMixin):
 
 class UserLevelUpMiddleware(MiddlewareMixin):
     def process_request(self, request):
-        if request.user.is_authenticated:
-            if request.user.levels.exists():
-                # On augmente le niveau de l'utilisateur si son expérience est suffisante. level 2: 100xp, pour les levels suivants: (level * 10) + (level + 20)
-                if request.user.is_authenticated:
-                    user = request.user
-                    user_level = user.level  # Accède à l'objet UserLevel associé à l'utilisateur
+        if request.user.is_authenticated and request.user.levels.exists():
+            if not request.session.get('level_up_processed', False):
+                user = request.user
+                user_level = user.level  # Accède à l'objet UserLevel associé à l'utilisateur
+                
+                # Calcul de l'XP requise pour le prochain niveau
+                def xp_required(level):
+                    return int(33.33 * (level ** 2) - 16.66 * level)
+
+                if user_level.experience >= xp_required(user_level.level):
+                    user_level.level += 1
+                    user_level.save()
+                    messages.success(request, f"Bravo ! Vous avez atteint le niveau {user_level.level} !")
                     
-                    # Calcul de l'XP requise pour le prochain niveau
-                    def xp_required(level):
-                        return int(33.33 * (level ** 2) - 16.66 * level)
+                    subject = PrivateMessageSubject.objects.create(
+                        receiver=user,
+                        sender=User.objects.get(username='RetroBot'),
+                        subject=f"Bravo { request.user } ! Tu as atteint un nouveau niveau !"
+                    )
 
-                    if user_level.experience >= xp_required(user_level.level):
-                        user_level.level += 1
-                        user_level.save()
-                        messages.success(request, f"Bravo ! Vous avez atteint le niveau {user_level.level} !")
-                        
-                        subject = PrivateMessageSubject.objects.create(
-                            receiver=user,
-                            sender=User.objects.get(username='RetroBot'),
-                            subject=f"Bravo { request.user } ! Tu as atteint un nouveau niveau !"
-                        )
+                    PrivateMessage.objects.create(
+                        subject=subject,
+                        author=User.objects.get(username='RetroBot'),
+                        message=f"""[b]🎉 Félicitations {request.user}! 🎉[/b]
 
-                        PrivateMessage.objects.create(
-                            subject=subject,
-                            author=User.objects.get(username='RetroBot'),
-                            message=f"""[b]🎉 Félicitations {request.user}! 🎉[/b]
+                            Tu viens de passer au [b]Niveau Supérieur[/b] ! Tu es maintenant [b]Niveau { user_level.level }[/b] !
 
-                                Tu viens de passer au [b]Niveau Supérieur[/b] ! Tu es maintenant [b]Niveau { user_level.level }[/b] !
+                            💰 En récompense, tu gagnes [b]20 Or[/b] ! 💰
 
-                                💰 En récompense, tu gagnes [b]20 Or[/b] ! 💰
+                            [i]Continue tes efforts, aventurier, et vise toujours plus haut ![/i]
+                        """
+                    )
 
-                                [i]Continue tes efforts, aventurier, et vise toujours plus haut ![/i]
+                    # Marquez le niveau comme traité pour cette requête
+                    request.session['level_up_processed'] = True
 
-                                [b]RetroBot IV, de Retronia[/b]"""
-                        )
-                    
-                        if request.user.inventory.exists():
-                            inventory_item = request.user.inventory.get(item__name='Or')
-                            inventory_item.quantity += 20
-                            inventory_item.save()
-                        
+                    # Ajouter 20 Or à l'inventaire de l'utilisateur
+                    if request.user.inventory.exists():
+                        inventory_item = request.user.inventory.get(item__name='Or')
+                        inventory_item.quantity += 20
+                        inventory_item.save()
 
-                    # On affiche l'experience restante pour le prochain niveau
-                    if user_level:
-                        request.user.experience_left = xp_required(user_level.level) - user_level.experience
+                # On affiche l'experience restante pour le prochain niveau
+                request.user.experience_left = xp_required(user_level.level) - user_level.experience
+            else:
+                # On affiche l'expérience restante pour le prochain niveau même si le niveau n'a pas changé
+                user_level = request.user.level
+                def xp_required(level):
+                    return int(33.33 * (level ** 2) - 16.66 * level)
+                request.user.experience_left = xp_required(user_level.level) - user_level.experience
 
 class UserStatsMiddleware(MiddlewareMixin):
     def process_request(self, request):

@@ -7,6 +7,7 @@ from users.decorators import groups_required
 from posts.forms import CreatePost, EditPost
 from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
+from django.db.models import F
 
 def view_post(request, slug):
     post = Post.objects.filter(slug=slug, active=True).first()

@@ -1,0 +1,63 @@
+.error-container {
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.error-code {
+    font-size: 120px;
+    font-weight: bold;
+    color: #e0e0e0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+.error-message {
+    margin-bottom: 30px;
+}
+
+.error-message h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.error-message p {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.error-actions {
+    margin-top: 30px;
+}
+
+.error-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(to bottom, #4d90fe, #357ae8);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.error-btn:hover {
+    background: linear-gradient(to bottom, #357ae8, #2f5bb7);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+/* Style rétro années 2000 */
+@media screen and (min-width: 768px) {
+    .error-container {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background: #f9f9f9;
+        margin-top: 50px;
+    }
+}

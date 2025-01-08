@@ -26,6 +26,7 @@ class BBCodeParser:
             r'\[p](.*?)\[/p\]': r'<p>\1</p>',
             r'\[center\](.*?)\[/center\]': r'<div style="text-align:center;">\1</div>',
             r'\[right\](.*?)\[/right\]': r'<div style="text-align:right;">\1</div>',
+            r'\[hr\]': r'<hr>',
             
         }
     
