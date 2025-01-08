@@ -28,7 +28,7 @@
                             <h5 class="card-title">{{ item.name }}</h5>
                             <p class="card-text">{{ item.description }}</p>
                             <p class="card-text">Prix : <span class="money">{{ item.price }}</span> <i class="fas fa-coins"></i></p>
-                            <a onclick="modal('{{ item.id }}', '{{ item.price }}')" class="btn btn-primary">Acheter</a>
+                            <a onclick="modal('{{ item.id }}', '{{ item.price }}')" class="btn-shop btn-shop-primary">Acheter</a>
                         </div>
                     </div>
                 {% endif %}
@@ -41,8 +41,8 @@
             <div class="modal-header">Achat d'un item</div>
             <div class="modal-body">
                 <p>Payer et obtenir cet item ?</p>
-                <a class="btn btn-primary btn-large" id="accept"></a>
-                <a class="btn btn-secondary" id="decline">Annuler</a>
+                <a class="btn-shop btn-shop-primary btn-shop-large" id="accept"></a>
+                <a class="btn-shop btn-shop-secondary" id="decline">Annuler</a>
             </div>
             <div class="modal-footer"></div>
         </div>

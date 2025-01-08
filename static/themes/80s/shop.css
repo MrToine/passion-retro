@@ -87,7 +87,7 @@ a:hover {
     padding-top: 15px;
 }
 
-.btn-primary {
+.btn-shop-primary {
     background: linear-gradient(to bottom right, #ff00ff, #00ffff);
     border: 2px solid #fff;
     border-radius: 0;
@@ -104,13 +104,13 @@ a:hover {
     transition: all 0.3s ease;
 }
 
-.btn-primary:hover {
+.btn-shop-primary:hover {
     background: linear-gradient(to bottom right, #00ffff, #ff00ff);
     transform: scale(1.05);
     box-shadow: 0 0 20px rgba(255,0,255,0.8);
 }
 
-.btn-secondary {
+.btn-shop-secondary {
     background: linear-gradient(to bottom right, #ff0099, #ff6600);
     border: 2px solid #fff;
     border-radius: 0;
@@ -122,13 +122,13 @@ a:hover {
     box-shadow: 0 0 10px rgba(255,102,0,0.5);
 }
 
-.btn-secondary:hover {
+.btn-shop-secondary:hover {
     background: linear-gradient(to bottom right, #ff6600, #ff0099);
     transform: scale(1.05);
     box-shadow: 0 0 20px rgba(255,102,0,0.8);
 }
 
-.btn-large {
+.btn-shop-large {
     padding: 10px 20px;
     height: 65px;
 }

@@ -57,7 +57,11 @@
     padding-top: 15px;
 }
 
-.btn-primary {
+a.btn-shop {
+    text-decoration: none;
+}
+
+.btn-shop-primary {
     background: linear-gradient(to bottom, #0099ff, #0066cc);
     border: 2px solid #000;
     border-radius: 5px;
@@ -70,11 +74,11 @@
     min-width: 120px;
 }
 
-.btn-primary:hover {
+.btn-shop-primary:hover {
     background: linear-gradient(to bottom, #00bbff, #0099ff);
 }
 
-.btn-secondary {
+.btn-shop-secondary {
     background: linear-gradient(to bottom, #ffcc00, #ff9900);
     border: 2px solid #000;
     border-radius: 5px;
@@ -87,7 +91,7 @@
     min-width: 120px;
 }
 
-.btn-large {
+.btn-shop-large {
     padding: 10px 20px;
     height: 65px;
 }
