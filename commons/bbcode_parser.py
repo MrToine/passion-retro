@@ -6,7 +6,7 @@ class BBCodeParser:
         self.bbcode_patterns = {
             r'\[b\](.*?)\[/b\]': r'<strong>\1</strong>',
             r'\[i\](.*?)\[/i\]': r'<i>\1</i>',
-            r'\[u\](.*?)\[/u\]': r'<underline>\1</underline>',
+            r'\[u\](.*?)\[/u\]': r'<u>\1</u>',
             r'\[s\](.*?)\[/s\]': r'<strike>\1</strike>',
             r'\[url=(.*?)\](.*?)\[/url\]': r'<a href="\1">\2</a>',
             r'\[url\](.*?)\[/url\]': r'<a href="\1">\1</a>',
@@ -16,11 +16,17 @@ class BBCodeParser:
             r'\[img\](.*?)\[/img\]': r'<img src="\1" alt="Image insérer par un utilisateur">',
             r'\[list\](.*?)\[/list\]': r'<ul class="bbcode-list">\1</ul>',
             r'\[\*\](.*?)': r'<li class="bbcode-list">\1</li>',
-            r'\[t1\](.*?)\[/t1\]': r'<h1 class="h1-bbcode">\1</h1>',
-            r'\[t2\](.*?)\[/t2\]': r'<h2 class="h2-bbcode">\1</h2>',
-            r'\[t3\](.*?)\[/t3\]': r'<h3 class="h3-bbcode">\1</h3>',
+            r'\[t1\](.*?)\[/t1\]': r'<span style="font-size:2rem;font-weight:800;">\1</span>',
+            r'\[t2\](.*?)\[/t2\]': r'<span style="font-size:1.6rem;font-weight:600;">\1</span>',
+            r'\[t3\](.*?)\[/t3\]': r'<span style="font-size:1.4rem;font-weight:400;">\1</span>',
             r'\[citation\](.*?)\[/citation\]': r'<fieldset class="quote-bbcode">\1</fieldset>',
             r'\[citation=(.*?)\](.*?)\[/citation\]': r'<fieldset class="quote-bbcode"><legend>\1</legend>\2</fieldset>',
+            r'\[color=(.*?)\](.*?)\[/color\]': r'<span style="color: \1;">\2</span>',
+            r'\[size=(.*?)\](.*?)\[/size\]': r'<span style="font-size: \1px;">\2</span>',
+            r'\[p](.*?)\[/p\]': r'<p>\1</p>',
+            r'\[center\](.*?)\[/center\]': r'<div style="text-align:center;">\1</div>',
+            r'\[right\](.*?)\[/right\]': r'<div style="text-align:right;">\1</div>',
+            
         }
     
     def parse(self, text):
