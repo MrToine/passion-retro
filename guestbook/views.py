@@ -12,7 +12,7 @@ def guestbook_home(request):
             content = form.cleaned_data['content']
             Guestbook.objects.create(author=author, content=content)
     
-    guestbook = Guestbook.objects.all().filter(active=1).order_by('-created')
+    guestbook = Guestbook.objects.filter(active=True).order_by('-created')
     paginator = Paginator(guestbook, 10)
 
     page_number = request.GET.get('page')
