@@ -5,3 +5,5 @@ class GuestbookAdmin(admin.ModelAdmin):
     list_display = ('author', 'created', 'active')
     list_filter = ('created', 'active')
     fields = ('author', 'content')
+
+admin.site.register(Guestbook, GuestbookAdmin)
