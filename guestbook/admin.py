@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Guestbook
 
-# Register your models here.
+class GuestbookAdmin(admin.ModelAdmin):
+    list_display = ('author', 'created', 'active')
+    list_filter = ('created', 'active')
+    fields = ('author', 'content')
